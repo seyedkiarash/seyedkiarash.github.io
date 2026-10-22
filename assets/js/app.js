@@ -30,6 +30,7 @@
     all: { fa: "همه", en: "All" },
     back: { fa: "بازگشت به پروژه‌ها", en: "Back to projects" },
     gallery: { fa: "تصاویر", en: "Images" },
+    audio: { fa: "نمونهٔ صوتی", en: "Audio samples" },
     files: { fa: "فایل‌ها", en: "Files" },
     links: { fa: "پیوندها", en: "Links" },
     role: { fa: "نقش", en: "Role" },
@@ -64,6 +65,7 @@
   }
   function inline(s) {
     return esc(s)
+      .replace(/`([^`]+)`/g, '<code dir="ltr">$1</code>')
       .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
       .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, function (m, txt, url) {
         var ext = /^https?:/.test(url) ? ' target="_blank" rel="noopener"' : "";
@@ -74,11 +76,15 @@
     s = t(s);
     if (!s) return "";
     return s.split(/\n\s*\n/).map(function (block) {
-      var lines = block.split("\n");
-      if (lines.every(function (l) { return /^\s*[-•]\s+/.test(l); })) {
-        return "<ul>" + lines.map(function (l) { return "<li>" + inline(l.replace(/^\s*[-•]\s+/, "")) + "</li>"; }).join("") + "</ul>";
-      }
-      return "<p>" + lines.map(inline).join("<br>") + "</p>";
+      var out = "", para = [], list = [];
+      function flushP() { if (para.length) { out += "<p>" + para.map(inline).join("<br>") + "</p>"; para = []; } }
+      function flushL() { if (list.length) { out += "<ul>" + list.map(function (l) { return "<li>" + inline(l) + "</li>"; }).join("") + "</ul>"; list = []; } }
+      block.split("\n").forEach(function (l) {
+        if (/^\s*[-•]\s+/.test(l)) { flushP(); list.push(l.replace(/^\s*[-•]\s+/, "")); }
+        else { flushL(); para.push(l); }
+      });
+      flushP(); flushL();
+      return out;
     }).join("");
   }
   function tagKey(tag) { return typeof tag === "object" ? (tag.en || tag.fa) : tag; }
@@ -105,6 +111,7 @@
     html.lang = lang;
     html.dir = lang === "fa" ? "rtl" : "ltr";
     var nav = [["home", "index.html"], ["projects", "projects.html"], ["activities", "activities.html"], ["cv", "cv.html"]];
+    if (!(S.activities || []).length) nav = nav.filter(function (n) { return n[0] !== "activities"; });
     var active = PAGE === "project" ? "projects" : PAGE;
     document.getElementById("site-header").innerHTML =
       '<div class="wrap header-inner">' +
@@ -132,7 +139,10 @@
 
   function contactLinks(compact) {
     var out = [];
-    if (S.profile.email) out.push('<a href="mailto:' + esc(S.profile.email) + '" title="Email">' + icon("email") + (compact ? "" : "<span>" + esc(S.profile.email) + "</span>") + "</a>");
+    emails().forEach(function (m, i) {
+      if (compact && i > 0) return;
+      out.push('<a href="mailto:' + esc(m) + '" title="Email">' + icon("email") + (compact ? "" : "<span>" + esc(m) + "</span>") + "</a>");
+    });
     (S.profile.links || []).forEach(function (l) {
       out.push('<a href="' + esc(l.url) + '" target="_blank" rel="noopener" title="' + esc(t(l.label)) + '">' + icon(l.type) + (compact ? "" : "<span>" + esc(t(l.label)) + "</span>") + "</a>");
     });
@@ -147,8 +157,12 @@
 
   function avatar(cls) {
     if (S.profile.photo) return '<img class="' + cls + '" src="' + esc(S.profile.photo) + '" alt="' + esc(t(S.profile.name)) + '">';
-    var initials = t(S.profile.name).trim().split(/\s+/).slice(0, 2).map(function (w) { return w[0]; }).join("");
-    return '<div class="' + cls + ' avatar-fallback" aria-hidden="true">' + esc(initials) + "</div>";
+    return '<div class="' + cls + ' avatar-fallback" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4"/><path d="M4 21c1.5-4.5 4.5-6.5 8-6.5s6.5 2 8 6.5"/></svg></div>';
+  }
+
+  function emails() {
+    var e = S.profile.email;
+    return !e ? [] : Array.isArray(e) ? e : [e];
   }
 
   function tagsHtml(tags) {
@@ -206,7 +220,13 @@
     var skills = (S.skills || []).length ? section("skills", u("skills"), '<dl class="skills">' + S.skills.map(function (g) {
       return "<dt>" + esc(t(g.group)) + "</dt><dd>" + tagsHtml(g.items) + "</dd>";
     }).join("") + "</dl>") : "";
-    main.innerHTML = hero + about + edu + projects + ach + skills;
+    var acts = (S.activities || []).map(function (g) {
+      return '<h3 class="group-h">' + esc(t(g.group)) + "</h3>" + g.items.map(function (it) {
+        return entry(t(it.date), t(it.title), t(it.org), it.description);
+      }).join("");
+    }).join("");
+    var activities = acts ? section("activities", u("activities"), acts) : "";
+    main.innerHTML = hero + about + edu + ach + activities + projects + skills;
     document.title = t(P.name);
   }
 
@@ -250,9 +270,14 @@
         '<header class="page-head"><div class="meta">' + meta + "</div><h1>" + esc(t(p.title)) + "</h1>" +
           (p.role ? '<div class="meta">' + u("role") + ": " + esc(t(p.role)) + "</div>" : "") +
           tagsHtml(p.tags) + "</header>" +
-        (p.cover ? '<figure class="project-cover"><img src="' + esc(p.cover) + '" alt=""></figure>' : "") +
+        (p.cover && !(p.images || []).some(function (im) { return im.src === p.cover; }) ? '<figure class="project-cover"><img src="' + esc(p.cover) + '" alt=""></figure>' : "") +
         '<div class="prose">' + md(p.description || p.summary) + "</div>";
-    var imgs = (p.images || []).filter(function (im) { return im.src !== p.cover; });
+    if ((p.audio || []).length) {
+      html += '<h2 class="sub-h">' + u("audio") + '</h2><div class="audio-list">' + p.audio.map(function (a) {
+        return '<figure class="audio"><figcaption>' + esc(t(a.caption)) + '</figcaption><audio controls preload="none" src="' + esc(a.src) + '"></audio></figure>';
+      }).join("") + "</div>";
+    }
+    var imgs = p.images || [];
     if (imgs.length) {
       html += '<h2 class="sub-h">' + u("gallery") + '</h2><div class="gallery">' + imgs.map(function (im) {
         return '<figure><a href="' + esc(im.src) + '" target="_blank" rel="noopener"><img src="' + esc(im.src) + '" alt="' + esc(t(im.caption)) + '" loading="lazy"></a>' +
@@ -293,7 +318,7 @@
 
   function renderCv(main) {
     var P = S.profile;
-    var contact = [S.profile.email].concat((P.links || []).map(function (l) { return l.url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, ""); })).filter(Boolean);
+    var contact = emails().concat((P.links || []).map(function (l) { return l.url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, ""); })).filter(Boolean);
     var html = '<div class="cv-actions">' + cvButton() + '<button type="button" class="btn btn-ghost" onclick="window.print()">' + u("print") + "</button></div>" +
       '<article class="cv">' +
         '<header class="cv-head"><h1>' + esc(t(P.name)) + "</h1><p>" + esc(t(P.title)) + "</p>" +
@@ -309,7 +334,7 @@
     (S.activities || []).forEach(function (g) {
       html += cvSec(esc(t(g.group)), g.items.map(function (it) { return entry(t(it.date), t(it.title), t(it.org), it.description); }).join(""));
     });
-    html += cvSec(u("skills"), '<dl class="skills">' + (S.skills || []).map(function (g) {
+    if ((S.skills || []).length) html += cvSec(u("skills"), '<dl class="skills">' + S.skills.map(function (g) {
       return "<dt>" + esc(t(g.group)) + "</dt><dd>" + (g.items || []).map(function (x) { return '<bdi>' + esc(t(x)) + "</bdi>"; }).join(lang === "fa" ? "، " : ", ") + "</dd>";
     }).join("") + "</dl>");
     html += "</article>";
