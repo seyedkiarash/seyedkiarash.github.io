@@ -167,6 +167,21 @@ main.wrap { padding-top: 40px; padding-bottom: 64px; }
 .card .tags { margin-top: 6px; }
 .meta { color: var(--faint); font-size: .86rem; }
 
+.skill { display: inline-flex; align-items: baseline; gap: 6px; }
+.skill-note { opacity: .8; font-size: .92em; }
+.skill-level { background: var(--surface); color: var(--muted); border-radius: 999px; padding: 0 7px; font-size: .9em; }
+
+/* assignments */
+.assign-list { display: grid; gap: 16px; }
+.assign { display: grid; grid-template-columns: 220px 1fr; gap: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
+.assign-img { display: block; background: #fff; border-radius: 6px; border: 1px solid var(--line); overflow: hidden; align-self: start; }
+.assign-img img { width: 100%; aspect-ratio: 4 / 3; object-fit: contain; }
+.assign h3 { font-size: 1.05rem; margin: 2px 0 6px; }
+.assign p { margin: 0 0 10px; color: var(--muted); font-size: .93rem; }
+.assign-links { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 10px; font-size: .92rem; }
+.assign-links a { display: inline-flex; align-items: center; gap: 6px; }
+@media (max-width: 640px) { .assign { grid-template-columns: 1fr; } }
+
 /* filter */
 .filter { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
 .filter button {

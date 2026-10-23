@@ -12,6 +12,7 @@
 
 window.SITE = {
   defaultLang: "fa",
+  repo: "https://github.com/seyedkiarash/seyedkiarash.github.io", // برای نمایش نوت‌بوک‌ها روی GitHub
 
   profile: {
     name: { fa: "سید کیارش اشراقی نائینی", en: "Seyed Kiarash Eshraghi Naeini" },
@@ -66,8 +67,30 @@ window.SITE = {
     }
   ],
 
+  /*
+   * مهارت‌ها — هر مورد می‌تواند یک متن ساده باشد ("LaTeX")
+   * یا یک شیء با سطح: { name: "C++", level: {fa,en}, note: {fa,en} }
+   */
   skills: [
-    { group: { fa: "نرم‌افزار و ابزار", en: "Software & Tools" }, items: ["MATLAB", "LaTeX"] }
+    {
+      group: { fa: "برنامه‌نویسی", en: "Programming" },
+      items: [
+        { name: "C++", level: { fa: "خوب", en: "Proficient" } },
+        { name: "Python", note: { fa: "پردازش سیگنال و جبر خطی", en: "signal processing & linear algebra" }, level: { fa: "خوب", en: "Proficient" } },
+        { name: "Python", note: { fa: "آمار و یادگیری ماشین", en: "statistics & machine learning" }, level: { fa: "متوسط", en: "Intermediate" } },
+        { name: "MATLAB", level: { fa: "متوسط", en: "Intermediate" } },
+        { name: "Verilog", level: { fa: "متوسط", en: "Intermediate" } }
+      ]
+    },
+    { group: { fa: "کتابخانه‌ها و ابزارها", en: "Libraries & Tools" }, items: ["NumPy", "SciPy", "Matplotlib", "Jupyter", "LaTeX"] },
+    {
+      group: { fa: "زبان", en: "Languages" },
+      items: [
+        { name: { fa: "فارسی", en: "Persian" }, level: { fa: "زبان مادری", en: "Native" } },
+        { name: { fa: "انگلیسی", en: "English" }, level: { fa: "خوب", en: "Upper-Intermediate" } },
+        { name: { fa: "کره‌ای", en: "Korean" }, level: { fa: "مبتدی", en: "Beginner" } }
+      ]
+    }
   ],
 
   projects: [
@@ -80,8 +103,8 @@ window.SITE = {
       },
       year: { fa: "۱۴۰۵", en: "2026" },
       context: {
-        fa: "تمرین کامپیوتری درس میدان‌ها و امواج — دکتر معماریان",
-        en: "Fields & Waves computer assignment — Dr. Memarian"
+        fa: "تمرین کامپیوتری درس میدان‌ها و امواج — دکتر محمد معماریان",
+        en: "Fields & Waves computer assignment — Dr. Mohammad Memarian"
       },
       tags: ["MATLAB", { fa: "الکترومغناطیس", en: "Electromagnetics" }, { fa: "شبیه‌سازی", en: "Simulation" }],
       cover: "assets/img/faw/figure1.webp",
@@ -143,6 +166,38 @@ window.SITE = {
     }
   ],
 
+  /*
+   * تمرین‌های کامپیوتری — نمایش فشرده در صفحهٔ پروژه‌ها و رزومه
+   */
+  assignments: [
+    {
+      title: { fa: "کاربردهای جبر خطی و بهینه‌سازی مقیددار", en: "Applied Linear Algebra & Constrained Optimization" },
+      course: { fa: "روش‌های ریاضی در مهندسی — دکتر پیلارام", en: "Mathematical Methods in Engineering — Dr. Pilaram" },
+      term: { fa: "بهار ۱۴۰۵", en: "Spring 2026" },
+      image: "assets/img/mme/chw2-svd-rgb.webp",
+      summary: {
+        fa: "رتبه‌بندی PageRank با بردار ویژه، فضای پوچ و روش توانی؛ تحلیل رتبه و فضای پوچ ماتریس‌های یک شبکهٔ حسگر؛ فشرده‌سازی تصویر سیاه‌وسفید و رنگی با SVD و تحلیل حافظه (مثلاً k = 50 با حدود ۱۰٪ حافظه)؛ حل یک مسئلهٔ بهینه‌سازی مقیددار با شرایط KKT، روش جریمه (و بررسی بدحالتی آن) و روش لاگرانژ افزوده با خطای نهایی `1.8×10⁻⁶`؛ و تبدیل‌های هندسی دوبعدی با مختصات همگن در قالب یک شبیه‌سازی بازی ساده.",
+        en: "PageRank via eigenvectors, null space and the power method; rank–nullity analysis of sensor-network matrices; SVD compression of grayscale and RGB images with storage analysis (e.g. k = 50 at ~10% storage); a constrained optimization problem solved with KKT conditions, the penalty method (including its ill-conditioning) and the augmented Lagrangian method (final error 1.8×10⁻⁶); and 2D transformations in homogeneous coordinates, wrapped in a small shooter-game simulation."
+      },
+      tags: ["Python", "SVD", { fa: "بهینه‌سازی", en: "Optimization" }],
+      notebook: "assets/files/mme/CHW2.ipynb",
+      download: "assets/files/mme/CHW2.zip"
+    },
+    {
+      title: { fa: "پیاده‌سازی الگوریتم‌های جبر خطی از پایه", en: "Linear Algebra Algorithms from Scratch" },
+      course: { fa: "روش‌های ریاضی در مهندسی — دکتر پیلارام", en: "Mathematical Methods in Engineering — Dr. Pilaram" },
+      term: { fa: "بهار ۱۴۰۵", en: "Spring 2026" },
+      image: "assets/img/mme/chw1-cauchy-schwarz.webp",
+      summary: {
+        fa: "پیاده‌سازی حذف گاوسی با محورگیری جزئی، روش گاوس–جردن (RREF)، وارون ماتریس، تشخیص هم‌ارزی سطری، دسته‌بندی جواب دستگاه‌های خطی، پایهٔ فضای پوچ و تجزیهٔ LDU با پایتون خالص و بدون کتابخانه، و اعتبارسنجی با NumPy و SciPy روی صدها ماتریس تصادفی. همچنین بررسی مونت‌کارلوی نامساوی کوشی–شوارتز در ابعاد مختلف و تصویر متعامد بردارها.",
+        en: "Gaussian elimination with partial pivoting, Gauss–Jordan (RREF), matrix inversion, row-equivalence, classification of linear-system solutions, null-space bases and LDU decomposition — implemented in pure Python without libraries and validated against NumPy/SciPy on hundreds of random matrices. Also a Monte-Carlo study of the Cauchy–Schwarz ratio across dimensions, and orthogonal projections."
+      },
+      tags: ["Python", { fa: "جبر خطی", en: "Linear Algebra" }],
+      notebook: "assets/files/mme/CHW1.ipynb",
+      download: "assets/files/mme/CHW1.ipynb"
+    }
+  ],
+
   activities: [
     {
       group: { fa: "پژوهش", en: "Research" },
@@ -160,32 +215,32 @@ window.SITE = {
       items: [
         {
           title: { fa: "سردستیار آموزشی، تئوری مدار", en: "Head Teaching Assistant, Circuit Theory" },
-          org: { fa: "دانشگاه صنعتی شریف", en: "Sharif University of Technology" },
-          date: { fa: "", en: "" },
-          description: { fa: "", en: "" }
-        },
-        {
-          title: { fa: "سردستیار بخش تمرین، برنامه‌نویسی شیءگرا", en: "Head TA (Assignments), Object-Oriented Programming" },
-          org: { fa: "دانشگاه صنعتی شریف", en: "Sharif University of Technology" },
-          date: { fa: "", en: "" },
-          description: { fa: "", en: "" }
-        },
-        {
-          title: { fa: "دستیار آموزشی، الکترومغناطیس", en: "Teaching Assistant, Electromagnetics" },
-          org: { fa: "دانشگاه صنعتی شریف", en: "Sharif University of Technology" },
-          date: { fa: "", en: "" },
+          org: { fa: "دکتر روح‌الله امیری — دانشگاه صنعتی شریف", en: "Dr. Rouhollah Amiri — Sharif University of Technology" },
+          date: { fa: "پاییز ۱۴۰۵", en: "Fall 2026" },
           description: { fa: "", en: "" }
         },
         {
           title: { fa: "دستیار آموزشی، آمار و احتمال", en: "Teaching Assistant, Probability & Statistics" },
-          org: { fa: "دانشگاه صنعتی شریف", en: "Sharif University of Technology" },
-          date: { fa: "", en: "" },
+          org: { fa: "دکتر محمدحسین یاسایی — دانشگاه صنعتی شریف", en: "Dr. Mohammad Hossein Yassaee — Sharif University of Technology" },
+          date: { fa: "پاییز ۱۴۰۵", en: "Fall 2026" },
+          description: { fa: "", en: "" }
+        },
+        {
+          title: { fa: "سردستیار بخش تمرین، برنامه‌نویسی شیءگرا", en: "Head TA (Assignments), Object-Oriented Programming" },
+          org: { fa: "دکتر عبدالله آراسته — دانشگاه صنعتی شریف", en: "Dr. Abdollah Arasteh — Sharif University of Technology" },
+          date: { fa: "بهار ۱۴۰۵", en: "Spring 2026" },
+          description: { fa: "", en: "" }
+        },
+        {
+          title: { fa: "دستیار آموزشی، الکترومغناطیس", en: "Teaching Assistant, Electromagnetics" },
+          org: { fa: "دکتر محمد معماریان — دانشگاه صنعتی شریف", en: "Dr. Mohammad Memarian — Sharif University of Technology" },
+          date: { fa: "بهار ۱۴۰۵", en: "Spring 2026" },
           description: { fa: "", en: "" }
         },
         {
           title: { fa: "دستیار آموزشی، مبانی برنامه‌نویسی", en: "Teaching Assistant, Fundamentals of Programming" },
-          org: { fa: "دانشگاه صنعتی شریف", en: "Sharif University of Technology" },
-          date: { fa: "", en: "" },
+          org: { fa: "دکتر عبدالله آراسته — دانشگاه صنعتی شریف", en: "Dr. Abdollah Arasteh — Sharif University of Technology" },
+          date: { fa: "پاییز ۱۴۰۴", en: "Fall 2025" },
           description: { fa: "", en: "" }
         }
       ]

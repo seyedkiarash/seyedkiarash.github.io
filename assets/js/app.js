@@ -31,6 +31,9 @@
     back: { fa: "بازگشت به پروژه‌ها", en: "Back to projects" },
     gallery: { fa: "تصاویر", en: "Images" },
     audio: { fa: "نمونهٔ صوتی", en: "Audio samples" },
+    assignments: { fa: "تمرین‌های کامپیوتری", en: "Computer Assignments" },
+    viewNotebook: { fa: "مشاهدهٔ نوت‌بوک", en: "View notebook" },
+    download: { fa: "دانلود", en: "Download" },
     files: { fa: "فایل‌ها", en: "Files" },
     links: { fa: "پیوندها", en: "Links" },
     role: { fa: "نقش", en: "Role" },
@@ -170,6 +173,37 @@
     return '<ul class="tags">' + tags.map(function (tg) { return '<li dir="auto">' + esc(t(tg)) + "</li>"; }).join("") + "</ul>";
   }
 
+  function skillTags(items) {
+    if (!items || !items.length) return "";
+    return '<ul class="tags">' + items.map(function (x) {
+      if (!x || typeof x !== "object" || !x.name) return '<li dir="auto">' + esc(t(x)) + "</li>";
+      return '<li class="skill"><bdi>' + esc(t(x.name)) + "</bdi>" +
+        (x.note ? ' <span class="skill-note">' + esc(t(x.note)) + "</span>" : "") +
+        (x.level ? ' <span class="skill-level">' + esc(t(x.level)) + "</span>" : "") + "</li>";
+    }).join("") + "</ul>";
+  }
+  function skillText(x) {
+    if (!x || typeof x !== "object" || !x.name) return "<bdi>" + esc(t(x)) + "</bdi>";
+    return "<bdi>" + esc(t(x.name)) + "</bdi>" + (x.note ? " – " + esc(t(x.note)) : "") + (x.level ? " (" + esc(t(x.level)) + ")" : "");
+  }
+
+  function nbUrl(path) {
+    return S.repo ? S.repo.replace(/\/$/, "") + "/blob/main/" + path : path;
+  }
+  function assignmentRow(a) {
+    var links = "";
+    if (a.notebook) links += '<a href="' + esc(nbUrl(a.notebook)) + '" target="_blank" rel="noopener">' + icon("web") + u("viewNotebook") + "</a>";
+    if (a.download) links += '<a href="' + esc(a.download) + '" download>' + icon("download") + u("download") + "</a>";
+    return '<article class="assign">' +
+      (a.image ? '<a class="assign-img" href="' + esc(a.image) + '" target="_blank" rel="noopener"><img src="' + esc(a.image) + '" alt="" loading="lazy"></a>' : "") +
+      '<div class="assign-body"><div class="meta">' + [t(a.term), t(a.course)].filter(Boolean).map(esc).join(" · ") + "</div>" +
+      "<h3>" + esc(t(a.title)) + "</h3>" +
+      (a.summary ? '<p>' + inline(t(a.summary)) + "</p>" : "") +
+      tagsHtml(a.tags) +
+      (links ? '<div class="assign-links">' + links + "</div>" : "") +
+      "</div></article>";
+  }
+
   function projectCard(p) {
     return '<a class="card" href="project.html?id=' + encodeURIComponent(p.id) + '">' +
       (p.cover ? '<div class="card-cover"><img src="' + esc(p.cover) + '" alt="" loading="lazy"></div>' : "") +
@@ -218,7 +252,7 @@
       return entry(t(a.year), t(a.title), "", a.description);
     }).join("")) : "";
     var skills = (S.skills || []).length ? section("skills", u("skills"), '<dl class="skills">' + S.skills.map(function (g) {
-      return "<dt>" + esc(t(g.group)) + "</dt><dd>" + tagsHtml(g.items) + "</dd>";
+      return "<dt>" + esc(t(g.group)) + "</dt><dd>" + skillTags(g.items) + "</dd>";
     }).join("") + "</dl>") : "";
     var acts = (S.activities || []).map(function (g) {
       return '<h3 class="group-h">' + esc(t(g.group)) + "</h3>" + g.items.map(function (it) {
@@ -248,7 +282,8 @@
         '<button type="button" data-tag="">' + u("all") + "</button>" +
         tags.map(function (tg) { return '<button type="button" data-tag="' + esc(tagKey(tg)) + '">' + esc(t(tg)) + "</button>"; }).join("") +
       "</div>" : "") +
-      '<div class="grid" id="project-list"></div>';
+      '<div class="grid" id="project-list"></div>' +
+      ((S.assignments || []).length ? section("assignments", u("assignments"), '<div class="assign-list">' + S.assignments.map(assignmentRow).join("") + "</div>") : "");
     Array.prototype.forEach.call(main.querySelectorAll(".filter button"), function (b) {
       b.addEventListener("click", function () { current = b.getAttribute("data-tag"); draw(); });
     });
@@ -327,15 +362,18 @@
     html += cvSec(u("education"), (S.education || []).map(function (e) {
       return entry(t(e.period), t(e.degree), [t(e.school), t(e.gpa)].filter(Boolean).join(" · "), e.details);
     }).join(""));
-    html += cvSec(u("projects"), (S.projects || []).map(function (p) {
-      return entry(t(p.year), t(p.title), t(p.context), p.summary);
-    }).join(""));
     html += cvSec(u("achievements"), (S.achievements || []).map(function (a) { return entry(t(a.year), t(a.title), "", a.description); }).join(""));
     (S.activities || []).forEach(function (g) {
       html += cvSec(esc(t(g.group)), g.items.map(function (it) { return entry(t(it.date), t(it.title), t(it.org), it.description); }).join(""));
     });
+    html += cvSec(u("projects"), (S.projects || []).map(function (p) {
+      return entry(t(p.year), t(p.title), t(p.context), p.summary);
+    }).join(""));
+    html += cvSec(u("assignments"), (S.assignments || []).map(function (a) {
+      return entry(t(a.term), t(a.title), t(a.course), "");
+    }).join(""));
     if ((S.skills || []).length) html += cvSec(u("skills"), '<dl class="skills">' + S.skills.map(function (g) {
-      return "<dt>" + esc(t(g.group)) + "</dt><dd>" + (g.items || []).map(function (x) { return '<bdi>' + esc(t(x)) + "</bdi>"; }).join(lang === "fa" ? "، " : ", ") + "</dd>";
+      return "<dt>" + esc(t(g.group)) + "</dt><dd>" + (g.items || []).map(skillText).join(lang === "fa" ? "، " : ", ") + "</dd>";
     }).join("") + "</dl>");
     html += "</article>";
     main.innerHTML = html;
