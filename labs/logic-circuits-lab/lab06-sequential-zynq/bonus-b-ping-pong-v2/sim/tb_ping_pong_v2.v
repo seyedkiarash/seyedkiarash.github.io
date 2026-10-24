@@ -1,33 +1,64 @@
 `timescale 1ns/1ps
 module tb_ping_pong_v2;
     reg clk = 0; always #10 clk = ~clk;
-    reg reset = 1, tick = 0;
-    reg [3:0] button = 0;
-    wire [4:0] leds; wire [3:0] level; wire over;
-    game_logic dut (.clk(clk), .reset(reset), .move_tick(tick), .button(button),
-                    .leds(leds), .level(level), .game_over_flag(over));
-    // the real pulse generator, checked separately for its tick period
-    reg pg_reset = 1; reg [3:0] pg_level = 4'd8;   // set to 9 after start: a change
-    // is needed so that the always @(*) block evaluates in simulation wire pg_tick;
-    pulse_generator pg (.clk(clk), .reset(pg_reset), .level(pg_level), .tick(pg_tick));
+    reg gameReset = 1;
+    reg [3:0] button = 4'hF;
+    wire [4:0] LED; wire [3:0] dig; wire a,b,c,d,e,f,g,dp;
 
-    task move; begin @(negedge clk) tick = 1; @(negedge clk) tick = 0; repeat (2) @(negedge clk); end endtask
-    task press(input integer k); begin @(negedge clk) button[k] = 1; repeat (2) @(negedge clk); button[k] = 0; @(negedge clk); end endtask
-    integer errors = 0, hits = 0; time t0, t1;
+    ping_pong_v2_top #(.STEP_UNIT(4), .DEBOUNCE(3), .BUTTON_ACTIVE_LOW(1)) dut (
+        .in_clk(clk), .gameReset(gameReset), .button(button), .LED(LED), .dig(dig),
+        .a(a),.b(b),.c(c),.d(d),.e(e),.f(f),.g(g),.dp(dp));
+
+    task press(input integer k);
+        begin
+            button[k] = 1'b0; repeat (8) @(negedge clk);
+            button[k] = 1'b1; repeat (8) @(negedge clk);
+        end
+    endtask
+
+    task wait_end;
+        begin
+            while (!dut.u_game.at_end) @(negedge clk);
+        end
+    endtask
+
+    integer i, errors = 0, lvl_before;
     initial begin
         $dumpfile("tb_ping_pong_v2.vcd"); $dumpvars(0, tb_ping_pong_v2);
-        repeat (2) @(negedge clk); reset = 0; pg_reset = 0; pg_level = 4'd9;
-        while (!over && hits < 20) begin
-            move;
-            if (dut.pos == 3'd4) begin press(3); hits = hits + 1; end
-            if (dut.pos == 3'd0) begin press(0); hits = hits + 1; end
+        repeat (5) @(negedge clk); gameReset = 0;
+
+        for (i = 0; i < 3; i = i + 1) begin
+            wait_end;
+            press(dut.u_game.dir ? 0 : 3);
+            while (dut.u_game.at_end) @(negedge clk);
         end
+        $display("  after 3 returns: level = %0d", dut.level);
+        if (dut.level != 3) errors = errors + 1;
+
+        wait_end;
+        press(dut.u_game.dir ? 0 : 3); press(dut.u_game.dir ? 0 : 3);
+        while (dut.u_game.at_end) @(negedge clk);
+        $display("  two presses during one visit: level = %0d (counted once)", dut.level);
+        if (dut.level != 4) errors = errors + 1;
+
+        wait_end;
+        while (dut.u_game.at_end) @(negedge clk);
         repeat (2) @(negedge clk);
-        $display("  %0d returns -> level %0d, game_over=%b, LEDs=%b", hits, level, over, leds);
-        if (!(over && leds == 5'b11111 && hits == 9)) errors = errors + 1;
-        @(posedge pg_tick) t0 = $time; @(posedge pg_tick) t1 = $time;
-        $display("  pulse_generator, level 9: one tick every %0d cycles", (t1 - t0) / 20);
-        if ((t1 - t0) / 20 != 20001) errors = errors + 1;
+        $display("  missed return: level = %0d, LED = %b", dut.level, LED);
+        if (dut.level != 0) errors = errors + 1;
+
+        for (i = 0; i < 9; i = i + 1) begin
+            wait_end;
+            press(dut.u_game.dir ? 0 : 3);
+            while (dut.u_game.at_end && !dut.win) @(negedge clk);
+        end
+        $display("  after 9 returns: win = %b, level = %0d", dut.win, dut.level);
+        if (!dut.win || dut.level != 9) errors = errors + 1;
+
+        press(0);
+        $display("  any button after a win restarts: win = %b, level = %0d", dut.win, dut.level);
+        if (dut.win || dut.level != 0) errors = errors + 1;
+
         $display("RESULT tb_ping_pong_v2: %s", errors ? "FAIL" : "PASS");
         $finish;
     end

@@ -1,7 +1,5 @@
 `timescale 1ns/1ps
-// Runs the stopwatch through a full 10-minute cycle (6000 ticks) with
-// shortened dividers and checks that the multiplexed display always shows
-// the elapsed time M SS d (minutes, seconds, tenths).
+
 module tb_stopwatch;
     `include "seg_model.vh"
     reg clk = 0; always #10 clk = ~clk;
@@ -15,7 +13,7 @@ module tb_stopwatch;
 
     initial begin
         $dumpfile("tb_stopwatch.vcd"); $dumpvars(1, tb_stopwatch); $dumpvars(1, dut);
-        #200_000 $dumpoff;                                   // keep the VCD small
+        #200_000 $dumpoff;
     end
 
     initial begin

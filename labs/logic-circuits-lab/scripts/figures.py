@@ -1,11 +1,4 @@
 #!/usr/bin/env python3
-"""Figures for the lab reports, generated from the simulation results.
-
-* seven-segment renderings of what the display shows (frames reconstructed
-  from the testbench VCD files or from the reference model)
-* digital waveform plots read from the VCD files
-Run after scripts/run_sims.sh. Output: reports/figures/*.pdf
-"""
 import pathlib, re
 import matplotlib
 matplotlib.use("Agg")
@@ -22,7 +15,6 @@ plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 8,
 INK, ON, OFF, PANEL = "#1c1f23", "#e5402b", "#efe9e6", "#fbfaf7"
 BLUE = "#1f4e79"
 
-# ---------------------------------------------------------------- 7-segment
 SEG_HEX = {0: "1111110", 1: "0110000", 2: "1101101", 3: "1111001", 4: "0110011",
            5: "1011011", 6: "1011111", 7: "1110000", 8: "1111111", 9: "1111011",
            10: "1110111", 11: "0011111", 12: "1001110", 13: "0111101", 14: "1001111", 15: "1000111"}
@@ -35,7 +27,6 @@ def seg_of_char(ch):
 
 
 def _segment_polys(x0, y0, w=1.0, h=1.8, t=0.16):
-    """Polygons for segments a..g of a digit whose lower-left corner is (x0,y0)."""
     def hseg(cx, cy):
         L = w - 2 * t
         return [(cx - L/2, cy), (cx - L/2 + t/2, cy + t/2), (cx + L/2 - t/2, cy + t/2),
@@ -44,7 +35,7 @@ def _segment_polys(x0, y0, w=1.0, h=1.8, t=0.16):
         L = h/2 - 2 * t
         return [(cx, cy - L/2), (cx + t/2, cy - L/2 + t/2), (cx + t/2, cy + L/2 - t/2),
                 (cx, cy + L/2), (cx - t/2, cy + L/2 - t/2), (cx - t/2, cy - L/2 + t/2)]
-    sk = 0.12                                    # slant
+    sk = 0.12
     def slant(poly):
         return [(x + sk * (y - y0) / h, y) for x, y in poly]
     cx = x0 + w / 2
@@ -57,8 +48,6 @@ def _segment_polys(x0, y0, w=1.0, h=1.8, t=0.16):
 
 
 def draw_display(ax, digits, x=0.0, y=0.0, label=None, active=None):
-    """digits: list of 4 segment strings 'abcdefg' (positive logic), left -> right.
-    active: optional index of the digit currently enabled (drawn with a marker)."""
     pad = 0.35
     ax.add_patch(Rectangle((x - pad, y - pad), 4 * 1.45 - 0.45 + 2 * pad, 1.8 + 2 * pad,
                            facecolor="#26282b", edgecolor="none", zorder=0))
@@ -94,9 +83,7 @@ def text_frames(texts):
     return [[seg_of_char(ch) for ch in t] for t in texts]
 
 
-# ---------------------------------------------------------------- waveforms
 def _val(tv, t):
-    """value of a VCD signal (list of (time, value)) at time t"""
     v = tv[0][1]
     for ti, vi in tv:
         if ti > t:
@@ -106,16 +93,13 @@ def _val(tv, t):
 
 
 def waveform(name, vcd_path, signals, t0, t1, height=None, fmt=None, title=None, time_unit=("ns", None)):
-    """signals: list of (label, vcd_signal_name, kind) with kind 'bit' or 'bus'.
-    fmt: optional dict label -> function(value_str) -> text for buses."""
     vcd = VCDVCD(str(vcd_path), store_tvs=True)
     fmt = fmt or {}
-    # t0/t1 are given in the display unit; convert to VCD ticks
     unit, scale = time_unit
     unit_s = {"ns": 1e-9, "µs": 1e-6, "ms": 1e-3}[unit]
-    tick = float(vcd.timescale["timescale"])          # seconds per VCD tick
+    tick = float(vcd.timescale["timescale"])
     t0, t1 = int(t0 * unit_s / tick), int(t1 * unit_s / tick)
-    scale = tick / unit_s                             # VCD ticks -> display unit
+    scale = tick / unit_s
     n = len(signals)
     fig, ax = plt.subplots(figsize=(6.3, height or 0.38 * n + 0.45))
     for row, (label, sig, kind) in enumerate(signals):
@@ -129,7 +113,6 @@ def waveform(name, vcd_path, signals, t0, t1, height=None, fmt=None, title=None,
                 v = _val(tv, a)
                 lv = 0.7 if v == "1" else (0.0 if v == "0" else 0.35)
                 xs.append(a * scale); ys.append(y + lv)
-            # step plot
             X, Y = [], []
             for i in range(len(xs)):
                 if i:
@@ -162,7 +145,6 @@ def waveform(name, vcd_path, signals, t0, t1, height=None, fmt=None, title=None,
 
 
 def seg_text(bits):
-    """'abcdefg' active-low bit string from VCD -> character"""
     if not set(bits) <= {"0", "1"} or len(bits) != 7:
         return "x"
     pos = "".join("1" if c == "0" else "0" for c in bits)
@@ -176,13 +158,10 @@ def sim(path):
     return ROOT / path
 
 
-# ---------------------------------------------------------------- Lab 7
 def lab07():
     L = "lab07-seven-segment"
-    # Part 1: some DIP values
     frames_figure("lab07_part1", text_frames(["0000", "3333", "AAAA", "FFFF"]),
                   ["DIP[3:0] = 0000", "DIP[3:0] = 0011", "DIP[3:0] = 1010", "DIP[3:0] = 1111"], cols=4)
-    # Part 3: multiplexing - one digit at a time, and what the eye sees
     one = [["0000000"] * 4 for _ in range(4)]
     for i, d in enumerate("1234"):
         one[i][i] = seg_of_char(d)
@@ -201,12 +180,10 @@ def lab07():
              100, 900, fmt={"dig[3:0]": lambda s: s if len(s) == 4 else s.zfill(4)},
              title="Part 3 simulation (scan divider shortened to 2 cycles)")
 
-    # Part 5: scrolling windows
     s = "403101383"
     wins = [(s + s)[i:i + 4] for i in range(9)]
     frames_figure("lab07_part5", text_frames(wins), [f"window {i}  (t = {2*i} s)" for i in range(9)], cols=3)
 
-    # Part 6: stopwatch readings
     frames_figure("lab07_part6", text_frames(["0000", "0009", "0010", "0599", "1000", "9599"]),
                   ["0.0 s", "0.9 s", "1.0 s", "59.9 s", "1 min 00.0 s", "9 min 59.9 s"], cols=3)
     waveform("lab07_part6_wave", sim(f"{L}/part6-stopwatch/sim/tb_stopwatch.vcd"),
@@ -216,7 +193,6 @@ def lab07():
               ("c3: 10 s", "tb_stopwatch.dut.n3[3:0]", "bus")],
              0, 72, title="Part 6: cascaded counters (tick shortened to 32 clock cycles)", time_unit=("µs", None))
 
-    # Snake: frames from the testbench log
     log = (ROOT / L / "bonus-c-snake/sim/tb_snake_display.log").read_text()
     frames, labels = [], []
     for m in re.finditer(r"FRAME head=(\d+) d3=(\d+) d2=(\d+) d1=(\d+) d0=(\d+)", log):
@@ -225,7 +201,6 @@ def lab07():
     frames_figure("lab07_snake", frames, labels, cols=4)
 
 
-# ---------------------------------------------------------------- Lab 6
 def led_row(ax, bits, x, y, label=None):
     for i, b in enumerate(bits):
         ax.add_patch(Circle((x + i * 0.9, y), 0.32, facecolor=ON if b == "1" else OFF,
@@ -260,7 +235,6 @@ def lab06():
              title="Bonus A: three returns, then a miss resets the score")
 
 
-# ---------------------------------------------------------------- Labs 4/5
 def lab04():
     frames_figure("lab04_part3", text_frames(["   5", "   3", "    "]),
                   ["3 + 2 = 5", "1 - 4 = -3  (LED9 = sign)", "7 + 1: overflow (LED0)"], cols=3)
@@ -270,7 +244,7 @@ def lab04():
 
 
 def lab05():
-    frames_figure("lab05_bcd", [[seg_of_char(c) for c in "   7"], [seg_of_char(c) for c in "   5"],
+    frames_figure("midterm_bcd", [[seg_of_char(c) for c in "   7"], [seg_of_char(c) for c in "   5"],
                                 [seg_of_char(c) for c in "E  E"]],
                   ["3 + 4 = 7", "8 + 7 = 15  (LED0 = tens)", "both inputs invalid"], cols=3)
 

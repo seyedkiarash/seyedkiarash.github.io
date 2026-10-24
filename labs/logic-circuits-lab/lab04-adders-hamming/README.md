@@ -13,5 +13,4 @@ Report: [`../reports/lab04.pdf`](../reports/lab04.pdf)
 | [`part7-secded`](part7-secded/) | extended Hamming(8,4): single-error correction, double-error detection | `Part7_module` | `tb_part7` |
 
 Each part folder contains `src/` (Verilog), `sim/` (self-checking testbench) and `constraints.xdc`
-(pins for the Zynq-7010 board + extension board). Shared modules live in [`../common`](../common).
-Run the testbenches with `../scripts/run_sims.sh .` from this folder.
+(pins for the Zynq-7010 board + extension board). Shared modules are in [`../common`](../common).

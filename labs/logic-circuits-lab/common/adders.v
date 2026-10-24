@@ -1,8 +1,3 @@
-// -----------------------------------------------------------------------------
-// Basic adder cells shared by Labs 4 and 5.
-// -----------------------------------------------------------------------------
-
-// Half adder: s = a xor b, c = a and b
 module half_adder (
     input  wire a,
     input  wire b,
@@ -13,7 +8,6 @@ module half_adder (
     assign c = a & b;
 endmodule
 
-// Full adder built from two half adders
 module full_adder (
     input  wire a,
     input  wire b,
@@ -29,7 +23,6 @@ module full_adder (
     assign cout = c1 | c2;
 endmodule
 
-// 4-bit ripple-carry adder
 module adder_4bit (
     input  wire [3:0] A,
     input  wire [3:0] B,

@@ -1,6 +1,7 @@
 # Logic Circuits Laboratory — FPGA designs
 
-**Seyed Kiarash Eshraghi Naeini** · Department of Electrical Engineering, Sharif University of Technology · Fall 2025
+**Seyed Kiarash Eshraghi Naeini** · Department of Electrical Engineering, Sharif University of Technology · Fall 2025  
+Instructor: Dr. Mohammad Reza Movahhedin · Teaching assistant: Hossein Moghim
 
 Verilog designs from the Logic Circuits Laboratory, implemented on a **Zynq-7010 (XC7Z010-CLG400-1)** board
 with a 50 MHz clock and an extension board (8 DIP switches, 4-digit seven-segment display, 10 LEDs,
@@ -11,7 +12,7 @@ and written up as one report per experiment.
 |---|---|---|
 | [3](lab03-priority-encoder/) | priority encoder, push-button polarity | [PDF](reports/lab03.pdf) |
 | [4](lab04-adders-hamming/) | half/full adders, ripple-carry adder, two's-complement overflow, Hamming(7,4), SECDED | [PDF](reports/lab04.pdf) |
-| [5](lab05-decoders-comparators/) | decoder, BCD adder, comparators (behavioural and from subtractor flags), multiplexer, multiplier | [PDF](reports/lab05.pdf) |
+| [Midterm](lab04m-midterm-decoders-comparators/) | decoder, BCD adder, comparators (behavioural and from subtractor flags), multiplexer, multiplier, mux-only comparator | [PDF](reports/midterm.pdf) |
 | [6](lab06-sequential-zynq/) | clock division, LED patterns, games, block designs, PL clock from the Zynq PS | [PDF](reports/lab06.pdf) |
 | [7](lab07-seven-segment/) | seven-segment multiplexing, scrolling text, stopwatch, snake animation | [PDF](reports/lab07.pdf) |
 
@@ -26,9 +27,11 @@ and written up as one report per experiment.
 * Resource and timing figures in the reports come from the Vivado implementation reports of the lab
   sessions; every clocked design met the 20 ns constraint (worst slack ≥ 13 ns).
 
-Verification found four errors in the submitted code; they are corrected here and described in the
-reports (Experiment 5: signed comparator from subtractor flags, a vector-width declaration;
-Experiment 7: one digit of the student number, mirrored scrolling windows).
+Verification found errors in the submitted code; they are corrected here and described in the reports
+(midterm: signed comparator from subtractor flags, the wiring of the multiplexer comparator;
+Experiment 7: one digit of the student number, mirrored scrolling windows). Two bonus designs that were
+left unfinished in the lab — the snake animation (Experiment 7) and the second ping-pong game
+(Experiment 6) — were completed.
 
 ## Layout
 

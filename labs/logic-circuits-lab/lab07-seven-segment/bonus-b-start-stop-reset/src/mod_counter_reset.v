@@ -1,8 +1,3 @@
-// -----------------------------------------------------------------------------
-// mod_counter_reset
-// mod_counter with a synchronous clear: a rising edge on button[3] (detected
-// in the counter's own clock domain) sets the count back to 0.
-// -----------------------------------------------------------------------------
 module mod_counter_reset (
     input  wire [3:0] N,
     input  wire       clk,

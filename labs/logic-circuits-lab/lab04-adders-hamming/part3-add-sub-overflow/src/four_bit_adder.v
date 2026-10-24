@@ -1,9 +1,3 @@
-// -----------------------------------------------------------------------------
-// 4-bit two's-complement adder / subtractor with overflow detection
-//   Op = 0: S = A + B
-//   Op = 1: S = A - B = A + ~B + 1   (B is inverted by XOR, Op is the carry-in)
-// Overflow = carry into the MSB xor carry out of the MSB.
-// -----------------------------------------------------------------------------
 module four_bit_adder (
     input  wire [3:0] A,
     input  wire [3:0] B,

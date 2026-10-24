@@ -1,6 +1,3 @@
-## lab03-priority-encoder/part3-active-high  -  top module: priority_encoder
-## Board: Zynq-7010 (XC7Z010-CLG400-1) + extension board, all I/O LVCMOS33
-
 set_property -dict {PACKAGE_PIN T10 IOSTANDARD LVCMOS33} [get_ports {button[0]}]
 set_property -dict {PACKAGE_PIN T11 IOSTANDARD LVCMOS33} [get_ports {button[1]}]
 set_property -dict {PACKAGE_PIN T15 IOSTANDARD LVCMOS33} [get_ports {button[2]}]

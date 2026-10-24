@@ -1,7 +1,5 @@
 `timescale 1ns/1ps
-// Unit test of the game FSM, clocked directly by the testbench (one clock
-// = one step of the light). The player presses at the right time four times
-// (levels 0-3) and wins; then a mistimed press is checked.
+
 module tb_mini_game;
     reg clk = 0, gameReset = 1;
     reg [3:0] button = 0;
@@ -21,14 +19,14 @@ module tb_mini_game;
         #20 gameReset = 0;
         for (lvl = 0; lvl < 4; lvl = lvl + 1) begin
             if (mode !== lvl) errors = errors + 1;
-            press_when(5'b00100);                       // hit on the middle LED
+            press_when(5'b00100);
         end
         tick;
         $display("  after 4 hits: LED=%b (win = 11111)", LED);
         if (LED !== 5'b11111) errors = errors + 1;
-        button[2] = 1; tick; button[2] = 0;             // new game
-        press_when(5'b00100);                           // level 1
-        press_when(5'b01000);                           // miss -> level 0
+        button[2] = 1; tick; button[2] = 0;
+        press_when(5'b00100);
+        press_when(5'b01000);
         $display("  after a hit and a miss: level=%0d", mode);
         if (mode !== 0) errors = errors + 1;
         $display("RESULT tb_mini_game: %s", errors ? "FAIL" : "PASS");

@@ -1,14 +1,7 @@
-// -----------------------------------------------------------------------------
-// Lab 7 - Part 2: Student number, one digit at a time
-// A 2 Hz clock steps a state counter through the digits of the student number
-// 403101383; the current digit is shown on all four 7-segment digits.
-//
-// Change from the submitted version: state 3 showed "4" instead of "1".
-// -----------------------------------------------------------------------------
 module show_student_id #(
-    parameter integer STEP_HALF_PERIOD = 12_500_000   // 50 MHz / (2*12.5M) = 2 Hz
+    parameter integer STEP_HALF_PERIOD = 12_500_000
 ) (
-    input  wire       clk,                            // 50 MHz board clock
+    input  wire       clk,
     output wire       a, b, c, d, e, f, g,
     output wire [3:0] dig
 );
@@ -21,8 +14,6 @@ module show_student_id #(
     reg [3:0] state = 4'd0;
     reg [3:0] number;
 
-    // Digits of 403101383; state 9 falls through to the default (0) and acts
-    // as a short pause before the sequence repeats.
     always @(*) begin
         case (state)
             4'd0: number = 4'd4;

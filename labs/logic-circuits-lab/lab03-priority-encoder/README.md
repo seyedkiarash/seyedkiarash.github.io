@@ -8,5 +8,4 @@ Report: [`../reports/lab03.pdf`](../reports/lab03.pdf)
 | [`part5-active-low`](part5-active-low/) | same encoder with the active-low board buttons inverted | `part5` | `tb_part5` |
 
 Each part folder contains `src/` (Verilog), `sim/` (self-checking testbench) and `constraints.xdc`
-(pins for the Zynq-7010 board + extension board). Shared modules live in [`../common`](../common).
-Run the testbenches with `../scripts/run_sims.sh .` from this folder.
+(pins for the Zynq-7010 board + extension board). Shared modules are in [`../common`](../common).

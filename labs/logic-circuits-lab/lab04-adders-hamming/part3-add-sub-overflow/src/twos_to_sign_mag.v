@@ -1,6 +1,3 @@
-// -----------------------------------------------------------------------------
-// Two's complement -> sign / magnitude (for display)
-// -----------------------------------------------------------------------------
 module twos_to_sign_mag (
     input  wire [3:0] TwosComp,
     output wire       Sign,

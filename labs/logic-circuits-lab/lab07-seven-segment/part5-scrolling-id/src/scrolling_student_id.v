@@ -1,17 +1,6 @@
-// -----------------------------------------------------------------------------
-// Lab 7 - Part 5: Scrolling student number (marquee)
-// Two clocks are derived from the 50 MHz board clock:
-//   * scan_clk  (2 kHz)   - multiplexes the four digits (as in Part 3)
-//   * shift_clk (0.5 Hz)  - shifts a 4-digit window along 403101383
-// The window wraps around, so the number scrolls continuously.
-//
-// Change from the submitted version: the digit selected by state_move = 0
-// (leftmost, dig = 1000) now shows the FIRST digit of the window
-// (numbers_state[15:12]); previously the window was shown mirrored.
-// -----------------------------------------------------------------------------
 module scrolling_student_id #(
-    parameter integer SHIFT_HALF_PERIOD = 50_000_000, // 0.5 Hz -> one step every 2 s
-    parameter integer SCAN_HALF_PERIOD  = 12_500      // 2 kHz digit scan
+    parameter integer SHIFT_HALF_PERIOD = 50_000_000,
+    parameter integer SCAN_HALF_PERIOD  = 12_500
 ) (
     input  wire       clk,
     output reg  [3:0] dig,
@@ -22,12 +11,11 @@ module scrolling_student_id #(
     clock_divider #(.HALF_PERIOD(SHIFT_HALF_PERIOD)) u_shift (.clk(clk), .clk_out(shift_clk));
     clock_divider #(.HALF_PERIOD(SCAN_HALF_PERIOD))  u_scan  (.clk(clk), .clk_out(scan_clk));
 
-    reg [3:0]  state_show = 4'd0;     // window position (0..8)
-    reg [1:0]  state_move = 2'd0;     // digit being scanned (0..3)
-    reg [15:0] numbers_state;         // the 4 digits currently visible
+    reg [3:0]  state_show = 4'd0;
+    reg [1:0]  state_move = 2'd0;
+    reg [15:0] numbers_state;
     reg [3:0]  num;
 
-    // 4-digit windows over 4 0 3 1 0 1 3 8 3 (with wrap-around)
     always @(*) begin
         case (state_show)
             4'd0: numbers_state = {4'd4, 4'd0, 4'd3, 4'd1};
@@ -43,7 +31,6 @@ module scrolling_student_id #(
         endcase
     end
 
-    // Digit scanning: leftmost digit shows the first digit of the window
     always @(*) begin
         case (state_move)
             2'd0: begin dig = 4'b1000; num = numbers_state[15:12]; end

@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# Compile and run every testbench with Icarus Verilog.
-# Usage: scripts/run_sims.sh [lab-folder ...]     (default: all labs)
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 labs=("$@"); [ ${#labs[@]} -eq 0 ] && labs=("$ROOT"/lab*/)

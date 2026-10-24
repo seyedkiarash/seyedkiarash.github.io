@@ -1,9 +1,3 @@
-// -----------------------------------------------------------------------------
-// Lab 7 - Bonus A: Stopwatch with adjustable speed
-// Same counter chain and display as Part 6, but the counting clock comes from
-// variable_clock_divider: button[1] halves the speed, button[2] doubles it.
-// The initial tick rate is 5 Hz (half-period 5,000,000 cycles).
-// -----------------------------------------------------------------------------
 module stopwatch_speed_control #(
     parameter integer INITIAL_HALF_PERIOD = 5_000_000,
     parameter integer SCAN_HALF_PERIOD    = 12_500

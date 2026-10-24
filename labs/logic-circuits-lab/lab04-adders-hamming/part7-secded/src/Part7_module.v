@@ -1,10 +1,3 @@
-// -----------------------------------------------------------------------------
-// Lab 4 - Part 7: SECDED channel demo
-//   data  = DIP[4:1]
-//   noise = {DIP[0], DIP[7], DIP[6], DIP[5], ~button[3], ~button[2], ~button[1], ~button[0]}
-// Single errors are corrected (data on LED[4:1], position on the display);
-// a double error shows "EE" on two digits and lights LED[4:1] = 1111.
-// -----------------------------------------------------------------------------
 module Part7_module (
     input  wire [7:0] Dip,
     input  wire [3:0] button,

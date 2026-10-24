@@ -1,7 +1,5 @@
 `timescale 1ns/1ps
-// Exercises every data word with every noise pattern of weight 0, 1 and 2.
-// Weight 0/1 must be corrected; weight-2 patterns are counted to show the
-// limitation of a plain Hamming(7,4) code (it miscorrects double errors).
+
 module tb_part6;
     reg [7:0] Dip = 0; reg [3:0] button = 4'b1111;
     wire [9:0] LED; wire [3:0] dig; wire a,b,c,d,e,f,g;
@@ -14,8 +12,8 @@ module tb_part6;
             for (n = 0; n < 128; n = n + 1) begin
                 noise = n;
                 if ($countones(noise) <= 2) begin
-                    Dip = {noise[4], noise[5], noise[6], dw[3:0], 1'b0};   // Dip[7:5] = noise[4:6]
-                    button = ~{noise[0], noise[1], noise[2], noise[3]};      // buttons are active-low
+                    Dip = {noise[4], noise[5], noise[6], dw[3:0], 1'b0};
+                    button = ~{noise[0], noise[1], noise[2], noise[3]};
                     #10;
                     if ($countones(noise) <= 1) begin
                         single = single + 1;

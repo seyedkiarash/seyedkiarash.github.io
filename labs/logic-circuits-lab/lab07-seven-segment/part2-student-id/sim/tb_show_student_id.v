@@ -1,12 +1,11 @@
 `timescale 1ns/1ps
 module tb_show_student_id;
     `include "seg_model.vh"
-    reg clk = 0; always #10 clk = ~clk;                 // 50 MHz
+    reg clk = 0; always #10 clk = ~clk;
     wire a,b,c,d,e,f,g; wire [3:0] dig;
     show_student_id #(.STEP_HALF_PERIOD(4)) dut (.clk(clk), .a(a),.b(b),.c(c),.d(d),.e(e),.f(f),.g(g), .dig(dig));
     reg [8*10-1:0] seen = "";
-    // state 0 is shown right after power-up, before the testbench starts sampling;
-    // it is checked separately below.
+
     reg [7:0] ch, last = "x";
     integer n = 1;
     initial begin
@@ -19,7 +18,7 @@ module tb_show_student_id;
                 seen = {seen[8*9-1:0], ch}; n = n + 1;
             end
         end
-        // wrap around once more to see state 0
+
         wait (dut.state == 4'd0); repeat (2) @(negedge clk);
         seen = {char_of({a,b,c,d,e,f,g}), seen[8*9-1:0]};
         $display("RESULT tb_show_student_id: sequence shown = %s (expected 4031013830)", seen);

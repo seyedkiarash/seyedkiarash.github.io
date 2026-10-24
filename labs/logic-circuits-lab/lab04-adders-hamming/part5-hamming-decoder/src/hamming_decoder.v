@@ -1,13 +1,7 @@
-// -----------------------------------------------------------------------------
-// Hamming(7,4) decoder with single-error correction
-// The three parity checks form the syndrome {c2,c1,c0} = position (1..7) of a
-// single flipped bit, or 0 if no error. Flipped data bits (positions 3,5,6,7)
-// are corrected; the syndrome is also output for display.
-// -----------------------------------------------------------------------------
 module hamming_decoder (
-    input  wire [6:0] received_data,    // {p0, p1, x0, p2, x1, x2, x3}
-    output wire [3:0] corrected_data,   // {x0, x1, x2, x3}
-    output wire [3:0] error_loc         // 0 = no error, 1..7 = bit position
+    input  wire [6:0] received_data,
+    output wire [3:0] corrected_data,
+    output wire [3:0] error_loc
 );
     wire p0 = received_data[6], p1 = received_data[5], x0 = received_data[4];
     wire p2 = received_data[3], x1 = received_data[2], x2 = received_data[1];

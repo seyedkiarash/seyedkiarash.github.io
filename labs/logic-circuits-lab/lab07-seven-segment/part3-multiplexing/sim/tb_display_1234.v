@@ -13,7 +13,7 @@ module tb_display_1234;
             @(negedge clk);
             for (k = 0; k < 4; k = k + 1)
                 if (dig == (4'b1000 >> k)) frame[8*(3-k) +: 8] = char_of({a,b,c,d,e,f,g});
-            if ($countones(dig) != 1) errors = errors + 1;   // exactly one digit on
+            if ($countones(dig) != 1) errors = errors + 1;
         end
         $display("RESULT tb_display_1234: persistent frame = \"%s\", one-hot violations = %0d", frame, errors);
         $display("RESULT tb_display_1234: %s", (frame == "1234" && errors == 0) ? "PASS" : "FAIL");

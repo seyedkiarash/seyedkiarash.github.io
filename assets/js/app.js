@@ -194,6 +194,9 @@
     var links = "";
     if (a.notebook) links += '<a href="' + esc(nbUrl(a.notebook)) + '" target="_blank" rel="noopener">' + icon("web") + u("viewNotebook") + "</a>";
     if (a.download) links += '<a href="' + esc(a.download) + '" download>' + icon("download") + u("download") + "</a>";
+    (a.files || []).forEach(function (f) {
+      links += '<a href="' + esc(f.url) + '" target="_blank" rel="noopener">' + icon(/\.zip$/.test(f.url) ? "download" : "file") + esc(t(f.label)) + "</a>";
+    });
     return '<article class="assign">' +
       (a.image ? '<a class="assign-img" href="' + esc(a.image) + '" target="_blank" rel="noopener"><img src="' + esc(a.image) + '" alt="" loading="lazy"></a>' : "") +
       '<div class="assign-body"><div class="meta">' + [t(a.term), t(a.course)].filter(Boolean).map(esc).join(" · ") + "</div>" +

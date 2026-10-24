@@ -9,17 +9,17 @@ module tb_ping_pong;
     initial begin
         $dumpfile("tb_ping_pong.vcd"); $dumpvars(0, tb_ping_pong);
         #20 gameReset = 0;
-        // three successful returns
+
         for (i = 0; i < 3; i = i + 1) begin
             while (LED !== 5'b10000 && LED !== 5'b00001) tick;
             if (LED === 5'b10000) button[3] = 1; else button[0] = 1;
             tick; button = 0;
-            tick;                                        // move away from the end
+            tick;
         end
         $display("  after 3 returns: score = %0d", score);
         if (score !== 3) errors = errors + 1;
         while (LED !== 5'b10000 && LED !== 5'b00001) tick;
-        tick; tick;                                      // miss: no button pressed
+        tick; tick;
         $display("  after a miss: score = %0d, LED = %b", score, LED);
         if (score !== 0) errors = errors + 1;
         $display("RESULT tb_ping_pong: %s", errors ? "FAIL" : "PASS");

@@ -1,10 +1,3 @@
-// -----------------------------------------------------------------------------
-// speed_clock  (freq_converter in the block design)
-// Level-controlled clock divider: every level halves the half-period, i.e.
-// doubles the speed of the ball.
-//   level 0: 2^26 cycles -> 0.37 Hz (2.7 s per step)  ...
-//   level 9: 2^17 cycles -> 190 Hz  (5.2 ms per step)
-// -----------------------------------------------------------------------------
 module speed_clock (
     input  wire       in_clk,
     input  wire [3:0] mode,

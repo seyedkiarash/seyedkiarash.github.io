@@ -1,7 +1,3 @@
-## lab06-sequential-zynq/part4-zynq-ps-clock  -  block design design_1 (PS7 + led_flow)
-## Board: Zynq-7010 (XC7Z010-CLG400-1) + extension board, all I/O LVCMOS33
-## The clock is FCLK_CLK0 (50 MHz) from the Zynq PS - no clock pin is used.
-
 set_property -dict {PACKAGE_PIN T10 IOSTANDARD LVCMOS33} [get_ports {button[0]}]
 set_property -dict {PACKAGE_PIN T11 IOSTANDARD LVCMOS33} [get_ports {button[1]}]
 set_property -dict {PACKAGE_PIN T15 IOSTANDARD LVCMOS33} [get_ports {button[2]}]

@@ -11,7 +11,7 @@ module tb_part7;
             for (n = 0; n < 256; n = n + 1) begin
                 noise = n;
                 if ($countones(noise) <= 2) begin
-                    // noise = {Dip0, Dip7, Dip6, Dip5, ~b3, ~b2, ~b1, ~b0}
+
                     Dip = {noise[4], noise[5], noise[6], dw[3:0], noise[7]};
                     button = ~noise[3:0];
                     #10;

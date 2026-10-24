@@ -1,12 +1,5 @@
-// -----------------------------------------------------------------------------
-// variable_clock_divider
-// Like clock_divider, but the half-period can be changed at run time:
-//   rising edge on button[1] -> half-period x2  (stopwatch runs slower)
-//   rising edge on button[2] -> half-period /2  (stopwatch runs faster)
-// Edges are detected by comparing each button with its value one clock earlier.
-// -----------------------------------------------------------------------------
 module variable_clock_divider #(
-    parameter integer INITIAL_HALF_PERIOD = 5_000_000   // 5 Hz at 50 MHz
+    parameter integer INITIAL_HALF_PERIOD = 5_000_000
 ) (
     input  wire       clk,
     input  wire [3:0] button,
@@ -22,9 +15,9 @@ module variable_clock_divider #(
         last_b1 <= button[1];
         last_b2 <= button[2];
         if (button[1] & ~last_b1)
-            max_count <= max_count << 1;          // slower
+            max_count <= max_count << 1;
         else if (button[2] & ~last_b2)
-            max_count <= max_count >> 1;          // faster
+            max_count <= max_count >> 1;
     end
 
     always @(posedge clk) begin

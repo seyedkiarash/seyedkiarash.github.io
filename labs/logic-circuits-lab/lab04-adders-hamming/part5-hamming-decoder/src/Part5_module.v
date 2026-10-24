@@ -1,8 +1,3 @@
-// -----------------------------------------------------------------------------
-// Lab 4 - Part 5: Hamming(7,4) decoder
-// A received code word is set on DIP[7:1]; the corrected data appears on
-// LED[3:0] and the error position (syndrome) on the 7-segment display.
-// -----------------------------------------------------------------------------
 module Part5_module (
     input  wire [7:0] Dip,
     output wire [9:0] LED,

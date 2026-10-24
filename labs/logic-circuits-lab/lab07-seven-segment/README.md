@@ -12,8 +12,7 @@ Report: [`../reports/lab07.pdf`](../reports/lab07.pdf)
 | [`part6-stopwatch`](part6-stopwatch/) | stopwatch M SS.d from cascaded modulo counters | `stopwatch` | `tb_stopwatch` |
 | [`bonus-a-speed-control`](bonus-a-speed-control/) | stopwatch with run-time speed control | `stopwatch_speed_control` | `tb_stopwatch_speed_control` |
 | [`bonus-b-start-stop-reset`](bonus-b-start-stop-reset/) | stopwatch with start / stop / reset | `stopwatch_start_stop` | `tb_stopwatch_start_stop` |
-| [`bonus-c-snake`](bonus-c-snake/) | a 3-segment snake around the display | `snake_display` | `tb_snake_display` |
+| [`bonus-c-snake`](bonus-c-snake/) | a 3-segment snake around the display (**completed**) | `snake_display` | `tb_snake_display` |
 
 Each part folder contains `src/` (Verilog), `sim/` (self-checking testbench) and `constraints.xdc`
-(pins for the Zynq-7010 board + extension board). Shared modules live in [`../common`](../common).
-Run the testbenches with `../scripts/run_sims.sh .` from this folder.
+(pins for the Zynq-7010 board + extension board). Shared modules are in [`../common`](../common).

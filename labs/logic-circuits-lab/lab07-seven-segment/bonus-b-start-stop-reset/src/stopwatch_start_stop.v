@@ -1,10 +1,3 @@
-// -----------------------------------------------------------------------------
-// Lab 7 - Bonus B: Stopwatch with Stop / Start / Reset
-//   button[1]  stop   (clears the enable of the first counter)
-//   button[2]  start  (sets it again)
-//   button[3]  reset  (clears all four counters)
-// The stopwatch powers up stopped. Tick rate: 5 Hz (half-period 5,000,000).
-// -----------------------------------------------------------------------------
 module stopwatch_start_stop #(
     parameter integer TICK_HALF_PERIOD = 5_000_000,
     parameter integer SCAN_HALF_PERIOD = 12_500
@@ -15,7 +8,6 @@ module stopwatch_start_stop #(
     output reg  [3:0] dig
 );
 
-    // Run/stop flag, edge-triggered from the buttons in the 50 MHz domain
     reg run     = 1'b0;
     reg last_b1 = 1'b0;
     reg last_b2 = 1'b0;

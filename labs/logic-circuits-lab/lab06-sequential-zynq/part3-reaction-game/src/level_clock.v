@@ -1,9 +1,3 @@
-// -----------------------------------------------------------------------------
-// level_clock  (freq_converter in the block design)
-// Clock divider whose speed is selected by the game level:
-//   level 0: 4 Hz   level 1: 6 Hz   level 2: 8 Hz   level 3: 10 Hz
-// (f = 50 MHz / (2 * half_period))
-// -----------------------------------------------------------------------------
 module level_clock (
     input  wire       in_clk,
     input  wire [1:0] mode,

@@ -1,11 +1,3 @@
-// -----------------------------------------------------------------------------
-// Lab 4 - Part 6: Encoder -> noisy channel -> decoder
-//   data  = DIP[4:1]
-//   noise = {DIP[5], DIP[6], DIP[7], ~button[0], ~button[1], ~button[2], ~button[3]}
-//           (buttons are active-low; each '1' flips one bit of the code word)
-// The decoded (corrected) data is shown on LED[4:1] and the detected error
-// position on the 7-segment display.
-// -----------------------------------------------------------------------------
 module Part6_module (
     input  wire [7:0] Dip,
     input  wire [3:0] button,

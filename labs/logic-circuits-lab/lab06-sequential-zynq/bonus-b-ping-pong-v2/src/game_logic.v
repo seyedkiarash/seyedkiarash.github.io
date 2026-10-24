@@ -1,63 +1,84 @@
-// -----------------------------------------------------------------------------
-// game_logic  (ping-pong, version 2)
-// The light bounces continuously between LED0 and LED4, one step per tick.
-// While the light is at an end, the correct button scores a point:
-//   at LED4: button[3] -> level + 1,   button[0] -> level = 0
-//   at LED0: button[0] -> level + 1,   button[3] -> level = 0
-// Reaching level 9 wins: all five LEDs light up until reset.
-// Button edges are detected in the 50 MHz domain.
-// -----------------------------------------------------------------------------
-module game_logic (
+module game_logic #(
+    parameter integer STEP_UNIT = 1_250_000
+) (
     input  wire       clk,
     input  wire       reset,
-    input  wire       move_tick,
-    input  wire [3:0] button,
+    input  wire       press_left,
+    input  wire       press_right,
     output reg  [4:0] leds,
     output reg  [3:0] level,
-    output reg        game_over_flag
+    output reg        win
 );
-    reg [2:0] pos;
-    reg       direction;
-    reg       prev_btn0, prev_btn3;
+    reg [2:0]  pos       = 3'd0;
+    reg        dir       = 1'b0;
+    reg        returned  = 1'b0;
+    reg [31:0] t         = 0;
+    reg [31:0] blink     = 0;
 
-    wire press_btn0 = button[0] && !prev_btn0;
-    wire press_btn3 = button[3] && !prev_btn3;
+    function [4:0] units;
+        input [3:0] l;
+        case (l)
+            4'd0: units = 5'd20;
+            4'd1: units = 5'd17;
+            4'd2: units = 5'd14;
+            4'd3: units = 5'd12;
+            4'd4: units = 5'd10;
+            4'd5: units = 5'd9;
+            4'd6: units = 5'd8;
+            4'd7: units = 5'd7;
+            4'd8: units = 5'd6;
+            default: units = 5'd5;
+        endcase
+    endfunction
 
-    always @(posedge clk or posedge reset) begin
+    wire [31:0] step_len = units(level) * STEP_UNIT;
+    wire        tick     = (t >= step_len - 1);
+    wire        at_end   = (dir == 1'b0 && pos == 3'd4) || (dir == 1'b1 && pos == 3'd0);
+    wire        hit      = (dir == 1'b0) ? press_right : press_left;
+
+    always @(posedge clk) begin
         if (reset) begin
-            level <= 4'd0; pos <= 3'd0; direction <= 1'b0;
-            leds  <= 5'b00001;
-            prev_btn0 <= 1'b0; prev_btn3 <= 1'b0;
-            game_over_flag <= 1'b0;
+            pos <= 3'd0; dir <= 1'b0; level <= 4'd0; win <= 1'b0;
+            returned <= 1'b0; t <= 0; blink <= 0;
+        end else if (win) begin
+            blink <= blink + 1;
+            if (press_left | press_right) begin
+                pos <= 3'd0; dir <= 1'b0; level <= 4'd0; win <= 1'b0;
+                returned <= 1'b0; t <= 0;
+            end
         end else begin
-            prev_btn0 <= button[0];
-            prev_btn3 <= button[3];
-
-            if (level >= 4'd9) begin
-                leds           <= 5'b11111;          // win
-                game_over_flag <= 1'b1;
-            end else begin
-                leds <= 5'b00001 << pos;
-
-                if (move_tick) begin                 // move the light
-                    if (direction == 1'b0) begin
-                        if (pos == 3'd4) begin direction <= 1'b1; pos <= 3'd3; end
-                        else                     pos <= pos + 3'd1;
+            if (at_end && hit) returned <= 1'b1;
+            if (tick) begin
+                t <= 0;
+                if (at_end) begin
+                    if (returned || hit) begin
+                        returned <= 1'b0;
+                        if (level == 4'd8) begin
+                            level <= 4'd9;
+                            win   <= 1'b1;
+                        end else begin
+                            level <= level + 4'd1;
+                            dir   <= ~dir;
+                            pos   <= dir ? 3'd1 : 3'd3;
+                        end
                     end else begin
-                        if (pos == 3'd0) begin direction <= 1'b0; pos <= 3'd1; end
-                        else                     pos <= pos - 3'd1;
+                        level <= 4'd0;
+                        dir   <= 1'b0;
+                        pos   <= 3'd0;
                     end
+                end else begin
+                    pos <= dir ? pos - 3'd1 : pos + 3'd1;
                 end
-
-                if (pos == 3'd4) begin               // right end
-                    if (press_btn3)      level <= level + 4'd1;
-                    else if (press_btn0) level <= 4'd0;
-                end
-                if (pos == 3'd0) begin               // left end
-                    if (press_btn0)      level <= level + 4'd1;
-                    else if (press_btn3) level <= 4'd0;
-                end
+            end else begin
+                t <= t + 1;
             end
         end
+    end
+
+    always @(*) begin
+        if (win)
+            leds = blink[24] ? 5'b11111 : 5'b00000;
+        else
+            leds = 5'b00001 << pos;
     end
 endmodule

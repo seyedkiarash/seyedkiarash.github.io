@@ -1,15 +1,9 @@
 #!/usr/bin/env python3
-"""Generate a constraints.xdc for every part from its top-level ports.
-
-Pin map of the lab board (Zynq-7010, XC7Z010-CLG400) and its extension board,
-recovered from the original constraint files and Vivado I/O placement reports.
-Usage: scripts/make_xdc.py            (writes <part>/constraints.xdc everywhere)
-"""
 import re, sys, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
-CLOCK_PIN = "U18"                                   # 50 MHz oscillator
+CLOCK_PIN = "U18"
 BASE_BUTTON = {0: "T10", 1: "T11", 2: "T15", 3: "T14"}
 BASE_LED = {0: "V20", 1: "W19", 2: "W18", 3: "V18", 4: "V17"}
 EXT_LED = {9: "N15", 8: "N16", 7: "C20", 6: "B20", 5: "E17",
@@ -19,7 +13,6 @@ DIG = {3: "D20", 2: "D19", 1: "G20", 0: "B19"}
 SEG = {"a": "F16", "b": "F17", "c": "H15", "d": "G15", "e": "J18", "f": "H18", "g": "H16", "dp": "H17"}
 PUSH = {1: "J20", 0: "H20"}
 
-# top module of every part (file inside src/)
 TOPS = {}
 
 PORT_RE = re.compile(r"\b(input|output)\s+(?:wire|reg)?\s*(\[\s*(\d+)\s*:\s*(\d+)\s*\])?\s*([^;()]*?)(?=,\s*(?:input|output)\b|\)\s*;|$)", re.S)
@@ -75,8 +68,7 @@ def main():
             continue
         module = top_file.read_text().strip()
         path = next(p for p in src.glob("*.v") if re.search(r"module\s+%s\b" % module, p.read_text()))
-        lines = [f"## {part.relative_to(ROOT)}  -  top module: {module}",
-                 "## Board: Zynq-7010 (XC7Z010-CLG400-1) + extension board, all I/O LVCMOS33", ""]
+        lines = []
         has_clock = False
         for name, msb, lsb in ports_of(path, module):
             for port, pin in pins_for(name, msb, lsb):
@@ -84,7 +76,7 @@ def main():
                 if name in ("clk", "in_clk"):
                     has_clock = port
         if has_clock:
-            lines += ["", f"create_clock -name sys_clk_pin -period 20.000 -waveform {{0.000 10.000}} [get_ports {has_clock}]"]
+            lines += [f"create_clock -name sys_clk_pin -period 20.000 -waveform {{0.000 10.000}} [get_ports {has_clock}]"]
         (part / "constraints.xdc").write_text("\n".join(lines) + "\n")
         count += 1
     print(f"wrote {count} constraint files")

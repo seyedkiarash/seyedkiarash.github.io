@@ -1,5 +1,5 @@
 `timescale 1ns/1ps
-// Measures the tick period before and after pressing the speed buttons.
+
 module tb_stopwatch_speed_control;
     reg clk = 0; always #10 clk = ~clk;
     reg [3:0] button = 0;
@@ -18,8 +18,8 @@ module tb_stopwatch_speed_control;
     initial begin
         $dumpfile("tb_stopwatch_speed_control.vcd"); $dumpvars(0, tb_stopwatch_speed_control);
         measure(p_base);
-        press(1); repeat (2) measure(p_slow);         // button 1: slower
-        press(2); press(2); repeat (2) measure(p_fast);  // button 2 twice: x0.25
+        press(1); repeat (2) measure(p_slow);
+        press(2); press(2); repeat (2) measure(p_fast);
         $display("  tick period: initial %0d cycles, after button1 %0d, after 2x button2 %0d", p_base, p_slow, p_fast);
         if (p_slow != 2*p_base) errors = errors + 1;
         if (p_fast != p_base/2) errors = errors + 1;

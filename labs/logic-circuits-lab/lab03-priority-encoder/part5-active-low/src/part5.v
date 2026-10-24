@@ -1,8 +1,3 @@
-// -----------------------------------------------------------------------------
-// Lab 3 - Part 5: Priority encoder with active-low push buttons
-// The board's push buttons read 0 when pressed, so they are inverted before
-// the encoder (compare with Part 3, where they were used directly).
-// -----------------------------------------------------------------------------
 module part5 (
     input  wire [3:0] button,
     output wire [4:0] LED

@@ -1,4 +1,3 @@
-% Shared preamble for the lab reports (compile with XeLaTeX)
 \documentclass[10.5pt,a4paper]{article}
 \usepackage[a4paper,margin=2.2cm,top=2.3cm,bottom=2.4cm]{geometry}
 \usepackage{fontspec}
@@ -55,12 +54,11 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{4pt}
 
-% Title block
-\newcommand{\ReportTitle}[3]{%  #1 experiment number, #2 title, #3 dates
+\newcommand{\ReportTitle}[3]{%
   \thispagestyle{plain}
   {\sffamily\small\color{muted}Logic Circuits Laboratory \textbullet\ Department of Electrical Engineering, Sharif University of Technology\par}
   \vspace{2pt}
-  {\sffamily\LARGE\bfseries Experiment #1\par}
+  {\sffamily\LARGE\bfseries #1\par}
   \vspace{1pt}
   {\sffamily\Large #2\par}
   \vspace{6pt}
@@ -69,6 +67,7 @@
   {\small
   \begin{tabular}{@{}l@{\hspace{2em}}l@{}}
     \textcolor{muted}{Student}  & Seyed Kiarash Eshraghi Naeini (403101383)\\
+    \textcolor{muted}{Instructor} & Dr.\ Mohammad Reza Movahhedin \quad\textcolor{muted}{Teaching assistant:} Hossein Moghim\\
     \textcolor{muted}{Semester} & Fall 2025 \quad\textcolor{muted}{session:} #3\\
     \textcolor{muted}{Platform} & Zynq-7010 (XC7Z010-CLG400-1), \SI{50}{MHz} clock, Vivado 2019.1
   \end{tabular}\par}

@@ -1,9 +1,3 @@
-// -----------------------------------------------------------------------------
-// Lab 3 - Part 3: 4-input priority encoder (buttons treated as active-high)
-// The highest-numbered pressed button wins; its number + 1 is shown in binary
-// on LED[2:0] (000 = no button pressed).
-//   button[3] -> 100   button[2] -> 011   button[1] -> 010   button[0] -> 001
-// -----------------------------------------------------------------------------
 module priority_encoder (
     input  wire [3:0] button,
     output reg  [4:0] LED

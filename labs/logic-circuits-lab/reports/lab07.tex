@@ -1,14 +1,14 @@
 \input{preamble}
 \newcommand{\ReportShortTitle}{Experiment 7 -- Seven-segment multiplexing and a stopwatch}
 \begin{document}
-\ReportTitle{7}{Seven-Segment Display Multiplexing, Counters and a Stopwatch}{27--29 December 2025}
+\ReportTitle{Experiment 7}{Seven-Segment Display Multiplexing, Counters and a Stopwatch}{27--29 December 2025}
 
 \section*{Summary}
 This experiment drives the four-digit seven-segment display of the lab board. Starting from a static
 hexadecimal display, it introduces clock division, time-multiplexing of the digits, a scrolling text
 display and finally a stopwatch built from cascaded modulo counters (\SI{0.1}{s} resolution, up to
 9\,min\,59.9\,s). Three bonus designs extend the stopwatch with speed control and start/stop/reset buttons
-and animate a ``snake'' around the display. Every design was re-verified for this report with a
+and animate a ``snake'' around the display (completed for this report). Every design was re-verified for this report with a
 self-checking Icarus Verilog testbench (9/9 pass) and re-synthesised with Yosys; the Vivado
 implementation reports of the lab session show all timing constraints met. Two display errors found
 during verification (Parts 2 and 5) are documented and corrected in Section~\ref{sec:changes}.
@@ -139,7 +139,7 @@ always @(posedge clk)
     if (enable)
         number <= (number == N) ? 4'd0 : number + 4'd1;
 
-assign done = enable && (number == N);   // next counter advances on this tick
+assign done = enable && (number == N);
 \end{lstlisting}
 
 \subsection{Verification}
@@ -169,18 +169,22 @@ power-up \texttt{0000}, counting after start, value held while stopped, \texttt{
 \subsection{C -- Snake}
 The outer segments of the four digits form a ring of 12 positions (top row left to right, the right
 side of digit 0, the bottom row right to left, the left side of digit 3). A 3-segment snake advances
-one position per \SI{0.67}{s}: a combinational block ORs the masks of the head and the two
-following positions into a pattern per digit, and the patterns are multiplexed at \SI{381}{Hz}. Timing
-comes from taps of a free-running counter (bits 16 and 24). The testbench records one full loop and
-checks that every frame has exactly three lit segments (Fig.~\ref{fig:snake}).
+one position every \SI{0.25}{s}: a function maps each ring position to a (digit, segment) pair, a
+combinational block ORs the masks of the head and the two following positions into one pattern per digit,
+and the patterns are multiplexed with the \SI{2}{kHz} scan of Part 3. The testbench records one full loop
+and checks, in every frame, that exactly one digit is enabled at a time and that exactly three segments
+are lit (Fig.~\ref{fig:snake}).
 \begin{figure}[h]
 \centering\includegraphics[width=0.82\linewidth]{figures/lab07_snake.pdf}
 \caption{Bonus C: one loop of the snake reconstructed from the simulation.}\label{fig:snake}
 \end{figure}
-\note{In this design the digit enables are driven \emph{active-low} (\texttt{1110} selects digit 0),
-whereas Parts 3--6 drive them active-high (\texttt{0001}). The cleaned version keeps the submitted
-behaviour behind a parameter \sig{DIGIT\_ACTIVE\_LOW} (default 1); with the board's active-high enables it
-should be set to 0.}
+
+\textbf{Completing the design.} The submitted version was unfinished: it drove the digit enables
+\emph{active-low} (\texttt{1110} for digit 0), the opposite of the board and of Parts 3--6, used two
+counter bits directly as clocks, and contained two unused draft modules. The completed design drives the
+enables active-high, keeps everything on the \SI{50}{MHz} clock with one-cycle \emph{tick} enables for the
+scan and the movement, and replaces the arithmetic modulo of the position by a conditional subtraction
+(a \texttt{\%} on a 32-bit integer would synthesise a divider).
 
 \section{Implementation results}
 Table~\ref{tab:impl} is taken from the Vivado reports of the lab session (XC7Z010, 17\,600 LUTs,
@@ -195,7 +199,7 @@ Design & LUTs & Flip-flops & WNS (ns) & Timing \\
 Part 5 -- scrolling student number & 29 & 72 & 14.893 & met\\
 Part 6 -- stopwatch & 42 & 84 & 15.393 & met\\
 Bonus B -- stopwatch with start/stop/reset & 47 & 88 & 14.655 & met\\
-Bonus C -- snake & 116 & 48 & 17.608 & met\\
+Bonus C -- snake (submitted, unfinished version) & 116 & 48 & 17.608 & met\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -212,9 +216,11 @@ pulses -- is the style used in the second ping-pong game of Experiment~6.
   \item \textbf{Part 5.} The leftmost digit (\sig{dig = 1000}) was given the \emph{last} nibble of the window,
         so every window appeared mirrored (e.g.\ \texttt{0310} shown as \texttt{0130}, confirmed by
         simulating the submitted code). The nibble order of the scan multiplexer was reversed.
+  \item \textbf{Bonus C.} Completed as described in the bonus section (digit-enable polarity,
+        single clock domain, cleanup).
   \item \textbf{All parts.} Dividers became parameters (so testbenches can shorten them), registers
-        received initial values, unused modules were removed, and comments were rewritten in English
-        (the original Persian comments had been saved as \texttt{?} characters and were not recoverable).
+        received initial values, and unused modules were removed. Code comments were removed (the original Persian comments had
+        been saved as \texttt{?} characters and were not recoverable).
 \end{itemize}
 
 \section{Verification summary}

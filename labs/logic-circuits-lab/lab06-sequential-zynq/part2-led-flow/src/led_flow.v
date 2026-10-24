@@ -1,12 +1,3 @@
-// -----------------------------------------------------------------------------
-// Lab 6 - Part 2: LED "flow" with adjustable speed
-// A 10-state sequence first fills the 5 LEDs from the left and then empties
-// them from the left:
-//   10000 11000 11100 11110 11111 01111 00111 00011 00001 00000
-// One step every (max_count + 1) clock cycles - 0.5 s initially.
-//   rising edge on button[1] -> step time x2 (slower)
-//   rising edge on button[2] -> step time /2 (faster)
-// -----------------------------------------------------------------------------
 module led_flow #(
     parameter integer INITIAL_STEP = 25_000_000
 ) (
@@ -20,7 +11,6 @@ module led_flow #(
     reg        last_b2   = 1'b0;
     reg [3:0]  state     = 4'd0;
 
-    // speed control (edge detection on the buttons)
     always @(posedge clk) begin
         last_b1 <= button[1];
         last_b2 <= button[2];
@@ -30,7 +20,6 @@ module led_flow #(
             max_count <= max_count >> 1;
     end
 
-    // step timer and state counter
     always @(posedge clk) begin
         if (t >= max_count) begin
             t     <= 32'd0;

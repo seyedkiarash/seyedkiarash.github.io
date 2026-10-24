@@ -103,8 +103,8 @@ window.SITE = {
       },
       year: { fa: "پاییز ۱۴۰۴", en: "Fall 2025" },
       context: {
-        fa: "آزمایشگاه مدار منطقی — ۳۲ طراحی Verilog روی برد Zynq-7010",
-        en: "Logic Circuits Laboratory — 32 Verilog designs on a Zynq-7010 board"
+        fa: "آزمایشگاه مدار منطقی، دکتر محمدرضا موحدین — ۳۲ طراحی Verilog روی برد Zynq-7010",
+        en: "Logic Circuits Laboratory, Dr. Mohammad Reza Movahhedin — 32 Verilog designs on a Zynq-7010 board"
       },
       tags: ["Verilog", "FPGA", "Vivado", { fa: "طراحی دیجیتال", en: "Digital Design" }],
       cover: "assets/img/logic-lab/cover.webp",
@@ -113,8 +113,8 @@ window.SITE = {
         en: "From priority encoders and Hamming codes to seven-segment multiplexing, a stopwatch, FPGA games and clocking from the Zynq processor — with a self-checking testbench for every design and a LaTeX report per experiment."
       },
       description: {
-        fa: "طراحی‌های Verilog پنج آزمایش این درس، پیاده‌سازی‌شده با Vivado روی برد Zynq-7010 (کلاک ۵۰ مگاهرتز) و برد توسعه‌ای با کلید DIP، نمایشگر چهاررقمی ۷-سگمنت، LED و کلید فشاری.\n\n- **آزمایش ۳:** انکودر اولویت و اثر قطبیت کلیدهای فشاری\n- **آزمایش ۴:** جمع‌کنندهٔ ریپل‌کری، جمع/تفریق مکمل دو با تشخیص سرریز، کد همینگ (۷،۴) و کد SECDED (۸،۴)\n- **آزمایش ۵:** دیکودر، جمع‌کنندهٔ BCD، مقایسه‌گرها (رفتاری و با پرچم‌های تفریق‌گر)، مالتی‌پلکسر و ضرب‌کنندهٔ ۴×۴\n- **آزمایش ۶:** تقسیم کلاک، الگوهای LED با کنترل سرعت، بازی واکنش و پینگ‌پنگ با بلاک‌دیزاین، و کلاک‌دهی منطق FPGA از پردازندهٔ Zynq\n- **آزمایش ۷:** مالتی‌پلکس نمایشگر ۷-سگمنت، متن متحرک، کرنومتر با شمارنده‌های آبشاری، کنترل شروع/توقف/ریست و انیمیشن مار\n\n**صحت‌سنجی:** برای هر طراحی یک تست‌بنچ خودارزیاب در Icarus Verilog نوشته شد. طراحی‌های ترکیبی برای همهٔ ورودی‌ها (و کدهای همینگ برای همهٔ الگوهای خطای تک و دوبیتی) آزموده شدند و طراحی‌های ترتیبی با سناریو؛ مثلاً یک دور کامل ده‌دقیقه‌ای کرنومتر. هر ۳۲ تست موفق است و همهٔ طراحی‌ها بدون خطا و بدون latch با Yosys سنتز می‌شوند. این بررسی چهار خطا در کدهای تحویل‌شده پیدا کرد (مقایسه‌گر علامت‌دار، پهنای یک سیم، یک رقم شمارهٔ دانشجویی و ترتیب ارقام متن متحرک) که اصلاح و در گزارش‌ها مستند شده‌اند.",
-        en: "Verilog designs from five experiments of the course, implemented with Vivado on a Zynq-7010 board (50 MHz clock) with an extension board of DIP switches, a 4-digit seven-segment display, LEDs and push buttons.\n\n- **Experiment 3:** priority encoder and push-button polarity\n- **Experiment 4:** ripple-carry adder, two's-complement add/subtract with overflow, Hamming(7,4) and SECDED (8,4) codes\n- **Experiment 5:** decoder, BCD adder, comparators (behavioural and from subtractor flags), multiplexer, 4×4 multiplier\n- **Experiment 6:** clock division, LED patterns with speed control, reaction and ping-pong games in block designs, PL logic clocked from the Zynq processor\n- **Experiment 7:** seven-segment multiplexing, scrolling text, a stopwatch from cascaded counters, start/stop/reset control and a snake animation\n\n**Verification:** every design has a self-checking Icarus Verilog testbench — exhaustive for the combinational designs (all inputs; all single and double error patterns for the Hamming codes) and scenario-based for the sequential ones, e.g. a complete 10-minute stopwatch cycle. All 32 pass, and every design synthesises with Yosys without errors or latches. The review found four errors in the submitted code (a signed comparator, a vector width, one digit of the student number and the digit order of the scrolling text); they are corrected and documented in the reports."
+        fa: "طراحی‌های Verilog پنج آزمایش این درس، پیاده‌سازی‌شده با Vivado روی برد Zynq-7010 (کلاک ۵۰ مگاهرتز) و برد توسعه‌ای با کلید DIP، نمایشگر چهاررقمی ۷-سگمنت، LED و کلید فشاری.\n\n- **آزمایش ۳:** انکودر اولویت و اثر قطبیت کلیدهای فشاری\n- **آزمایش ۴:** جمع‌کنندهٔ ریپل‌کری، جمع/تفریق مکمل دو با تشخیص سرریز، کد همینگ (۷،۴) و کد SECDED (۸،۴)\n- **آزمایش میان‌ترم:** دیکودر، جمع‌کنندهٔ BCD، مقایسه‌گرها (رفتاری و با پرچم‌های تفریق‌گر)، مالتی‌پلکسر، ضرب‌کنندهٔ ۴×۴ و مقایسه‌گری که فقط با مالتی‌پلکسر ساخته شده\n- **آزمایش ۶:** تقسیم کلاک، الگوهای LED با کنترل سرعت، بازی واکنش و پینگ‌پنگ با بلاک‌دیزاین، و کلاک‌دهی منطق FPGA از پردازندهٔ Zynq\n- **آزمایش ۷:** مالتی‌پلکس نمایشگر ۷-سگمنت، متن متحرک، کرنومتر با شمارنده‌های آبشاری، کنترل شروع/توقف/ریست و انیمیشن مار\n\n**صحت‌سنجی:** برای هر طراحی یک تست‌بنچ خودارزیاب در Icarus Verilog نوشته شد. طراحی‌های ترکیبی برای همهٔ ورودی‌ها (و کدهای همینگ برای همهٔ الگوهای خطای تک و دوبیتی) آزموده شدند و طراحی‌های ترتیبی با سناریو؛ مثلاً یک دور کامل ده‌دقیقه‌ای کرنومتر. هر ۳۲ تست موفق است و همهٔ طراحی‌ها بدون خطا و بدون latch با Yosys سنتز می‌شوند. خطاهای پیداشده در این بررسی اصلاح و در گزارش‌ها مستند شده‌اند، و دو طراحی امتیازی که در آزمایشگاه نیمه‌کاره مانده بودند (انیمیشن مار و نسخهٔ دوم بازی پینگ‌پنگ با دکمه‌های debounce‌شده) کامل شدند.",
+        en: "Verilog designs from five experiments of the course, implemented with Vivado on a Zynq-7010 board (50 MHz clock) with an extension board of DIP switches, a 4-digit seven-segment display, LEDs and push buttons.\n\n- **Experiment 3:** priority encoder and push-button polarity\n- **Experiment 4:** ripple-carry adder, two's-complement add/subtract with overflow, Hamming(7,4) and SECDED (8,4) codes\n- **Midterm experiment:** decoder, BCD adder, comparators (behavioural and from subtractor flags), multiplexer, 4×4 multiplier and a comparator built only from multiplexers\n- **Experiment 6:** clock division, LED patterns with speed control, reaction and ping-pong games in block designs, PL logic clocked from the Zynq processor\n- **Experiment 7:** seven-segment multiplexing, scrolling text, a stopwatch from cascaded counters, start/stop/reset control and a snake animation\n\n**Verification:** every design has a self-checking Icarus Verilog testbench — exhaustive for the combinational designs (all inputs; all single and double error patterns for the Hamming codes) and scenario-based for the sequential ones, e.g. a complete 10-minute stopwatch cycle. All 32 pass, and every design synthesises with Yosys without errors or latches. Errors found during the review are corrected and documented in the reports, and two bonus designs left unfinished in the lab — the snake animation and a second ping-pong game with debounced buttons — were completed."
       },
       images: [
         { src: "assets/img/logic-lab/lab07_part3_frames.webp", caption: { fa: "مالتی‌پلکس زمانی: در هر لحظه فقط یک رقم روشن است", en: "Time-multiplexing: one digit is enabled at a time" } },
@@ -125,7 +125,7 @@ window.SITE = {
       files: [
         { label: { fa: "گزارش آزمایش ۷ — نمایشگر ۷-سگمنت و کرنومتر", en: "Report — Experiment 7: seven-segment display and stopwatch" }, url: "labs/logic-circuits-lab/reports/lab07.pdf" },
         { label: { fa: "گزارش آزمایش ۶ — منطق ترتیبی، بازی‌ها و کلاک Zynq", en: "Report — Experiment 6: sequential logic, games, Zynq clocking" }, url: "labs/logic-circuits-lab/reports/lab06.pdf" },
-        { label: { fa: "گزارش آزمایش ۵ — دیکودر، BCD، مقایسه‌گر، مالتی‌پلکسر", en: "Report — Experiment 5: decoders, BCD, comparators, multiplexers" }, url: "labs/logic-circuits-lab/reports/lab05.pdf" },
+        { label: { fa: "گزارش آزمایش میان‌ترم — دیکودر، BCD، مقایسه‌گر، مالتی‌پلکسر", en: "Report — Midterm experiment: decoders, BCD, comparators, multiplexers" }, url: "labs/logic-circuits-lab/reports/midterm.pdf" },
         { label: { fa: "گزارش آزمایش ۴ — جمع‌کننده‌ها و کدهای همینگ", en: "Report — Experiment 4: adders and Hamming codes" }, url: "labs/logic-circuits-lab/reports/lab04.pdf" },
         { label: { fa: "گزارش آزمایش ۳ — انکودر اولویت", en: "Report — Experiment 3: priority encoder" }, url: "labs/logic-circuits-lab/reports/lab03.pdf" }
       ],
@@ -210,6 +210,51 @@ window.SITE = {
    */
   assignments: [
     {
+      title: { fa: "سیستم‌های LTI، تبدیل Z و پردازش تصویر", en: "LTI Stability, Z-Transform and Image Filtering" },
+      course: { fa: "سیگنال‌ها و سیستم‌ها — دکتر آرش امینی", en: "Signals & Systems — Dr. Arash Amini" },
+      term: { fa: "بهار ۱۴۰۵", en: "Spring 2026" },
+      image: "assets/img/sas-hw/chw3-edges.webp",
+      summary: {
+        fa: "بررسی پایداری سیستم‌های پیوسته از روی قطب‌ها و پاسخ پله و ضربه، و اثر پارامتر میرایی بر پاسخ؛ نمودار صفر و قطب در صفحهٔ z، تعیین ناحیهٔ همگرایی و محاسبهٔ تبدیل Z معکوس با دو روش؛ تفکیک کانال‌های رنگی تصویر، مقایسهٔ rgb2gray با میانگین ساده، و یک سیستم تفاضلی به‌عنوان فیلتر بالاگذر برای آشکارسازی لبه.",
+        en: "Stability of continuous-time systems from their poles and step/impulse responses, and the effect of the damping parameter; pole-zero plots in the z-plane, the region of convergence and the inverse Z-transform computed two ways; colour-channel analysis of an image, rgb2gray versus a plain average, and a differencing system used as a high-pass edge detector."
+      },
+      tags: ["MATLAB", { fa: "تبدیل Z", en: "Z-Transform" }, { fa: "پردازش تصویر", en: "Image Processing" }],
+      files: [
+        { label: { fa: "گزارش (PDF)", en: "Report (PDF)" }, url: "assets/files/sas-hw/CHW3-report.pdf" },
+        { label: { fa: "کد MATLAB", en: "MATLAB code" }, url: "assets/files/sas-hw/CHW3-code.zip" }
+      ]
+    },
+    {
+      title: { fa: "محاسبات نمادین و تبدیل فوریه", en: "Symbolic Computation and Fourier Transforms" },
+      course: { fa: "سیگنال‌ها و سیستم‌ها — دکتر آرش امینی", en: "Signals & Systems — Dr. Arash Amini" },
+      term: { fa: "بهار ۱۴۰۵", en: "Spring 2026" },
+      image: "assets/img/sas-hw/chw2-spectrum.webp",
+      summary: {
+        fa: "مسیر و سرعت یک پرتابه با ریاضیات نمادین MATLAB؛ طیف دامنه و فاز تبدیل فوریهٔ چند تابع و بررسی عددی خواص کانولوشن و ضرب در حوزهٔ زمان و فرکانس؛ اثر انتقال زمانی، مدولاسیون، تغییر مقیاس، مشتق‌گیری و ضرب در x بر تبدیل فوریه؛ و DFT سیگنال‌های گسسته و بخش‌های زوج و فرد آن‌ها.",
+        en: "Projectile trajectory and velocity with MATLAB symbolic math; magnitude and phase spectra of several functions and a numerical check of the convolution and multiplication properties; how a time shift, modulation, time scaling, differentiation and multiplication by x change the Fourier transform; and the DFT of discrete signals and of their even and odd parts."
+      },
+      tags: ["MATLAB", { fa: "تبدیل فوریه", en: "Fourier Transform" }],
+      files: [
+        { label: { fa: "گزارش (PDF)", en: "Report (PDF)" }, url: "assets/files/sas-hw/CHW2-report.pdf" },
+        { label: { fa: "کد MATLAB", en: "MATLAB code" }, url: "assets/files/sas-hw/CHW2-code.zip" }
+      ]
+    },
+    {
+      title: { fa: "سیگنال‌ها، کانولوشن و سری فوریه", en: "Signals, Convolution and Fourier Series" },
+      course: { fa: "سیگنال‌ها و سیستم‌ها — دکتر آرش امینی", en: "Signals & Systems — Dr. Arash Amini" },
+      term: { fa: "بهار ۱۴۰۵", en: "Spring 2026" },
+      image: "assets/img/sas-hw/chw1-fourier.webp",
+      summary: {
+        fa: "رسم سیگنال‌های پیوسته و گسسته و مختلط (بخش حقیقی، موهومی، دامنه و فاز)؛ عملیات روی سیگنال و تجزیه به بخش زوج و فرد؛ نوشتن تابع کانولوشن و مقایسه با conv، و بررسی خواص کانولوشن؛ و محاسبهٔ تحلیلی ضرایب سری فوریه، بازسازی سیگنال با تعداد جملات مختلف، پدیدهٔ گیبس و همگرایی خطای MSE.",
+        en: "Plotting continuous, discrete and complex signals (real/imaginary parts, magnitude and phase); signal operations and even/odd decomposition; a custom convolution function checked against conv and used to verify convolution properties; and analytically derived Fourier-series coefficients, reconstruction with an increasing number of terms, the Gibbs phenomenon and the convergence of the MSE."
+      },
+      tags: ["MATLAB", { fa: "سری فوریه", en: "Fourier Series" }, { fa: "کانولوشن", en: "Convolution" }],
+      files: [
+        { label: { fa: "گزارش (PDF)", en: "Report (PDF)" }, url: "assets/files/sas-hw/CHW1-report.pdf" },
+        { label: { fa: "کد MATLAB", en: "MATLAB code" }, url: "assets/files/sas-hw/CHW1-code.zip" }
+      ]
+    },
+    {
       title: { fa: "کاربردهای جبر خطی و بهینه‌سازی مقیددار", en: "Applied Linear Algebra & Constrained Optimization" },
       course: { fa: "روش‌های ریاضی در مهندسی — دکتر حسین پیل‌آرام", en: "Mathematical Methods in Engineering — Dr. Hossein Pilaram" },
       term: { fa: "بهار ۱۴۰۵", en: "Spring 2026" },
@@ -234,6 +279,32 @@ window.SITE = {
       tags: ["Python", { fa: "جبر خطی", en: "Linear Algebra" }],
       notebook: "assets/files/mme/CHW1.ipynb",
       download: "assets/files/mme/CHW1.ipynb"
+    },
+    {
+      title: { fa: "وابستگی غیرخطی، قانون اعداد بزرگ و قضیهٔ حد مرکزی", en: "Nonlinear Dependence, the Law of Large Numbers and the CLT" },
+      course: { fa: "آمار و احتمال مهندسی — دکتر محمدحسین یاسایی", en: "Probability & Statistics — Dr. Mohammad Hossein Yassaee" },
+      term: { fa: "پاییز ۱۴۰۴", en: "Fall 2025" },
+      image: "assets/img/prob/chw2-dependence.webp",
+      summary: {
+        fa: "برای `Y = X² + ε` ضریب همبستگی پیرسون تقریباً صفر است (۰٫۰۵) در حالی که همبستگی فاصله‌ای حدود ۰٫۵ است؛ معیارهای وابستگی غیرخطی (همبستگی فاصله‌ای و HSIC) و تحلیل حساسیت به نویز و تعداد نمونه؛ همگرایی میانگین نمونه طبق قانون اعداد بزرگ و کاهش مربع خطای آن متناسب با `1/n`؛ و آزمون قضیهٔ حد مرکزی با تاس سالم و ناسالم.",
+        en: "For Y = X² + ε the Pearson correlation is almost zero (0.05) while the distance correlation is about 0.5; nonlinear dependence measures (distance correlation, HSIC) and their sensitivity to noise and sample size; convergence of the sample mean by the law of large numbers with a mean squared error falling as 1/n; and the central limit theorem tested with fair and unfair dice."
+      },
+      tags: ["Python", { fa: "آمار", en: "Statistics" }, { fa: "شبیه‌سازی مونت‌کارلو", en: "Monte Carlo" }],
+      notebook: "assets/files/prob/CHW2.ipynb",
+      download: "assets/files/prob/CHW2.ipynb"
+    },
+    {
+      title: { fa: "توزیع نمایی، پارادوکس روز تولد و جمع متغیرهای تصادفی", en: "Exponential Waiting Times, the Birthday Paradox and Sums of Random Variables" },
+      course: { fa: "آمار و احتمال مهندسی — دکتر محمدحسین یاسایی", en: "Probability & Statistics — Dr. Mohammad Hossein Yassaee" },
+      term: { fa: "پاییز ۱۴۰۴", en: "Fall 2025" },
+      image: "assets/img/prob/chw1-birthday.webp",
+      summary: {
+        fa: "مدل‌سازی زمان انتظار با توزیع نمایی و مقایسهٔ احتمال‌های تحلیلی با شبیه‌سازی (مثلاً `P(X>10) = 0.135` در برابر `0.132` در شبیه‌سازی)؛ پارادوکس روز تولد با شبیه‌سازی و فرمول دقیق (۵۰٫۷٪ برای ۲۳ نفر)؛ برازش منحنی فراموشی نمایی به داده؛ و بررسی تجربی بسته بودن توزیع‌های نرمال، گاما و نمایی تحت جمع با معیار RMSE.",
+        en: "Exponential waiting times with analytical probabilities checked by simulation (e.g. P(X>10) = 0.135 vs 0.132); the birthday paradox by simulation and the exact formula (50.7% for 23 people); fitting an exponential forgetting curve to data; and an experimental test, by RMSE, of whether normal, gamma and exponential distributions stay in their family under addition."
+      },
+      tags: ["Python", { fa: "احتمال", en: "Probability" }, { fa: "شبیه‌سازی مونت‌کارلو", en: "Monte Carlo" }],
+      notebook: "assets/files/prob/CHW1.ipynb",
+      download: "assets/files/prob/CHW1.ipynb"
     }
   ],
 

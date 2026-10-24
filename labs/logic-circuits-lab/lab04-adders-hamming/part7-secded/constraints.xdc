@@ -1,6 +1,3 @@
-## lab04-adders-hamming/part7-secded  -  top module: Part7_module
-## Board: Zynq-7010 (XC7Z010-CLG400-1) + extension board, all I/O LVCMOS33
-
 set_property -dict {PACKAGE_PIN M20 IOSTANDARD LVCMOS33} [get_ports {Dip[0]}]
 set_property -dict {PACKAGE_PIN M19 IOSTANDARD LVCMOS33} [get_ports {Dip[1]}]
 set_property -dict {PACKAGE_PIN L20 IOSTANDARD LVCMOS33} [get_ports {Dip[2]}]

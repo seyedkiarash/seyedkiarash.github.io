@@ -13,12 +13,12 @@ module tb_stopwatch_start_stop;
     reg [15:0] v0, v1, v2, v3; integer errors = 0;
     initial begin
         $dumpfile("tb_stopwatch_start_stop.vcd"); $dumpvars(0, tb_stopwatch_start_stop);
-        repeat (200) @(negedge clk); v0 = value(0);           // powers up stopped
-        press(2, 3); repeat (400) @(negedge clk); v1 = value(0);  // start -> counts
+        repeat (200) @(negedge clk); v0 = value(0);
+        press(2, 3); repeat (400) @(negedge clk); v1 = value(0);
         press(1, 3); repeat (5) @(posedge dut.tick_clk); v2 = value(0);
         repeat (200) @(negedge clk);
-        if (value(0) != v2) errors = errors + 1;              // stays frozen while stopped
-        press(3, 20); repeat (3) @(posedge dut.tick_clk); v3 = value(0); // reset
+        if (value(0) != v2) errors = errors + 1;
+        press(3, 20); repeat (3) @(posedge dut.tick_clk); v3 = value(0);
         $display("  power-up %h | after start %h | stopped at %h (held) | after reset %h", v0, v1, v2, v3);
         if (v0 != 0 || v1 == 0 || v3 != 0) errors = errors + 1;
         $display("RESULT tb_stopwatch_start_stop: %s", errors ? "FAIL" : "PASS");

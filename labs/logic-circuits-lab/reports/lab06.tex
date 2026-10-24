@@ -1,7 +1,7 @@
 \input{preamble}
 \newcommand{\ReportShortTitle}{Experiment 6 -- Sequential logic, clocking and the Zynq PS}
 \begin{document}
-\ReportTitle{6}{Sequential Logic: Clock Division, LED Patterns, Games and Zynq PS Clocking}{21--22 December 2025}
+\ReportTitle{Experiment 6}{Sequential Logic: Clock Division, LED Patterns, Games and Zynq PS Clocking}{21--22 December 2025}
 
 \section*{Summary}
 This experiment moves from combinational to clocked designs. It starts by observing the
@@ -9,8 +9,8 @@ This experiment moves from combinational to clocked designs. It starts by observ
 ``flow'' pattern whose speed is adjusted with push buttons. Two block-design projects follow: a reaction
 game whose difficulty sets the frequency of its own clock, and the same LED pattern clocked by the ARM
 processing system (PS) of the Zynq instead of a board oscillator. Two versions of a ping-pong game
-complete the experiment; the second replaces the divided clock by clock-enable pulses in a single clock
-domain. All designs were re-verified with self-checking testbenches (7/7 pass); the Vivado reports of
+complete the experiment; the second -- completed for this report -- replaces the divided clock by
+clock-enable pulses in a single clock domain and adds debounced buttons. All designs were re-verified with self-checking testbenches (7/7 pass); the Vivado reports of
 the lab session show all timing met. Code: \url{\repo/lab06-sequential-zynq}.
 
 \section{Part 1 -- Seeing the clock}
@@ -38,15 +38,15 @@ comparing each button with its value one clock earlier, so holding a button chan
 \end{minipage}\hfill
 \begin{minipage}{0.64\linewidth}
 \begin{lstlisting}
-always @(posedge clk) begin           // speed control
+always @(posedge clk) begin
     last_b1 <= button[1];
     last_b2 <= button[2];
     if (button[1] & ~last_b1)
-        max_count <= max_count << 1;  // slower
+        max_count <= max_count << 1;
     else if (button[2] & ~last_b2)
-        max_count <= max_count >> 1;  // faster
+        max_count <= max_count >> 1;
 end
-always @(posedge clk)                 // step timer
+always @(posedge clk)
     if (t >= max_count) begin
         t     <= 0;
         state <= (state == 9) ? 0 : state + 1;
@@ -145,25 +145,33 @@ Simulation: three returns give a score of 3, and a miss resets it (Fig.~\ref{fig
 \caption{Bonus A: \sig{pos} bounces 0$\to$4$\to$0, \sig{direction} flips on each return.}\label{fig:pp}
 \end{figure}
 
-\subsection{B -- Ping-pong, single clock domain}
-The second version keeps the whole design on the \SI{50}{MHz} clock. A \sig{pulse\_generator} emits a
-one-cycle \sig{tick} every $\text{max\_count}+1$ cycles (\SI{0.2}{s} at level 0, halving per level) and the
-game logic only moves the light when \sig{tick} is high -- a clock \emph{enable} instead of a derived clock.
-Button edges are detected in the fast domain, so even a short press is registered. Reaching level 9 wins
-(all LEDs on). The testbench plays nine correct returns and reaches the win state, and measures the
-level-9 tick period: \num{20001} cycles, as designed.
-
-\subsection{Observations}
+\subsection{B -- Ping-pong, single clock domain (completed)}
+The submitted second version was unfinished: a miss was not penalised, every press during one visit to
+an end added a level, the buttons were neither synchronised nor debounced, and the speed doubled per level
+(from level 1 a step was already shorter than human reaction time). The completed design keeps the idea of
+version A -- a light bouncing between two players -- but is built in the recommended FPGA style:
 \begin{itemize}
-  \item Doubling the speed per level quickly exceeds human reaction time ($\approx$\SI{0.2}{s}): in
-        version A a step is shorter than \SI{0.2}{s} from level 4, in version B from level 1. A gentler
-        progression (e.g.\ $\times1.25$ per level) would make the later levels playable.
-  \item In version B a miss is not penalised and repeated presses during one visit to an end each add a
-        level. Counting at most one return per visit (and resetting on a miss, as in version A) would
-        restore the intended rules.
-  \item The push buttons are not debounced; a bouncing contact can register several edges. A small
-        debounce counter or sampling on the slow tick would avoid this.
+  \item \textbf{One clock domain.} Everything runs on the \SI{50}{MHz} clock; a step timer produces a
+        one-cycle \emph{tick} instead of a divided clock.
+  \item \textbf{Clean buttons.} The active-low board buttons are inverted, synchronised with two flip-flops
+        and debounced (a new level must be stable for \SI{10}{ms}); a press is the rising edge of the clean
+        signal.
+  \item \textbf{Rules.} While the light is at a player's end, his button marks a return (at most one per
+        visit, early presses are ignored). If the light leaves the end without a return, the level drops to 0
+        and play restarts from LED0. Every return raises the level and speeds up the light.
+  \item \textbf{Playable speed curve.} The step time falls from \SI{0.50}{s} at level 0 to \SI{0.125}{s} at
+        level 9 (0.50, 0.425, 0.35, 0.30, 0.25, 0.225, 0.20, 0.175, 0.15, \SI{0.125}{s}).
+  \item \textbf{Win.} The ninth return wins: all LEDs blink and the display shows \texttt{9}; any
+        player button starts a new game. The level is shown on the rightmost digit (active-high enable).
 \end{itemize}
+The testbench plays the game through the top level with the debouncers in place: three returns give
+level 3; two presses during one visit count once; a missed return resets the level to 0; nine returns
+win; a button press after the win restarts.
+
+\subsection{Observation}
+In version A the speed doubles per level, $f = \SI{0.37}{Hz}\cdot 2^{\text{level}}$, so from level 4 a step
+is shorter than human reaction time ($\approx$\SI{0.2}{s}); the completed version B uses a gentler curve
+for that reason.
 
 \section{Implementation results}
 \begin{table}[h]
@@ -177,7 +185,7 @@ Part 2 -- LED flow & 39 & 70 & 15.461 & met\\
 Part 3 -- reaction game (block design) & 28 & 32 & 16.215 & met\\
 Part 4 -- LED flow clocked by the PS & 40 & 70 & 15.246 & met\\
 Bonus A -- ping-pong (block design) & 49 & 44 & 15.189 & met\\
-Bonus B -- ping-pong, single clock & 78 & 48 & 13.266 & met\\
+Bonus B -- ping-pong, single clock (submitted, unfinished) & 78 & 48 & 13.266 & met\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -194,11 +202,11 @@ Testbench & What is checked & Result\\
 \sig{tb\_led\_flow} (Parts 2, 4) & 20 steps of the pattern; step time after the speed buttons & \pass\\
 \sig{tb\_mini\_game} & four hits $\to$ win; hit + miss $\to$ level 0 & \pass\\
 \sig{tb\_ping\_pong} & three returns $\to$ score 3; miss $\to$ score 0 & \pass\\
-\sig{tb\_ping\_pong\_v2} & nine returns $\to$ win; tick period at level 9 & \pass\\
+\sig{tb\_ping\_pong\_v2} & returns, one return per visit, miss, win and restart & \pass\\
 \bottomrule
 \end{tabularx}
 \end{table}
-The cleaned code contains no functional changes for this experiment; the block designs are provided as
+Apart from completing Bonus B, the cleaned code contains no functional changes; the block designs are provided as
 equivalent RTL top levels (\sig{reaction\_game\_top}, \sig{ping\_pong\_top}) together with the original
 \texttt{.bd} files.
 

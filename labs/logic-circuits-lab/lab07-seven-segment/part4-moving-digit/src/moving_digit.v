@@ -1,12 +1,5 @@
-// -----------------------------------------------------------------------------
-// Lab 7 - Part 4: A digit moving across the display
-// The character "3" is enabled on one digit at a time; a 0.5 Hz clock moves it
-// one position to the right every 2 s (left -> right, then wraps around).
-// With a fast clock (as in Part 3) the same circuit would appear to light all
-// four digits simultaneously.
-// -----------------------------------------------------------------------------
 module moving_digit #(
-    parameter integer MOVE_HALF_PERIOD = 50_000_000   // 50 MHz / (2*50M) = 0.5 Hz
+    parameter integer MOVE_HALF_PERIOD = 50_000_000
 ) (
     input  wire       clk,
     output reg  [3:0] dig,

@@ -1,13 +1,8 @@
-// -----------------------------------------------------------------------------
-// Lab 6 - Bonus B: Ping-pong, version 2 (single clock domain)
-// Everything runs on the 50 MHz clock; pulse_generator provides the movement
-// ticks (clock enables) whose rate depends on the level. The level is shown on
-// one 7-segment digit.
-//
-// Note: the digit enables are driven as 1110 (active-low digit 0), as in the
-// submitted version; Lab 7 Parts 3-6 drive them active-high (0001).
-// -----------------------------------------------------------------------------
-module ping_pong_v2_top (
+module ping_pong_v2_top #(
+    parameter integer STEP_UNIT         = 1_250_000,
+    parameter integer DEBOUNCE          = 500_000,
+    parameter         BUTTON_ACTIVE_LOW = 1
+) (
     input  wire       in_clk,
     input  wire       gameReset,
     input  wire [3:0] button,
@@ -15,18 +10,28 @@ module ping_pong_v2_top (
     output wire [3:0] dig,
     output wire       a, b, c, d, e, f, g, dp
 );
-    wire       move_tick;
+    wire [3:0] pressed = BUTTON_ACTIVE_LOW ? ~button : button;
+    wire       left, right, rst_level, rst_press;
+
+    debounce #(.STABLE(DEBOUNCE)) u_db_l (.clk(in_clk), .in(pressed[0]), .level(), .press(left));
+    debounce #(.STABLE(DEBOUNCE)) u_db_r (.clk(in_clk), .in(pressed[3]), .level(), .press(right));
+
+    reg r0 = 1'b0, r1 = 1'b0;
+    always @(posedge in_clk) begin
+        r0 <= gameReset;
+        r1 <= r0;
+    end
+
     wire [3:0] level;
-    wire       game_over;
+    wire       win;
 
-    pulse_generator u_pg (.clk(in_clk), .reset(gameReset), .level(level), .tick(move_tick));
-
-    game_logic u_game (.clk(in_clk), .reset(gameReset), .move_tick(move_tick),
-                       .button(button), .leds(LED), .level(level),
-                       .game_over_flag(game_over));
+    game_logic #(.STEP_UNIT(STEP_UNIT)) u_game (
+        .clk(in_clk), .reset(r1), .press_left(left), .press_right(right),
+        .leds(LED), .level(level), .win(win)
+    );
 
     Hex_to_7_seg u_dec (.Hex(level), .a(a), .b(b), .c(c), .d(d), .e(e), .f(f), .g(g));
 
-    assign dp  = 1'b1;          // decimal point off
-    assign dig = 4'b1110;
+    assign dig = 4'b0001;
+    assign dp  = 1'b1;
 endmodule

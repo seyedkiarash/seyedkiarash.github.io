@@ -24,7 +24,7 @@ module tb_led_flow;
         step_time(p_base);
         press(1); step_time(p_slow); step_time(p_slow);
         press(2); press(2); step_time(p_fast); step_time(p_fast);
-        // one step lasts max_count + 1 cycles: 7+1, 14+1, 3+1
+
         $display("  step: %0d cycles, after button1 %0d, after 2x button2 %0d", p_base, p_slow, p_fast);
         $display("RESULT tb_led_flow: 20 steps of the pattern checked, speed control checked -> %s",
                  (errors == 0 && p_base == 8 && p_slow == 15 && p_fast == 4) ? "PASS" : "FAIL");

@@ -5,7 +5,7 @@ module tb_led_blink;
     led_blink #(.HALF_PERIOD(10)) dut (.clk(clk), .LED(LED));
     time t_prev = 0; integer n = 0, errors = 0;
     always @(LED) begin
-        if (n > 0 && ($time - t_prev) != 200) errors = errors + 1;   // 10 cycles x 20 ns
+        if (n > 0 && ($time - t_prev) != 200) errors = errors + 1;
         t_prev = $time; n = n + 1;
     end
     initial begin

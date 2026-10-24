@@ -1,18 +1,3 @@
-// -----------------------------------------------------------------------------
-// Hex_to_7_seg
-// Combinational decoder: 4-bit hexadecimal value -> 7-segment pattern.
-//
-// The segments of the extension board are ACTIVE-LOW (0 = segment on), so the
-// patterns below are written in positive logic {a,b,c,d,e,f,g} and inverted.
-//
-//        a
-//      -----
-//   f |     | b
-//      --g--
-//   e |     | c
-//      -----
-//        d
-// -----------------------------------------------------------------------------
 module Hex_to_7_seg (
     input  wire [3:0] Hex,
     output reg        a, b, c, d, e, f, g
@@ -30,12 +15,12 @@ module Hex_to_7_seg (
             4'h7: {a,b,c,d,e,f,g} = ~7'b1110000;
             4'h8: {a,b,c,d,e,f,g} = ~7'b1111111;
             4'h9: {a,b,c,d,e,f,g} = ~7'b1111011;
-            4'hA: {a,b,c,d,e,f,g} = ~7'b1110111;  // A
-            4'hB: {a,b,c,d,e,f,g} = ~7'b0011111;  // b
-            4'hC: {a,b,c,d,e,f,g} = ~7'b1001110;  // C
-            4'hD: {a,b,c,d,e,f,g} = ~7'b0111101;  // d
-            4'hE: {a,b,c,d,e,f,g} = ~7'b1001111;  // E
-            4'hF: {a,b,c,d,e,f,g} = ~7'b1000111;  // F
+            4'hA: {a,b,c,d,e,f,g} = ~7'b1110111;
+            4'hB: {a,b,c,d,e,f,g} = ~7'b0011111;
+            4'hC: {a,b,c,d,e,f,g} = ~7'b1001110;
+            4'hD: {a,b,c,d,e,f,g} = ~7'b0111101;
+            4'hE: {a,b,c,d,e,f,g} = ~7'b1001111;
+            4'hF: {a,b,c,d,e,f,g} = ~7'b1000111;
         endcase
     end
 

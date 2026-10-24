@@ -1,5 +1,3 @@
-// Reference model shared by the testbenches: hex digit -> active-low segments,
-// and the inverse (segments -> printable character, '?' if not a digit).
 function [6:0] seg_of;
     input [3:0] h;
     case (h)

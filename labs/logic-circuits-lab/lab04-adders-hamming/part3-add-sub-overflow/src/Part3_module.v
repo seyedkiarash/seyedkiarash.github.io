@@ -1,12 +1,3 @@
-// -----------------------------------------------------------------------------
-// Lab 4 - Part 3: Signed adder / subtractor with overflow indication
-//   A = DIP[7:4], B = DIP[3:0] (4-bit two's complement, -8..7)
-//   Push_button[1] selects the operation (0: A+B, 1: A-B)
-// Output:
-//   * magnitude of the result on the rightmost 7-segment digit
-//   * LED[9] = minus sign
-//   * LED[0] = overflow; on overflow the digit is switched off
-// -----------------------------------------------------------------------------
 module Part3_module (
     input  wire [7:0] Dip,
     input  wire [1:0] Push_button,

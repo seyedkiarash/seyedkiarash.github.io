@@ -9,9 +9,9 @@ module tb_scrolling_student_id;
     reg [8*36-1:0] expected = "403103103101101301381383383483403403";
     initial begin
         $dumpfile("tb_scrolling_student_id.vcd"); $dumpvars(0, tb_scrolling_student_id);
-        @(posedge dut.shift_clk);                       // align to a window change
+        @(posedge dut.shift_clk);
         for (w = 0; w < 9; w = w + 1) begin
-            repeat (64) @(negedge clk);                 // let the scan settle
+            repeat (64) @(negedge clk);
             frame = "????";
             repeat (20) begin
                 @(negedge clk);

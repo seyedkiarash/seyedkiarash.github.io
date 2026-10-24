@@ -1,8 +1,3 @@
-// -----------------------------------------------------------------------------
-// Lab 6 - Bonus A: Ping-pong game (top level)
-// RTL equivalent of block design "design_3": speed_clock -> ping_pong, with the
-// score shown on the 7-segment display through Hex_to_7_seg.
-// -----------------------------------------------------------------------------
 module ping_pong_top (
     input  wire       in_clk,
     input  wire       gameReset,

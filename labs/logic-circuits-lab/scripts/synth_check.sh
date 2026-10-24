@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-# Independent synthesis check with Yosys (synth_xilinx, 7-series primitives).
-# Confirms that every part elaborates and maps without errors, and reports
-# LUT / flip-flop counts and any inferred latches.
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 printf "%-56s %-24s %5s %5s  %s\n" PART TOP LUTs FFs CHECK
 for top in "$ROOT"/lab*/*/TOP; do
