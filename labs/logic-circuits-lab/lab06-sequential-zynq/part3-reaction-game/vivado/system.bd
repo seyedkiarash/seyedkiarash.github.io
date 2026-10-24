@@ -1,0 +1,162 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0xEF00B6F789673802",
+      "device": "xc7z010clg400-1",
+      "name": "system",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2019.1",
+      "validated": "true"
+    },
+    "design_tree": {
+      "freq_converter_0": "",
+      "miniGame_0": ""
+    },
+    "ports": {
+      "in_clk": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "system_in_clk_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.000",
+            "value_src": "default"
+          }
+        }
+      },
+      "gameReset": {
+        "direction": "I"
+      },
+      "LED": {
+        "direction": "O",
+        "left": "4",
+        "right": "0"
+      },
+      "button": {
+        "direction": "I",
+        "left": "3",
+        "right": "0"
+      }
+    },
+    "components": {
+      "freq_converter_0": {
+        "vlnv": "xilinx.com:module_ref:freq_converter:1.0",
+        "xci_name": "system_freq_converter_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "freq_converter",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "in_clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "CLK_DOMAIN": {
+                "value": "system_in_clk_0",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "out_clk": {
+            "type": "clk",
+            "direction": "O"
+          },
+          "mode": {
+            "direction": "I",
+            "left": "1",
+            "right": "0"
+          }
+        }
+      },
+      "miniGame_0": {
+        "vlnv": "xilinx.com:module_ref:miniGame:1.0",
+        "xci_name": "system_miniGame_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "miniGame",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "CLK_DOMAIN": {
+                "value": "system_freq_converter_0_0_out_clk",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "gameReset": {
+            "direction": "I"
+          },
+          "button": {
+            "direction": "I",
+            "left": "3",
+            "right": "0"
+          },
+          "LED": {
+            "direction": "O",
+            "left": "4",
+            "right": "0"
+          },
+          "mode": {
+            "direction": "O",
+            "left": "1",
+            "right": "0"
+          }
+        }
+      }
+    },
+    "nets": {
+      "freq_converter_0_out_clk": {
+        "ports": [
+          "freq_converter_0/out_clk",
+          "miniGame_0/clk"
+        ]
+      },
+      "miniGame_0_mode": {
+        "ports": [
+          "miniGame_0/mode",
+          "freq_converter_0/mode"
+        ]
+      },
+      "in_clk_0_1": {
+        "ports": [
+          "in_clk",
+          "freq_converter_0/in_clk"
+        ]
+      },
+      "gameReset_0_1": {
+        "ports": [
+          "gameReset",
+          "miniGame_0/gameReset"
+        ]
+      },
+      "miniGame_0_LED": {
+        "ports": [
+          "miniGame_0/LED",
+          "LED"
+        ]
+      },
+      "button_0_1": {
+        "ports": [
+          "button",
+          "miniGame_0/button"
+        ]
+      }
+    }
+  }
+}

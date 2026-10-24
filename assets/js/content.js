@@ -82,7 +82,7 @@ window.SITE = {
         { name: "Verilog", level: { fa: "متوسط", en: "Intermediate" } }
       ]
     },
-    { group: { fa: "کتابخانه‌ها و ابزارها", en: "Libraries & Tools" }, items: ["NumPy", "SciPy", "Matplotlib", "Jupyter", "LaTeX"] },
+    { group: { fa: "کتابخانه‌ها و ابزارها", en: "Libraries & Tools" }, items: ["Vivado", "Git", "NumPy", "SciPy", "Matplotlib", "Jupyter", "LaTeX"] },
     {
       group: { fa: "زبان", en: "Languages" },
       items: [
@@ -94,6 +94,45 @@ window.SITE = {
   ],
 
   projects: [
+    {
+      id: "fpga-logic-lab",
+      featured: true,
+      title: {
+        fa: "آزمایشگاه مدار منطقی روی FPGA",
+        en: "Logic Circuits Lab on FPGA"
+      },
+      year: { fa: "پاییز ۱۴۰۴", en: "Fall 2025" },
+      context: {
+        fa: "آزمایشگاه مدار منطقی — ۳۲ طراحی Verilog روی برد Zynq-7010",
+        en: "Logic Circuits Laboratory — 32 Verilog designs on a Zynq-7010 board"
+      },
+      tags: ["Verilog", "FPGA", "Vivado", { fa: "طراحی دیجیتال", en: "Digital Design" }],
+      cover: "assets/img/logic-lab/cover.webp",
+      summary: {
+        fa: "از انکودر اولویت و کد همینگ تا مالتی‌پلکس نمایشگر ۷-سگمنت، کرنومتر، بازی‌های FPGA و کلاک‌دهی از پردازندهٔ Zynq؛ با تست‌بنچ خودارزیاب برای هر طراحی و گزارش LaTeX برای هر آزمایش.",
+        en: "From priority encoders and Hamming codes to seven-segment multiplexing, a stopwatch, FPGA games and clocking from the Zynq processor — with a self-checking testbench for every design and a LaTeX report per experiment."
+      },
+      description: {
+        fa: "طراحی‌های Verilog پنج آزمایش این درس، پیاده‌سازی‌شده با Vivado روی برد Zynq-7010 (کلاک ۵۰ مگاهرتز) و برد توسعه‌ای با کلید DIP، نمایشگر چهاررقمی ۷-سگمنت، LED و کلید فشاری.\n\n- **آزمایش ۳:** انکودر اولویت و اثر قطبیت کلیدهای فشاری\n- **آزمایش ۴:** جمع‌کنندهٔ ریپل‌کری، جمع/تفریق مکمل دو با تشخیص سرریز، کد همینگ (۷،۴) و کد SECDED (۸،۴)\n- **آزمایش ۵:** دیکودر، جمع‌کنندهٔ BCD، مقایسه‌گرها (رفتاری و با پرچم‌های تفریق‌گر)، مالتی‌پلکسر و ضرب‌کنندهٔ ۴×۴\n- **آزمایش ۶:** تقسیم کلاک، الگوهای LED با کنترل سرعت، بازی واکنش و پینگ‌پنگ با بلاک‌دیزاین، و کلاک‌دهی منطق FPGA از پردازندهٔ Zynq\n- **آزمایش ۷:** مالتی‌پلکس نمایشگر ۷-سگمنت، متن متحرک، کرنومتر با شمارنده‌های آبشاری، کنترل شروع/توقف/ریست و انیمیشن مار\n\n**صحت‌سنجی:** برای هر طراحی یک تست‌بنچ خودارزیاب در Icarus Verilog نوشته شد. طراحی‌های ترکیبی برای همهٔ ورودی‌ها (و کدهای همینگ برای همهٔ الگوهای خطای تک و دوبیتی) آزموده شدند و طراحی‌های ترتیبی با سناریو؛ مثلاً یک دور کامل ده‌دقیقه‌ای کرنومتر. هر ۳۲ تست موفق است و همهٔ طراحی‌ها بدون خطا و بدون latch با Yosys سنتز می‌شوند. این بررسی چهار خطا در کدهای تحویل‌شده پیدا کرد (مقایسه‌گر علامت‌دار، پهنای یک سیم، یک رقم شمارهٔ دانشجویی و ترتیب ارقام متن متحرک) که اصلاح و در گزارش‌ها مستند شده‌اند.",
+        en: "Verilog designs from five experiments of the course, implemented with Vivado on a Zynq-7010 board (50 MHz clock) with an extension board of DIP switches, a 4-digit seven-segment display, LEDs and push buttons.\n\n- **Experiment 3:** priority encoder and push-button polarity\n- **Experiment 4:** ripple-carry adder, two's-complement add/subtract with overflow, Hamming(7,4) and SECDED (8,4) codes\n- **Experiment 5:** decoder, BCD adder, comparators (behavioural and from subtractor flags), multiplexer, 4×4 multiplier\n- **Experiment 6:** clock division, LED patterns with speed control, reaction and ping-pong games in block designs, PL logic clocked from the Zynq processor\n- **Experiment 7:** seven-segment multiplexing, scrolling text, a stopwatch from cascaded counters, start/stop/reset control and a snake animation\n\n**Verification:** every design has a self-checking Icarus Verilog testbench — exhaustive for the combinational designs (all inputs; all single and double error patterns for the Hamming codes) and scenario-based for the sequential ones, e.g. a complete 10-minute stopwatch cycle. All 32 pass, and every design synthesises with Yosys without errors or latches. The review found four errors in the submitted code (a signed comparator, a vector width, one digit of the student number and the digit order of the scrolling text); they are corrected and documented in the reports."
+      },
+      images: [
+        { src: "assets/img/logic-lab/lab07_part3_frames.webp", caption: { fa: "مالتی‌پلکس زمانی: در هر لحظه فقط یک رقم روشن است", en: "Time-multiplexing: one digit is enabled at a time" } },
+        { src: "assets/img/logic-lab/lab07_part6_wave.webp", caption: { fa: "شبیه‌سازی کرنومتر: شمارنده‌های آبشاری", en: "Stopwatch simulation: cascaded counters" } },
+        { src: "assets/img/logic-lab/lab07_snake.webp", caption: { fa: "انیمیشن مار، بازسازی‌شده از شبیه‌سازی", en: "Snake animation reconstructed from the simulation" } },
+        { src: "assets/img/logic-lab/lab06_minigame_wave.webp", caption: { fa: "شبیه‌سازی بازی واکنش", en: "Reaction game simulation" } }
+      ],
+      files: [
+        { label: { fa: "گزارش آزمایش ۷ — نمایشگر ۷-سگمنت و کرنومتر", en: "Report — Experiment 7: seven-segment display and stopwatch" }, url: "labs/logic-circuits-lab/reports/lab07.pdf" },
+        { label: { fa: "گزارش آزمایش ۶ — منطق ترتیبی، بازی‌ها و کلاک Zynq", en: "Report — Experiment 6: sequential logic, games, Zynq clocking" }, url: "labs/logic-circuits-lab/reports/lab06.pdf" },
+        { label: { fa: "گزارش آزمایش ۵ — دیکودر، BCD، مقایسه‌گر، مالتی‌پلکسر", en: "Report — Experiment 5: decoders, BCD, comparators, multiplexers" }, url: "labs/logic-circuits-lab/reports/lab05.pdf" },
+        { label: { fa: "گزارش آزمایش ۴ — جمع‌کننده‌ها و کدهای همینگ", en: "Report — Experiment 4: adders and Hamming codes" }, url: "labs/logic-circuits-lab/reports/lab04.pdf" },
+        { label: { fa: "گزارش آزمایش ۳ — انکودر اولویت", en: "Report — Experiment 3: priority encoder" }, url: "labs/logic-circuits-lab/reports/lab03.pdf" }
+      ],
+      links: [
+        { label: { fa: "کد، تست‌بنچ‌ها و فایل‌های constraint در GitHub", en: "Code, testbenches and constraints on GitHub" }, url: "https://github.com/seyedkiarash/seyedkiarash.github.io/tree/main/labs/logic-circuits-lab" }
+      ]
+    },
     {
       id: "waveguide-field-visualizer",
       featured: true,
@@ -172,7 +211,7 @@ window.SITE = {
   assignments: [
     {
       title: { fa: "کاربردهای جبر خطی و بهینه‌سازی مقیددار", en: "Applied Linear Algebra & Constrained Optimization" },
-      course: { fa: "روش‌های ریاضی در مهندسی — دکتر پیلارام", en: "Mathematical Methods in Engineering — Dr. Pilaram" },
+      course: { fa: "روش‌های ریاضی در مهندسی — دکتر حسین پیل‌آرام", en: "Mathematical Methods in Engineering — Dr. Hossein Pilaram" },
       term: { fa: "بهار ۱۴۰۵", en: "Spring 2026" },
       image: "assets/img/mme/chw2-svd-rgb.webp",
       summary: {
@@ -185,7 +224,7 @@ window.SITE = {
     },
     {
       title: { fa: "پیاده‌سازی الگوریتم‌های جبر خطی از پایه", en: "Linear Algebra Algorithms from Scratch" },
-      course: { fa: "روش‌های ریاضی در مهندسی — دکتر پیلارام", en: "Mathematical Methods in Engineering — Dr. Pilaram" },
+      course: { fa: "روش‌های ریاضی در مهندسی — دکتر حسین پیل‌آرام", en: "Mathematical Methods in Engineering — Dr. Hossein Pilaram" },
       term: { fa: "بهار ۱۴۰۵", en: "Spring 2026" },
       image: "assets/img/mme/chw1-cauchy-schwarz.webp",
       summary: {

@@ -1,0 +1,274 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x9BF0538DB6A15D27",
+      "device": "xc7z010clg400-1",
+      "name": "design_3",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2019.1",
+      "validated": "true"
+    },
+    "design_tree": {
+      "freq_converter_0": "",
+      "GAME_0": "",
+      "Hex_to_7_seg_0": ""
+    },
+    "ports": {
+      "in_clk": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "design_3_in_clk_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.000",
+            "value_src": "default"
+          }
+        }
+      },
+      "LED": {
+        "direction": "O",
+        "left": "4",
+        "right": "0"
+      },
+      "gameReset": {
+        "direction": "I"
+      },
+      "button": {
+        "direction": "I",
+        "left": "3",
+        "right": "0"
+      },
+      "a": {
+        "direction": "O"
+      },
+      "b": {
+        "direction": "O"
+      },
+      "e": {
+        "direction": "O"
+      },
+      "d": {
+        "direction": "O"
+      },
+      "c": {
+        "direction": "O"
+      },
+      "f": {
+        "direction": "O"
+      },
+      "g": {
+        "direction": "O"
+      }
+    },
+    "components": {
+      "freq_converter_0": {
+        "vlnv": "xilinx.com:module_ref:freq_converter:1.0",
+        "xci_name": "design_3_freq_converter_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "freq_converter",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "in_clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "CLK_DOMAIN": {
+                "value": "design_3_in_clk_0",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "out_clk": {
+            "type": "clk",
+            "direction": "O"
+          },
+          "mode": {
+            "direction": "I",
+            "left": "3",
+            "right": "0"
+          }
+        }
+      },
+      "GAME_0": {
+        "vlnv": "xilinx.com:module_ref:GAME:1.0",
+        "xci_name": "design_3_GAME_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "GAME",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "CLK_DOMAIN": {
+                "value": "design_3_freq_converter_0_0_out_clk",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "gameReset": {
+            "direction": "I"
+          },
+          "button": {
+            "direction": "I",
+            "left": "3",
+            "right": "0"
+          },
+          "LED": {
+            "direction": "O",
+            "left": "4",
+            "right": "0"
+          },
+          "mode": {
+            "direction": "O",
+            "left": "3",
+            "right": "0"
+          },
+          "score": {
+            "direction": "O",
+            "left": "3",
+            "right": "0"
+          }
+        }
+      },
+      "Hex_to_7_seg_0": {
+        "vlnv": "xilinx.com:module_ref:Hex_to_7_seg:1.0",
+        "xci_name": "design_3_Hex_to_7_seg_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "Hex_to_7_seg",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "Hex": {
+            "direction": "I",
+            "left": "3",
+            "right": "0"
+          },
+          "a": {
+            "direction": "O"
+          },
+          "b": {
+            "direction": "O"
+          },
+          "c": {
+            "direction": "O"
+          },
+          "d": {
+            "direction": "O"
+          },
+          "e": {
+            "direction": "O"
+          },
+          "f": {
+            "direction": "O"
+          },
+          "g": {
+            "direction": "O"
+          }
+        }
+      }
+    },
+    "nets": {
+      "freq_converter_0_out_clk": {
+        "ports": [
+          "freq_converter_0/out_clk",
+          "GAME_0/clk"
+        ]
+      },
+      "in_clk_0_1": {
+        "ports": [
+          "in_clk",
+          "freq_converter_0/in_clk"
+        ]
+      },
+      "GAME_0_mode": {
+        "ports": [
+          "GAME_0/mode",
+          "freq_converter_0/mode"
+        ]
+      },
+      "GAME_0_LED": {
+        "ports": [
+          "GAME_0/LED",
+          "LED"
+        ]
+      },
+      "gameReset_0_1": {
+        "ports": [
+          "gameReset",
+          "GAME_0/gameReset"
+        ]
+      },
+      "button_0_1": {
+        "ports": [
+          "button",
+          "GAME_0/button"
+        ]
+      },
+      "GAME_0_score": {
+        "ports": [
+          "GAME_0/score",
+          "Hex_to_7_seg_0/Hex"
+        ]
+      },
+      "Hex_to_7_seg_0_a": {
+        "ports": [
+          "Hex_to_7_seg_0/a",
+          "a"
+        ]
+      },
+      "Hex_to_7_seg_0_b": {
+        "ports": [
+          "Hex_to_7_seg_0/b",
+          "b"
+        ]
+      },
+      "Hex_to_7_seg_0_e": {
+        "ports": [
+          "Hex_to_7_seg_0/e",
+          "e"
+        ]
+      },
+      "Hex_to_7_seg_0_d": {
+        "ports": [
+          "Hex_to_7_seg_0/d",
+          "d"
+        ]
+      },
+      "Hex_to_7_seg_0_c": {
+        "ports": [
+          "Hex_to_7_seg_0/c",
+          "c"
+        ]
+      },
+      "Hex_to_7_seg_0_f": {
+        "ports": [
+          "Hex_to_7_seg_0/f",
+          "f"
+        ]
+      },
+      "Hex_to_7_seg_0_g": {
+        "ports": [
+          "Hex_to_7_seg_0/g",
+          "g"
+        ]
+      }
+    }
+  }
+}

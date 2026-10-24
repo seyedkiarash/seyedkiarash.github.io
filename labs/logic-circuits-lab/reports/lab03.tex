@@ -1,0 +1,68 @@
+\input{preamble}
+\newcommand{\ReportShortTitle}{Experiment 3 -- Priority encoder}
+\begin{document}
+\ReportTitle{3}{Priority Encoder and Push-Button Polarity}{17 November and 8 December 2025}
+
+\section*{Summary}
+A 4-input priority encoder is implemented on the FPGA with the board push buttons as inputs and the
+board LEDs as outputs. The first version treats the buttons as active-high; the second inverts them,
+because the buttons of the board read 0 when pressed. Both were verified exhaustively for this report.
+Code: \url{\repo/lab03-priority-encoder}.
+
+\section{Design}
+A priority encoder outputs the index of the highest-priority active input. Here the output is the button
+number \emph{plus one}, so that 000 can mean ``no button pressed'':
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+\sig{button[3]} & \sig{button[2]} & \sig{button[1]} & \sig{button[0]} & \sig{LED[2:0]}\\
+\midrule
+1 & $\times$ & $\times$ & $\times$ & 100\\
+0 & 1 & $\times$ & $\times$ & 011\\
+0 & 0 & 1 & $\times$ & 010\\
+0 & 0 & 0 & 1 & 001\\
+0 & 0 & 0 & 0 & 000\\
+\bottomrule
+\end{tabular}
+\end{table}
+The priority is expressed directly by an \texttt{if}\ldots\texttt{else if} chain, which synthesis turns
+into the equations $L_2=b_3$, $L_1=\overline{b_3}(b_2+b_1)$, $L_0=\overline{b_3}(b_2+\overline{b_1}b_0)$
+(2 LUTs).
+
+\begin{lstlisting}
+always @(*) begin
+    if      (A[3]) c = 3'b100;
+    else if (A[2]) c = 3'b011;
+    else if (A[1]) c = 3'b010;
+    else if (A[0]) c = 3'b001;
+    else           c = 3'b000;
+end
+\end{lstlisting}
+
+\section{Part 3 vs.\ Part 5 -- button polarity}
+In Part 3 the buttons were connected directly. On the board, however, a button reads \emph{0} when it is
+pressed, so with no button pressed all inputs are 1 and the encoder shows 100. Part 5 places the same
+encoder (\sig{encoderpr}) behind an inverter, \sig{.A(\textasciitilde button)}, after which the LEDs
+behave as intended. The same inversion is used in the later experiments wherever the board buttons
+serve as data inputs.
+
+\section{Verification}
+\begin{table}[h]
+\centering\small
+\begin{tabularx}{\linewidth}{@{}lXr@{}}
+\toprule
+Testbench & What is checked & Result\\
+\midrule
+\sig{tb\_priority\_encoder} & all 16 input combinations, active-high & \pass\\
+\sig{tb\_part5} & all 16 combinations, active-low buttons & \pass\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Conclusion}
+The priority encoder is a direct translation of its truth table into a prioritised conditional chain.
+The second version is a reminder to check the electrical polarity of every input before testing logic on
+the board.
+
+\end{document}

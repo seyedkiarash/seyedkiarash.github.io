@@ -1,0 +1,22 @@
+## lab04-adders-hamming/part1-hex-display  -  top module: Part1_module
+## Board: Zynq-7010 (XC7Z010-CLG400-1) + extension board, all I/O LVCMOS33
+
+set_property -dict {PACKAGE_PIN M20 IOSTANDARD LVCMOS33} [get_ports {Dip[0]}]
+set_property -dict {PACKAGE_PIN M19 IOSTANDARD LVCMOS33} [get_ports {Dip[1]}]
+set_property -dict {PACKAGE_PIN L20 IOSTANDARD LVCMOS33} [get_ports {Dip[2]}]
+set_property -dict {PACKAGE_PIN L19 IOSTANDARD LVCMOS33} [get_ports {Dip[3]}]
+set_property -dict {PACKAGE_PIN M15 IOSTANDARD LVCMOS33} [get_ports {Dip[4]}]
+set_property -dict {PACKAGE_PIN M14 IOSTANDARD LVCMOS33} [get_ports {Dip[5]}]
+set_property -dict {PACKAGE_PIN J14 IOSTANDARD LVCMOS33} [get_ports {Dip[6]}]
+set_property -dict {PACKAGE_PIN K14 IOSTANDARD LVCMOS33} [get_ports {Dip[7]}]
+set_property -dict {PACKAGE_PIN B19 IOSTANDARD LVCMOS33} [get_ports {dig[0]}]
+set_property -dict {PACKAGE_PIN G20 IOSTANDARD LVCMOS33} [get_ports {dig[1]}]
+set_property -dict {PACKAGE_PIN D19 IOSTANDARD LVCMOS33} [get_ports {dig[2]}]
+set_property -dict {PACKAGE_PIN D20 IOSTANDARD LVCMOS33} [get_ports {dig[3]}]
+set_property -dict {PACKAGE_PIN F16 IOSTANDARD LVCMOS33} [get_ports {a}]
+set_property -dict {PACKAGE_PIN F17 IOSTANDARD LVCMOS33} [get_ports {b}]
+set_property -dict {PACKAGE_PIN H15 IOSTANDARD LVCMOS33} [get_ports {c}]
+set_property -dict {PACKAGE_PIN G15 IOSTANDARD LVCMOS33} [get_ports {d}]
+set_property -dict {PACKAGE_PIN J18 IOSTANDARD LVCMOS33} [get_ports {e}]
+set_property -dict {PACKAGE_PIN H18 IOSTANDARD LVCMOS33} [get_ports {f}]
+set_property -dict {PACKAGE_PIN H16 IOSTANDARD LVCMOS33} [get_ports {g}]

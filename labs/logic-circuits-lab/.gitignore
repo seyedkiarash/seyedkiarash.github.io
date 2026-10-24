@@ -1,0 +1,11 @@
+# simulation outputs
+*.vvp
+*.vcd
+sim/**/*.log
+**/sim/*.log
+# LaTeX intermediates
+reports/*.aux
+reports/*.log
+reports/*.out
+reports/*.toc
+reports/*.out.log

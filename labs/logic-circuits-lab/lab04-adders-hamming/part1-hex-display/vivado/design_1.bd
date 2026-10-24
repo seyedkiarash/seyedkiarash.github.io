@@ -1,0 +1,72 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x0",
+      "device": "xc7z010clg400-1",
+      "name": "design_1",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2019.1"
+    },
+    "design_tree": {
+      "Part1_module_0": ""
+    },
+    "ports": {
+      "sw_0": {
+        "direction": "I",
+        "left": "3",
+        "right": "0"
+      }
+    },
+    "components": {
+      "Part1_module_0": {
+        "vlnv": "xilinx.com:module_ref:Part1_module:1.0",
+        "xci_name": "design_1_Part1_module_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "Part1_module",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "Dip": {
+            "direction": "I",
+            "left": "7",
+            "right": "0"
+          },
+          "dig": {
+            "direction": "O",
+            "left": "3",
+            "right": "0"
+          },
+          "a": {
+            "direction": "O"
+          },
+          "b": {
+            "direction": "O"
+          },
+          "c": {
+            "direction": "O"
+          },
+          "d": {
+            "direction": "O"
+          },
+          "e": {
+            "direction": "O"
+          },
+          "f": {
+            "direction": "O"
+          },
+          "g": {
+            "direction": "O"
+          }
+        }
+      }
+    },
+    "nets": {
+      "sw_0_1": {
+        "ports": [
+          "sw_0"
+        ]
+      }
+    }
+  }
+}
