@@ -134,6 +134,42 @@ window.SITE = {
       ]
     },
     {
+      id: "oop-circuit-simulator",
+      featured: true,
+      title: {
+        fa: "شبیه‌ساز مدار الکتریکی به زبان C++",
+        en: "Circuit Simulator in C++"
+      },
+      year: { fa: "بهار ۱۴۰۴", en: "Spring 2025" },
+      context: {
+        fa: "پروژهٔ گروهی درس برنامه‌سازی شیءگرا — دکتر عبدالله آراسته",
+        en: "Object-Oriented Programming team project — Dr. Abdollah Arasteh"
+      },
+      tags: ["C++", "Qt", "Eigen", { fa: "تحلیل گره‌ای اصلاح‌شده", en: "MNA" }, { fa: "طراحی شیءگرا", en: "OOP Design" }],
+      cover: "assets/img/oop/cover.webp",
+      summary: {
+        fa: "شبیه‌سازی شبیه SPICE در سه فاز: طراحی شیءگرا، شبیه‌ساز خط فرمان با تحلیل گره‌ای اصلاح‌شده (MNA) و تحلیل گذرا، و نسخهٔ گرافیکی با Qt شامل ویرایشگر شماتیک، نمایشگر شکل موج، ذخیرهٔ پروژه و ارتباط شبکه‌ای؛ همراه با گزارش بازبینی کد.",
+        en: "A SPICE-like simulator built in three phases — an object-oriented design, a command-line simulator using modified nodal analysis with transient analysis, and a Qt GUI with schematic editor, waveform viewer, project files and networking — plus a code-review report."
+      },
+      description: {
+        fa: "این پروژه به‌صورت گروهی و در سه فاز انجام شد:\n\n- **فاز ۰، طراحی:** کلاس‌ها، نمودار UML، الگوهای طراحی (Factory، Bridge، MVC، Command)، روش‌های عددی و طراحی مدیریت خطا.\n- **فاز ۱، شبیه‌ساز خط فرمان:** دستورات به سبک LTspice و حل ماتریس MNA با کتابخانهٔ Eigen. عناصر پشتیبانی‌شده: مقاومت، خازن، سلف، دیود، منابع DC، سینوسی و پالسی، و منابع وابستهٔ E، G، H و F. تحلیل‌ها: گذرا (اویلر پسرو) و جاروب DC. منوی فایل برای ذخیره و بازکردن شماتیک‌ها هم دارد.\n- **فاز ۲، نسخهٔ گرافیکی با Qt 6 و ساختار MVC:** ویرایشگر شماتیک با کلید میانبر، چرخش و برچسب‌گذاری گره‌ها؛ نمایشگر شکل موج با زوم خودکار، تغییر مقیاس محورها، عملیات ریاضی روی سیگنال‌ها، کرسر و دابل کرسر؛ تحلیل گذرا، AC و فاز؛ تک‌قطبی‌ها، ذخیرهٔ پروژه با cereal و ارسال داده از طریق TCP.\n\n**بازبینی کد:** برای این صفحه، کد نهایی هر دو فاز دوباره کامپایل و آزمایش شد، بدون هیچ تغییری در کد.\n\n- **فاز ۱:** نتایج با ngspice مقایسه شد. حل‌کنندهٔ خطی برای مقاومت‌ها، منابع مستقل، منابع E، G و F و پاسخ گذرای مدارهای RC، RL و RLC درست و با دقت مرتبهٔ اول است.\n- **فاز ۲:** نسخهٔ گرافیکی زیر نمایشگر مجازی اجرا شد.\n- **کاستی‌ها:** مواردی مثل منبع H، سلف در تحلیل DC، دیود ایده‌آل و اتصال سیم‌ها در نسخهٔ گرافیکی کامل کار نمی‌کنند. همهٔ این موارد با علت و راه‌حل پیشنهادی در گزارش آمده است.",
+        en: "A team project completed in three phases:\n\n- **Phase 0, design:** classes, UML, design patterns (Factory, Bridge, MVC, Command), numerical methods and an exception design.\n- **Phase 1, console simulator:** LTspice-style commands and an MNA solver built on Eigen. Elements: resistors, capacitors, inductors, diodes, DC/SIN/PULSE sources and E, G, H and F dependent sources. Analyses: backward-Euler transient and DC sweep. A file menu saves and opens schematics.\n- **Phase 2, Qt 6 GUI with an MVC layout:** a schematic editor with shortcuts, rotation and node labels; a waveform viewer with auto-zoom, axis scaling, math traces, a cursor and a double cursor; transient, AC and phase analyses; sub-circuits, cereal project files and TCP data transfer.\n\n**Code review:** for this page, the final code of both phases was rebuilt and tested without changing the code.\n\n- **Phase 1:** results were checked against ngspice. The linear solver is correct for resistors, independent sources, E/G/F sources and RC, RL and RLC transients, with the expected first-order accuracy.\n- **Phase 2:** the GUI was run under a virtual display.\n- **Gaps:** some parts do not fully work, including the H source, inductors in DC analysis, ideal diodes and wire connectivity in the GUI. Each is documented in the report with its cause and a suggested fix."
+      },
+      images: [
+        { src: "assets/img/oop/rlc.webp", caption: { fa: "پاسخ پلهٔ مدار RLC سری: شبیه‌ساز فاز ۱ در مقایسه با ngspice", en: "Series RLC step response: Phase 1 simulator vs. ngspice" } },
+        { src: "assets/img/oop/gui_charts.webp", caption: { fa: "نسخهٔ گرافیکی: ویرایشگر شماتیک و نمایشگر شکل موج (با سیگنال‌های نمونهٔ داخلی)", en: "Phase 2 GUI: schematic editor and waveform viewer (showing built-in sample traces)" } },
+        { src: "assets/img/oop/gui_place.webp", caption: { fa: "قرار دادن المان‌ها با کلید میانبر و چرخش", en: "Placing components with shortcuts and rotation" } },
+        { src: "assets/img/oop/ac.webp", caption: { fa: "تحلیل AC فیلتر RC پایین‌گذر با موتور تحلیل فاز ۲", en: "AC sweep of an RC low-pass with the Phase 2 engine" } }
+      ],
+      files: [
+        { label: { fa: "گزارش بازبینی کد (PDF، انگلیسی)", en: "Code review report (PDF)" }, url: "projects/oop-circuit-simulator/report/oop_review.pdf" },
+        { label: { fa: "گزارش طراحی فاز ۰ (PDF، فارسی)", en: "Phase 0 design document (PDF, Persian)" }, url: "projects/oop-circuit-simulator/report/phase0-design.pdf" }
+      ],
+      links: [
+        { label: { fa: "کد نهایی فاز ۱ و ۲ در GitHub", en: "Final Phase 1 and Phase 2 code on GitHub" }, url: "https://github.com/seyedkiarash/seyedkiarash.github.io/tree/main/projects/oop-circuit-simulator" }
+      ]
+    },
+    {
       id: "waveguide-field-visualizer",
       featured: true,
       title: {
