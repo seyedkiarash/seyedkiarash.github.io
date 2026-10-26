@@ -32,6 +32,8 @@
     gallery: { fa: "تصاویر", en: "Images" },
     audio: { fa: "نمونهٔ صوتی", en: "Audio samples" },
     assignments: { fa: "تمرین‌های کامپیوتری", en: "Computer Assignments" },
+    sideProjects: { fa: "پروژه‌های جانبی", en: "Side Projects" },
+    sideIntro: { fa: "برنامه‌هایی که خارج از درس‌ها، با کمک Claude، برای نیازهای خودم ساختم.", en: "Apps I built outside my courses, with help from Claude, for my own needs." },
     viewNotebook: { fa: "مشاهدهٔ نوت‌بوک", en: "View notebook" },
     download: { fa: "دانلود", en: "Download" },
     files: { fa: "فایل‌ها", en: "Files" },
@@ -274,7 +276,13 @@
     var current = params.get("tag") || "";
     function draw() {
       var list = all.filter(function (p) { return !current || (p.tags || []).some(function (tg) { return tagKey(tg) === current; }); });
-      document.getElementById("project-list").innerHTML = list.map(projectCard).join("");
+      var mainList = list.filter(function (p) { return !p.side; }), sideList = list.filter(function (p) { return p.side; });
+      document.getElementById("project-list").innerHTML = mainList.map(projectCard).join("");
+      var sideBox = document.getElementById("side-projects");
+      if (sideBox) {
+        sideBox.style.display = sideList.length ? "" : "none";
+        document.getElementById("side-list").innerHTML = sideList.map(projectCard).join("");
+      }
       Array.prototype.forEach.call(document.querySelectorAll(".filter button"), function (b) {
         b.setAttribute("aria-pressed", b.getAttribute("data-tag") === current ? "true" : "false");
       });
@@ -286,6 +294,7 @@
         tags.map(function (tg) { return '<button type="button" data-tag="' + esc(tagKey(tg)) + '">' + esc(t(tg)) + "</button>"; }).join("") +
       "</div>" : "") +
       '<div class="grid" id="project-list"></div>' +
+      (all.some(function (p) { return p.side; }) ? '<section class="section" id="side-projects"><div class="section-head"><h2>' + u("sideProjects") + '</h2></div><p class="section-intro">' + u("sideIntro") + '</p><div class="grid" id="side-list"></div></section>' : "") +
       ((S.assignments || []).length ? section("assignments", u("assignments"), '<div class="assign-list">' + S.assignments.map(assignmentRow).join("") + "</div>") : "");
     Array.prototype.forEach.call(main.querySelectorAll(".filter button"), function (b) {
       b.addEventListener("click", function () { current = b.getAttribute("data-tag"); draw(); });

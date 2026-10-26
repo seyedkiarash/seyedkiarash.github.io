@@ -170,6 +170,82 @@ window.SITE = {
       ]
     },
     {
+      id: "circuit-filters-noise-cancellation",
+      featured: true,
+      title: {
+        fa: "فیلترهای فعال و حذف آنالوگ نویز",
+        en: "Active Filters and Analog Noise Cancellation"
+      },
+      year: { fa: "پاییز ۱۴۰۴", en: "Fall 2025" },
+      context: {
+        fa: "پروژهٔ گروهی درس تئوری مدار — دکتر روح‌الله امیری",
+        en: "Circuit Theory team project — Dr. Rouhollah Amiri"
+      },
+      tags: ["LTspice", "Simulink", { fa: "فیلتر آنالوگ", en: "Analog Filters" }, { fa: "مدار", en: "Circuits" }],
+      cover: "assets/img/circuit-anc/cover.webp",
+      summary: {
+        fa: "طراحی فیلتر متغیر حالت (پایین‌گذر، میان‌گذر و بالاگذر) برای ۲۰ کیلوهرتز، فیلترهای تمام‌گذر، و زنجیرهٔ آنالوگی که نویز را از یک قطعهٔ موسیقی حدود ۳۳ دسی‌بل کم می‌کند.",
+        en: "A state-variable filter (low-, band- and high-pass) designed for 20 kHz, all-pass filters, and an analog chain that reduces the noise in a music recording by about 33 dB."
+      },
+      description: {
+        fa: "پروژه‌ای سه‌بخشی در تحلیل و طراحی مدارهای فعال:\n\n- **بخش ۱، فیلتر متغیر حالت (SAF):** استخراج توابع تبدیل خروجی‌های بالاگذر، میان‌گذر و پایین‌گذر و طراحی مقادیر قطعات برای `fc = 20 kHz` و `Q = 0.75`. در بخش امتیازی، خروجی ناچ به آن اضافه شد.\n- **بخش ۲، فیلتر تمام‌گذر و حذف نویز:** تحلیل فیلترهای تمام‌گذر مرتبهٔ یک و دو، و ساخت زنجیرهٔ حذف نویز آنالوگ در LTspice و Simulink. زنجیره چهار طبقه دارد: تقویت ۱۰ برابری نویز، تأخیر حدود ۴۵ میکروثانیه با فیلتر تمام‌گذر مرتبهٔ دو، جمع با موسیقیِ نویزدار، و وارونه‌سازی. چون فیلتر تمام‌گذر خودش فاز را وارونه می‌کند، به طبقهٔ تفریق‌گر نیازی نیست.\n- **بخش ۳:** پاسخ فرکانس بالای تقویت‌کننده‌های ترانزیستوری با مدل‌های MOSFET و BJT.\n\n**بازبینی و مرتب‌سازی:** فایل‌های پروژه بر اساس بخش‌ها مرتب شدند. شماتیک‌های LTspice به نت‌لیست ngspice تبدیل و دوباره شبیه‌سازی شدند. نتیجهٔ فیلتر `f0 = 20.1 kHz` و `Q = 0.76` است. تأخیر گروهی طبقهٔ تمام‌گذر زیر ۳ کیلوهرتز ۴۵ میکروثانیه است. روی صدای خود پروژه، نسبت سیگنال به نویز از ۸٫۴ به حدود ۴۲ دسی‌بل رسید.",
+        en: "A three-part project in active-circuit analysis and design:\n\n- **Part 1, state-variable filter (SAF):** transfer functions of the high-, band- and low-pass outputs, and component values for `fc = 20 kHz` and `Q = 0.75`. The bonus question adds a notch output.\n- **Part 2, all-pass filters and noise cancellation:** first- and second-order all-pass filters, then an analog noise-cancelling chain built in LTspice and Simulink. The chain has four stages: the noise is amplified 10 times, delayed by about 45 µs in a second-order all-pass filter, added to the noisy music and inverted. The all-pass stage itself inverts the phase, so no subtractor is needed.\n- **Part 3:** high-frequency response of transistor amplifiers with MOSFET and BJT models.\n\n**Review and organization:** the files were sorted by part. The LTspice schematics were converted to ngspice netlists and simulated again. The filter gives `f0 = 20.1 kHz` and `Q = 0.76`, and the all-pass stage gives a group delay of 45 µs below 3 kHz. On the project's own audio, the signal-to-noise ratio rises from 8.4 dB to about 42 dB."
+      },
+      audio: [
+        { src: "assets/audio/circuit-anc/before.mp3", caption: { fa: "ورودی: موسیقی همراه با نویز", en: "Input: music with noise" } },
+        { src: "assets/audio/circuit-anc/after.mp3", caption: { fa: "خروجی مدار حذف نویز (Simulink)", en: "Output of the noise-cancelling circuit (Simulink)" } },
+        { src: "assets/audio/circuit-anc/noise.mp3", caption: { fa: "نویز جداگانه (مرجع)", en: "Isolated noise (reference)" } }
+      ],
+      images: [
+        { src: "assets/img/circuit-anc/saf_response.webp", caption: { fa: "پاسخ فرکانسی فیلتر متغیر حالت (ngspice)", en: "State-variable filter frequency response (ngspice)" } },
+        { src: "assets/img/circuit-anc/notch_ltspice.webp", caption: { fa: "بخش امتیازی: خروجی ناچ در LTspice", en: "Bonus: notch output in LTspice" } },
+        { src: "assets/img/circuit-anc/allpass.webp", caption: { fa: "تأخیر گروهی و بهرهٔ طبقهٔ تمام‌گذر", en: "Group delay and gain of the all-pass stage" } },
+        { src: "assets/img/circuit-anc/anc_result.webp", caption: { fa: "نویز پیش و پس از مدار حذف نویز", en: "Noise before and after the cancellation circuit" } }
+      ],
+      files: [
+        { label: { fa: "گزارش پروژه (PDF، انگلیسی)", en: "Project report (PDF)" }, url: "projects/circuit-filters-noise-cancellation/report/circuit-theory-project-report.pdf" }
+      ],
+      links: [
+        { label: { fa: "شماتیک‌های LTspice، مدل Simulink، صداها و فایل‌های بازبینی در GitHub", en: "LTspice schematics, Simulink model, audio and verification files on GitHub" }, url: "https://github.com/seyedkiarash/seyedkiarash.github.io/tree/main/projects/circuit-filters-noise-cancellation" }
+      ]
+    },
+    {
+      id: "multi-armed-bandit",
+      featured: false,
+      title: {
+        fa: "مسئلهٔ راهزن چنددست (Multi-Armed Bandit)",
+        en: "Multi-Armed Bandit"
+      },
+      year: { fa: "پاییز ۱۴۰۴", en: "Fall 2025" },
+      context: {
+        fa: "پروژهٔ گروهی درس احتمال و آمار مهندسی — دکتر محمدحسین یاسائی",
+        en: "Probability and Statistics team project — Dr. Mohammad Hossein Yassaee"
+      },
+      tags: ["Python", { fa: "احتمال و آمار", en: "Probability" }, { fa: "یادگیری تقویتی", en: "Reinforcement Learning" }],
+      cover: "assets/img/bandit/cover.webp",
+      summary: {
+        fa: "بررسی نظری و شبیه‌سازی تعادل اکتشاف و بهره‌برداری: پشیمانی، نامساوی هافدینگ و UCB، به‌روزرسانی بیزی بتا–برنولی و نمونه‌گیری تامسون.",
+        en: "Theory and simulation of the exploration–exploitation trade-off: regret, Hoeffding's inequality and UCB, Beta–Bernoulli Bayesian updates and Thompson sampling."
+      },
+      description: {
+        fa: "این پروژه مسئلهٔ راهزن چنددست را در ۱۶ پرسش نظری و ۷ شبیه‌سازی در Python بررسی می‌کند:\n\n- **پشیمانی (regret):** تعریف آن و مقایسهٔ سیاست یکنواخت با سیاست حریصانه\n- **کران‌ها:** بررسی نامساوی هافدینگ با شبیه‌سازی و نقش آن در ساختن قاعدهٔ UCB\n- **به‌روزرسانی بیزی:** همزاد بودن توزیع بتا با برنولی و تحول توزیع پسین با افزایش داده\n- **نمونه‌گیری تامسون:** پشیمانی لگاریتمی، همگرایی میانگین‌های پسین و ارتباط آن با اصل «تطبیق احتمال»\n- **مقایسه‌ها:** ε-حریصانه، UCB و تامسون؛ و تامسون با درست‌نمایی گاوسی در برابر برنولی\n\n**بازبینی و مرتب‌سازی:** همهٔ شبیه‌سازی‌ها دوباره اجرا شدند و با گزارش هم‌خوانی داشتند. اسکریپت‌ها بر اساس شمارهٔ پرسش نام‌گذاری شدند. ۳۹ جمله از متن گزارش که به‌اشتباه کامنت شده بود و در PDF دیده نمی‌شد برگردانده شد. چهار جای گزارش هم اصلاح شد؛ از جمله جهت نامساوی هافدینگ در توضیح شبیه‌سازی ۲.",
+        en: "The project studies the multi-armed bandit problem through 16 theory questions and 7 Python simulations:\n\n- **Regret:** its definition, and uniform against greedy policies\n- **Bounds:** Hoeffding's inequality checked by simulation, and its role in the UCB rule\n- **Bayesian updates:** Beta–Bernoulli conjugacy and how the posterior evolves with more data\n- **Thompson sampling:** logarithmic regret, convergence of the posterior means, and its link to probability matching\n- **Comparisons:** ε-greedy, UCB and Thompson sampling; Gaussian against Bernoulli likelihoods in Thompson sampling\n\n**Review and organization:** every simulation was run again and matches the report. The scripts were renamed by question number. 39 sentences of the report had been commented out by mistake and were missing from the PDF; they are restored. Four passages were corrected, including the direction of the Hoeffding inequality in the Simulation 2 discussion."
+      },
+      images: [
+        { src: "assets/img/bandit/q5_comparison.webp", caption: { fa: "پشیمانی تجمعی ε-حریصانه، UCB و نمونه‌گیری تامسون", en: "Cumulative regret of ε-greedy, UCB and Thompson sampling" } },
+        { src: "assets/img/bandit/thompson.webp", caption: { fa: "نمونه‌گیری تامسون: پشیمانی و همگرایی میانگین‌های پسین", en: "Thompson sampling: regret and posterior means" } },
+        { src: "assets/img/bandit/beta_posterior.webp", caption: { fa: "تحول توزیع پسین بتا با افزایش مشاهده‌ها", en: "Evolution of the Beta posterior" } },
+        { src: "assets/img/bandit/q7_gaussian_vs_bernoulli.webp", caption: { fa: "تامسون با درست‌نمایی گاوسی در برابر برنولی", en: "Gaussian against Bernoulli Thompson sampling" } }
+      ],
+      files: [
+        { label: { fa: "گزارش پروژه (PDF، انگلیسی)", en: "Project report (PDF)" }, url: "projects/multi-armed-bandit/report/project.pdf" },
+        { label: { fa: "نوت‌بوک شبیه‌سازی‌های ۵ تا ۷", en: "Notebook for simulations 5–7" }, url: "https://github.com/seyedkiarash/seyedkiarash.github.io/blob/main/projects/multi-armed-bandit/simulations/q5_q6_q7_bandit_comparisons.ipynb" }
+      ],
+      links: [
+        { label: { fa: "کد شبیه‌سازی‌ها و سورس گزارش در GitHub", en: "Simulation code and report source on GitHub" }, url: "https://github.com/seyedkiarash/seyedkiarash.github.io/tree/main/projects/multi-armed-bandit" }
+      ]
+    },
+    {
       id: "waveguide-field-visualizer",
       featured: true,
       title: {
@@ -238,7 +314,69 @@ window.SITE = {
         { label: { fa: "کد MATLAB", en: "MATLAB code" }, url: "assets/files/sas/code.zip" }
       ],
       links: []
+    },
+    {
+      id: "style-finder",
+      side: true,
+      title: {
+        fa: "سبک‌یاب: پیدا کردن ویدیوهای هم‌سبک",
+        en: "Style Finder (Finding)"
+      },
+      year: { fa: "۱۴۰۵", en: "2026" },
+      context: {
+        fa: "پروژهٔ شخصی، ساخته‌شده با کمک Claude — ویندوز، اندروید و iOS",
+        en: "Personal project built with Claude — Windows, Android and iOS"
+      },
+      tags: ["Python", "JavaScript", "Gemini API", { fa: "پروژهٔ جانبی", en: "Side Project" }],
+      cover: "assets/img/side/finding_cover.webp",
+      summary: {
+        fa: "برنامه‌ای فارسی که سبک یک ویدیو، عکس یا آهنگ را با Gemini توصیف می‌کند و نمونه‌های هم‌سبک را در YouTube، TikTok، Instagram و Pinterest پیدا و با توضیح هر معیار رتبه‌بندی می‌کند.",
+        en: "A Persian app that describes the style of a video, picture or song with Gemini, then finds and ranks similar-style content on YouTube, TikTok, Instagram and Pinterest, explaining each score."
+      },
+      description: {
+        fa: "سبک‌یاب ویدیو، عکس یا فایل صوتی شما را می‌گیرد و مراحل زیر را انجام می‌دهد:\n\n- با مدل Gemini «سبک» آن را در چهار جنبه توصیف می‌کند: تصویر، تدوین، موسیقی و صدا، و موضوع.\n- از این توصیف کلیدواژه‌های دقیق جست‌وجو می‌سازد.\n- نمونه‌های پیداشده را تماشا و تحلیل می‌کند.\n- با امتیازی که در خود کد محاسبه می‌شود رتبه‌بندی می‌کند و توضیح می‌دهد در هر جنبه چقدر شبیه‌اند.\n\nکاربر می‌تواند به زبان خودش بنویسد دنبال چه چیزی است و اهمیت هر جنبه را تعیین کند. برنامه نام آهنگِ یک تکه صدا یا ویدیو را هم پیدا می‌کند؛ اول با اثر انگشت صوتی و اگر جواب نداد با Gemini.\n\n- **ویندوز:** سرور محلی Python با رابط وب راست‌به‌چپ و حالت تیره\n- **اندروید و iOS:** منطق مشترک JavaScript داخل پوسته‌های Java و Swift\n- **کلیدها:** هر کاربر کلید خودش را وارد می‌کند و کلید فقط روی دستگاه خودش می‌ماند\n- **آزمون:** صدها آزمون خودکار، و حالت آزمایشی با دادهٔ ساختگی که بدون کلید و اینترنت اجرا می‌شود (تصویر این صفحه از همین حالت است)\n\nایده، خواسته‌ها، تصمیم‌های طراحی و آزمودن روی دستگاه‌های واقعی از من بود و کد را Claude در همکاری قدم‌به‌قدم با من نوشت.",
+        en: "Style Finder takes your video, picture or sound file and works in four steps:\n\n- Gemini describes its style in four aspects: visuals, editing, music and sound, and content.\n- The app turns that description into precise search queries.\n- It watches and analyses the results it finds.\n- It ranks them with a similarity score computed in code, and explains how close each one is in every aspect.\n\nYou can describe in your own words what you are looking for and set how much each aspect matters. The app can also name the song in a clip or video, by audio fingerprint first and Gemini as a fallback.\n\n- **Windows:** a local Python server with a right-to-left web interface and a dark mode\n- **Android and iOS:** shared JavaScript logic inside Java and Swift shells\n- **Keys:** each user enters their own API key, which stays on their device\n- **Testing:** hundreds of automated tests, and a demo mode with synthetic data that runs without a key or internet (the screenshots here use it)\n\nThe idea, requirements, design decisions and real-device testing were mine; Claude wrote the code, working with me step by step."
+      },
+      images: [
+        { src: "assets/img/side/finding_results.webp", caption: { fa: "صفحهٔ نتایج در حالت آزمایشی (دادهٔ ساختگی)", en: "Results page in demo mode (synthetic data)" } },
+        { src: "assets/img/side/finding_search.webp", caption: { fa: "صفحهٔ جست‌وجوی جدید", en: "New search page" } }
+      ],
+      files: [],
+      links: [
+        { label: { fa: "کد و راهنمای اجرا در GitHub", en: "Code and setup guide on GitHub" }, url: "https://github.com/seyedkiarash/Finding" }
+      ]
+    },
+    {
+      id: "chronos-planner",
+      side: true,
+      title: {
+        fa: "Chronos: برنامه‌ریز هوشمند اندروید",
+        en: "Chronos: An Android Planner"
+      },
+      year: { fa: "۱۴۰۵", en: "2026" },
+      context: {
+        fa: "پروژهٔ شخصی، ساخته‌شده با کمک Claude — اندروید",
+        en: "Personal project built with Claude — Android"
+      },
+      tags: ["Java", "Kotlin", "Android", { fa: "بهینه‌سازی", en: "Optimization" }, { fa: "پروژهٔ جانبی", en: "Side Project" }],
+      cover: "assets/img/side/chronos_cover.webp",
+      summary: {
+        fa: "برنامه‌ریز شخصی‌ای که تصمیم می‌گیرد هر کار «کِی» انجام شود: ساعت‌های هر هدف را تا موعدش پخش می‌کند، روز را با مدل انرژی و خستگی می‌چیند، از ثبت‌ها یاد می‌گیرد و شانس رسیدن به هدف‌های بلندمدت را پیش‌بینی می‌کند.",
+        en: "A personal planner that decides when to do things: it spreads each goal's hours up to its deadline, arranges each day with a model of energy and fatigue, learns from what you log and forecasts long-term goals."
+      },
+      description: {
+        fa: "Chronos چهار بخش اصلی دارد:\n\n- **افق:** ساعت‌های هر هدف را تا موعدش روی روزهای آینده پخش می‌کند و اگر موعدی شدنی نباشد، زود می‌گوید و پیشنهاد می‌دهد چه چیزی آن را درست می‌کند.\n- **روز:** هر کار را در زمانی قرار می‌دهد که کمترین هزینه را دارد. این تصمیم بر پایهٔ مدلی از ساعت بدن است: فشار خواب، ریتم شبانه‌روزی، و خستگی ذهنی و جسمی. کلاس‌ها، وعده‌ها، رفت‌وآمد، خواب و استراحت هم در نظر گرفته می‌شوند.\n- **لاگ:** جلسه‌ها، تمرکز، خستگی و خواب ثبت می‌شوند. برنامه هر شب یاد می‌گیرد کارها واقعاً چقدر طول می‌کشند و کی بهتر کار می‌کنید.\n- **ناوبر:** گرافی از هدف‌های بلندمدت با پیش‌بینی مونت‌کارلو و تقسیم ساعت‌های هفتگی. پیشنهادهای قواعد خود برنامه یا یک مدل زبانی، یکی‌یکی با تأیید شما اعمال می‌شوند.\n\nرابط کاربری به انگلیسی و فارسی (راست‌به‌چپ، با تاریخ شمسی) است. با Jetpack Compose و پایگاه دادهٔ Room ساخته شده و موتور برنامه‌ریزی آزمون‌های واحد گسترده دارد. ایده و طراحی مسئله از من بود و کد را Claude در همکاری قدم‌به‌قدم با من نوشت.",
+        en: "Chronos has four main parts:\n\n- **Horizon:** spreads each goal's hours over the coming days up to its deadline. It warns early when a deadline cannot be met and suggests what would fix it.\n- **Day:** places every block where it costs least. The choice is based on a body-clock model: sleep pressure, circadian rhythm, and mental and physical fatigue. Classes, meals, travel, sleep and rest are also taken into account.\n- **Log:** records sessions, focus, tiredness and sleep. Each night the app learns how long things really take and when you work best.\n- **Navigator:** a graph of long-term goals with Monte Carlo forecasts and a weekly allocation of hours. Proposals from the app's own rules or from an LLM are applied one change at a time, after you approve them.\n\nThe interface is in English and Persian (right-to-left, with Jalali dates). It is built with Jetpack Compose and Room, and the planning engine has an extensive unit-test suite. The idea and problem design were mine; Claude wrote the code, working with me step by step."
+      },
+      images: [],
+      files: [
+        { label: { fa: "راهنمای کاربر (PDF، فارسی)", en: "User guide (PDF, Persian)" }, url: "https://github.com/seyedkiarash/Chronos/blob/main/docs/USER_GUIDE.fa.pdf" }
+      ],
+      links: [
+        { label: { fa: "کد و راهنمای ساخت در GitHub", en: "Code and build guide on GitHub" }, url: "https://github.com/seyedkiarash/Chronos" }
+      ]
     }
+
   ],
 
   /*

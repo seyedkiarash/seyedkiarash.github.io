@@ -1,0 +1,10 @@
+* single-pole op-amp: A0=1e5, GBW=1.8 MHz (OP747 typ.), rails ignored
+.subckt opamp inp inn vp vn out
+Gin 0 x inp inn 1m
+Rx x 0 100meg
+Cx x 0 88.4p
+Eout out 0 x 0 1
+.ends
+.subckt opideal inp inn vp vn out
+E1 out 0 inp inn 1e7
+.ends

@@ -1,0 +1,21 @@
+* netlist generated from the LTspice schematic by asc2cir.py
+XU1 0 N001 N002 N003 N004 opamp
+XU2 0 N005 N002 N003 Vo opamp
+C1 N001 N006 10n
+C2 N004 N006 10n
+R1 N006 N007 1.25k
+R2 N004 N001 1.25k
+VV1 N002 0 30 
+VV2 N003 0 -30 
+R3 N005 N004 1.125k
+R41 N005 N007 4k
+R42 Vo N005 4k
+VVs N007 0 SIN(0 1 2k 0 0 0) AC 1 0
+.ac dec 200 100 1Meg
+.include opamp.lib
+.control
+run
+let gd = -1*deriv(cph(v(Vo)))/(2*pi)
+wrdata allpass.txt vdb(Vo) cph(v(Vo)) gd
+.endc
+.end

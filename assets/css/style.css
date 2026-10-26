@@ -116,6 +116,7 @@ main.wrap { padding-top: 40px; padding-bottom: 64px; }
 .section { margin-top: 52px; }
 .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; margin-bottom: 20px; }
 .section-head h2 { font-size: 1.3rem; }
+.section-intro { color: var(--muted); margin: -8px 0 18px; font-size: .95rem; }
 .more { display: inline-flex; align-items: center; gap: 4px; font-size: .92rem; white-space: nowrap; }
 .more .icon { width: 16px; height: 16px; }
 .prose p { margin: 0 0 1em; }
