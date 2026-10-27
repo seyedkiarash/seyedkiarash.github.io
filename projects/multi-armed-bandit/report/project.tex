@@ -128,7 +128,7 @@ Because if the $i$-th arm is selected, our reward is $X_{i,s}$.
 Suppose $T_r$ is the set of indices $t$ where the indicator function is 1, meaning $A_t = i$.
 Then: %
 \[
-N_i(T) = \sum_{t \in T_r} \mathbb{I}\{A_t = i\} = \sum_{t=1}^T \mathbb{I}\{A_t = i\} - \sum_{t \in T \setminus T_r} \mathbb{I}\{A_t = i\} = \sum_{t \in T_r} 1 = |T_r|
+N_i(T) = \sum_{t=1}^T \mathbb{I}\{A_t = i\} = \sum_{t \in T_r} 1 + \sum_{t \notin T_r} 0 = |T_r|
 \] %
 This definition is intuitively logical because the size of the set $T_r$ represents the total number of times the indicator $A_t$ equals 1 (i.e., arm $i$ is chosen).
 %
@@ -242,7 +242,7 @@ According to Hoeffding's inequality for $c_n(\delta)$: %
 P(|Y_n - \mu| \geq c_n(\delta)) \leq 2 \exp\left( -2n \left(\sqrt{\frac{\ln(2/\delta)}{2n}}\right)^2 \right) = \delta
 \] %
 \[
-\implies P(|Y_n - \mu| \leq c_n(\delta)) = 1 - P(|Y_n - \mu| > c_n(\delta)) = 1 - \delta
+\implies P(|Y_n - \mu| < c_n(\delta)) = 1 - P(|Y_n - \mu| \geq c_n(\delta)) \geq 1 - \delta
 \] %
 This inequality bounds the probability of $Y_n$.
 (The probability that the true mean lies within the confidence interval $[Y_n - c_n(\delta) , Y_n + c_n(\delta)]$ is $1-\delta$).
@@ -278,7 +278,7 @@ P(\mu_i) = \mathrm{Beta}(\alpha_i, \beta_i) \propto \mu_i^{\alpha_i - 1} (1 - \m
 P(\mu_i | H_t) \propto P(H_t | \mu_i) P(\mu_i) \propto \mu_i^{\alpha_i - 1} (1 - \mu_i)^{\beta_i - 1} \mu_i^S (1 - \mu_i)^f \propto \mu_i^{\alpha_i + S - 1} (1 - \mu_i)^{\beta_i + f - 1}
 \] %
 \[
-\implies P(\mu_i | H_t) \propto \mathrm{Beta}(\alpha_i + S, \beta_i + f)
+\implies P(\mu_i | H_t) = \mathrm{Beta}(\alpha_i + S, \beta_i + f)
 \] %
 As shown, the structural form of the posterior distribution is identical to the prior.
 This proves that the Beta distribution is the conjugate prior for the Bernoulli likelihood.
@@ -403,7 +403,19 @@ Thus, TS will occasionally still select the first arm.
     \caption{Comparison of Cumulative Regret: $\epsilon$-Greedy, UCB, and Thompson Sampling}
 \end{figure}
 
-As illustrated in the regret plot, \textbf{Thompson Sampling} outperforms both UCB and $\epsilon$-Greedy (0.1), achieving the lowest cumulative regret over time. The $\epsilon$-Greedy algorithm keeps exploring at a fixed rate, so its regret grows linearly. UCB and TS grow logarithmically. In this single run of 2000 steps UCB still has the largest total regret, because its exploration bonus $\sqrt{2\ln t / N_{i,t}}$ is large while the counts are small; its curve flattens over time, while the $\epsilon$-Greedy curve keeps rising at a constant slope.
+The curves are averages over 300 independent runs (shaded: 95\% confidence band). In every run the three algorithms face the same table of random rewards, so the comparison is not affected by luck in the rewards. Averaged regret at $T=2000$:
+\begin{center}
+\begin{tabular}{lc}
+\hline
+Algorithm & Regret at $T=2000$ \\
+\hline
+$\epsilon$-Greedy ($\epsilon=0.1$) & $89.7 \pm 4.3$ \\
+UCB1 & $100.8 \pm 1.3$ \\
+Thompson Sampling & $24.8 \pm 2.7$ \\
+\hline
+\end{tabular}
+\end{center}
+\textbf{Thompson Sampling} has by far the lowest regret. $\epsilon$-Greedy keeps exploring at a fixed rate, so after a short learning phase its regret grows linearly, with slope $\epsilon \cdot \frac{1}{k}\sum_i \Delta_i \approx 0.034$ per step. UCB1 grows only logarithmically, but its constant is large: the bonus $\sqrt{2\ln t / N_{i,t}}$ keeps the arms with means 0.5 and 0.3 in play for a long time. That is why UCB1 is still above $\epsilon$-Greedy at $T=2000$. A longer run (40 runs, $T=20000$) shows the crossing: at $T=5000$ the regrets are 132 (UCB1) and 191 ($\epsilon$-Greedy), and at $T=20000$ they are 178 and 703, against 34 for Thompson Sampling.
 
 \section*{Theory Question 14} %
 The Thompson Sampling (TS) algorithm achieves a dynamic balance between exploration and exploitation due to its Bayesian approach.
@@ -412,7 +424,7 @@ The reasons for achieving $\mathcal{O}(\log T)$ regret can be summarized as foll
     \item \textbf{Adaptivity:} In TS, the probability of choosing a sub-optimal arm decreases exponentially as the number of observations increases.
 Unlike algorithms with a fixed exploration rate, TS only explores when there is uncertainty regarding the optimality of an arm.
 %
-    \item \textbf{Posterior Concentration:} As time $T$ increases, the variance of the posterior distribution for each arm approaches zero ($\sigma_t^2 \propto 1/t$).
+    \item \textbf{Posterior Concentration:} As time $T$ increases, the variance of the posterior distribution for each arm approaches zero (for arm $i$ the posterior variance $\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}$ falls roughly as $\mu_i(1-\mu_i)/N_i(t)$).
 This concentration severely limits the probability of drawing large random samples from sub-optimal distributions, which would otherwise lead to choosing the wrong arm.
 %
     \item \textbf{Matching the Lai-Robbins Bound:} It has been proven that the expected number of times a sub-optimal arm $i$ is chosen in the TS algorithm asymptotically satisfies: %
@@ -443,7 +455,7 @@ Thompson Sampling solves this integral using the Monte Carlo method with just a 
     \item The arm $A_t = \arg\max_j \hat{\theta}_j$ is selected.
 %
 \end{enumerate}
-This process is an unbiased estimator for the Probability Matching principle.
+With this single draw, the probability that arm $i$ is chosen is exactly $\pi_i$, so Thompson Sampling implements probability matching exactly, not approximately.
 In other words, the probability that the random sample of one arm is larger than the rest in a given time step is exactly equal to the value of the integral.
 Thus, Thompson Sampling automatically implements probability matching without requiring heavy integration computations.
 %
@@ -452,15 +464,16 @@ Thus, Thompson Sampling automatically implements probability matching without re
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Q6.png} 
-    \caption{Validation of Probability Matching via Correlation Analysis}
+    \caption{Share of pulls of each arm compared with the average posterior probability that the arm is optimal (log scale)}
 \end{figure}
 
-This simulation further verifies the connection between Thompson Sampling and the \textbf{Probability Matching} heuristic discussed in Theory Question 15. The results show a comparison between:
-\begin{enumerate}
-    \item \textbf{Estimated Optimal Probs (MC):} The probability $\pi_i = P(\theta_i = \max_j \theta_j | H)$, calculated via Monte Carlo sampling (by drawing many samples from the posterior and counting the winner).
-    \item \textbf{Empirical Frequencies (TS):} The actual fraction of times the Thompson Sampling algorithm selected each arm over the run.
-\end{enumerate}
-As seen in the results, at $T=5000$, the correlation between these two vectors is \textbf{1.0000}. This demonstrates that TS effectively samples from the posterior predictive distribution of the optimal arm, implementing the Probability Matching principle without needing to explicitly calculate the complex integrals.
+This simulation checks the connection between Thompson Sampling and \textbf{probability matching} from Theory Question 15. Probability matching states that, at every step, $P(A_t = i \mid H_t) = \pi_i(t)$, where $\pi_i(t) = P(\theta_i = \max_j \theta_j \mid H_t)$ is the posterior probability that arm $i$ is optimal. Taking the expectation of $\mathbb{I}\{A_t=i\}$ and summing over the run, the share of pulls of arm $i$ should equal the average of $\pi_i(t)$ over the same steps:
+\[
+\frac{1}{T}\sum_{t=1}^{T} \mathbb{I}\{A_t = i\} \;\approx\; \frac{1}{T}\sum_{t=1}^{T} \pi_i(t).
+\]
+At every step, before choosing an arm, the simulation estimates $\pi(t)$ by Monte Carlo, with 1000 joint draws from the Beta posteriors. Then it runs Thompson Sampling as usual. The two sides agree to within 0.004 for $T=500$ and $T=1000$, and to within 0.001 for $T=5000$. This holds for every arm, including the rarely played ones (see the log-scale bars).
+
+Comparing the share of pulls with $\pi_i$ \emph{at the end} of the run, as an earlier version of this simulation did, is not a valid test. The final posterior describes only the last step, while the share of pulls averages over the whole run. Both vectors are also dominated by the best arm, so their correlation is close to 1 whatever the algorithm does.
 
 \section*{Theory Question 16} %
 The choice of the prior Beta distribution directly affects the balance between exploration and exploitation: %
@@ -488,8 +501,15 @@ This prior is suitable for quickly identifying extremely strong or extremely wea
     \caption{Comparison of Gaussian vs. Bernoulli Likelihoods in Thompson Sampling}
 \end{figure}
 
-This simulation compares the performance of Thompson Sampling using a \textbf{Gaussian likelihood} (assuming a normal distribution of rewards) versus a \textbf{Bernoulli likelihood} (using the Beta-Bernoulli conjugate) on a problem where the actual rewards are binary (0 or 1).
+This simulation compares two versions of Thompson Sampling on the \emph{same} Bernoulli bandit (means 0.2, 0.5 and 0.9). The rewards are binary, and in each of the 200 runs both algorithms see the same table of rewards.
+\begin{itemize}
+    \item \textbf{Bernoulli TS} uses the correct model: a Beta(1,1) prior and Beta--Bernoulli updates.
+    \item \textbf{Gaussian TS} uses a misspecified model: a $\mathcal{N}(0,10)$ prior and a Normal likelihood with assumed variance $\sigma^2 = 1$, i.e.\ it treats the 0/1 rewards as noisy continuous values.
+\end{itemize}
+Results at $T=5000$ (mean $\pm$ 95\% CI): regret $34.4 \pm 0.9$ for Gaussian TS and $7.8 \pm 0.4$ for Bernoulli TS. The best arm receives 98.6\% and 99.7\% of the pulls.
 
-As shown in the "Cumulative Regret" and "Total Arm Selections" plots, the \textbf{Bernoulli TS} significantly outperforms the Gaussian TS (achieving much lower regret). This happens because the Bernoulli model correctly assumes the binary nature of the rewards, whereas the Gaussian model approximates them as continuous values. This "model misspecification" in the Gaussian approach leads to less efficient learning and higher regret. The "Instantaneous Regret" plot further confirms that the Bernoulli model converges to the optimal arm (zero regret) much faster than the Gaussian model.
+Both algorithms find the best arm, but the Gaussian model explores more. A Bernoulli reward has variance $\mu(1-\mu) \le 0.25$, while the model assumes $\sigma^2 = 1$. Its posteriors therefore shrink as $1/N_i$ instead of as $\mu(1-\mu)/N_i$, so they stay too wide, and sub-optimal arms keep being sampled; arm 2 is pulled about five times as often. The price of the misspecification is about four times the regret.
+
+An earlier version of this simulation drew the Gaussian algorithm's rewards from $\mathcal{N}(\mu_i, 1)$ instead of from the Bernoulli arms. The two algorithms were then solving different, unequally noisy problems, so that comparison did not measure the effect of the likelihood.
 
 \end{document}

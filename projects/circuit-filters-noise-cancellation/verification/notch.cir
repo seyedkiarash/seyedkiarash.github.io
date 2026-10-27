@@ -1,0 +1,33 @@
+* notch
+XA1 N001 N002 N003 N004 HP_OUT opamp
+XA2 0 N005 N003 N004 BP_OUT opamp
+XA3 0 N006 N003 N004 LP_OUT opamp
+C2 LP_OUT N006 1n
+C1 BP_OUT N005 1n
+R4 BP_OUT N001 50k
+RF1 N005 HP_OUT 8k
+RF2 N006 BP_OUT 8k
+R2 HP_OUT N002 50k
+R1 LP_OUT N002 50k
+RQ N001 0 200k
+RG N001 N007 200k
+VV1 N007 0 AC 1 0
+VV2 N004 0 -30 
+VV3 N003 0 30 
+XA4 0 SUM VCC VEE NOTCH_OUT opamp
+R3 SUM HP_OUT 10k
+R5 SUM LP_OUT 10k
+R6 NOTCH_OUT SUM 10k
+VV5 VCC 0 30 
+VV4 VEE 0 -30 
+.ac dec 500 1k 100k
+.include opamp.lib
+.control
+run
+wrdata notch.txt vdb(NOTCH_OUT) vdb(LP_OUT) vdb(BP_OUT) vdb(HP_OUT)
+meas ac depth min vdb(NOTCH_OUT)
+meas ac fnotch when vdb(NOTCH_OUT)=depth
+meas ac lf find vdb(NOTCH_OUT) at=1k
+meas ac hf find vdb(NOTCH_OUT) at=100k
+.endc
+.end

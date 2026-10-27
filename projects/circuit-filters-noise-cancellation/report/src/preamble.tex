@@ -1,0 +1,78 @@
+\documentclass[10.5pt,a4paper]{article}
+\usepackage[a4paper,margin=2.2cm,top=2.3cm,bottom=2.4cm]{geometry}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\setmainfont{TeX Gyre Pagella}
+\setsansfont{Inter}[Scale=0.88]
+\setmonofont{DejaVu Sans Mono}[Scale=0.80]
+\setmathfont{DejaVu Math TeX Gyre}[Scale=0.95]
+\usepackage{microtype}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{1F4E79}
+\definecolor{muted}{HTML}{5F6670}
+\definecolor{codebg}{HTML}{F6F7F9}
+\definecolor{rule}{HTML}{D9DCE1}
+\usepackage{graphicx}
+\usepackage{booktabs,tabularx,array}
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=1.4em,topsep=3pt}
+\usepackage[font=small,labelfont={bf,sf},labelsep=period,skip=4pt]{caption}
+\usepackage{titlesec}
+\titleformat{\section}{\sffamily\large\bfseries\color{accent}}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\sffamily\normalsize\bfseries}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}[runin]{\sffamily\small\bfseries}{}{0em}{}[.]
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\usepackage{fancyhdr}
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{rule}\leaders\hrule height \headrulewidth\hfill}}
+\fancyhead[L]{\sffamily\footnotesize\color{muted}\ReportShortTitle}
+\fancyhead[R]{\sffamily\footnotesize\color{muted}Eshraghi Naeini, Mohammadi}
+\fancyfoot[C]{\sffamily\footnotesize\color{muted}\thepage}
+\usepackage{listings}
+\lstset{language=C++,basicstyle=\ttfamily\footnotesize,keywordstyle=\color{accent}\bfseries,
+  commentstyle=\color{muted}\itshape,stringstyle=\color{teal!70!black},numbers=left,numberstyle=\tiny\color{muted},
+  numbersep=6pt,backgroundcolor=\color{codebg},frame=single,rulecolor=\color{rule},framesep=4pt,
+  xleftmargin=14pt,breaklines=true,columns=fullflexible,keepspaces=true,showstringspaces=false,
+  tabsize=4,aboveskip=6pt,belowskip=6pt}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc,fit,automata}
+\tikzset{blk/.style={draw=accent,thick,fill=accent!6,rounded corners=2pt,minimum height=8mm,minimum width=20mm,align=center,font=\sffamily\small},
+         io/.style={font=\sffamily\footnotesize,align=center},
+         arr/.style={-{Stealth[length=2mm]},semithick},
+         st/.style={state,draw=accent,thick,fill=accent!6,minimum size=9mm,font=\sffamily\footnotesize,inner sep=1pt,align=center}}
+\usepackage{xurl}
+\usepackage[colorlinks=true,linkcolor=accent,urlcolor=accent,citecolor=accent]{hyperref}
+\usepackage{siunitx}
+\sisetup{group-separator={,},group-minimum-digits=4}
+\newcommand{\sig}[1]{\texttt{#1}}
+\newcommand{\pass}{\textcolor{green!45!black}{\textsf{\textbf{PASS}}}}
+\newcommand{\fail}{\textcolor{red!70!black}{\textsf{\textbf{FAIL}}}}
+\newcommand{\prt}{\textcolor{orange!80!black}{\textsf{\textbf{PARTIAL}}}}
+\newcommand{\sev}[1]{\textsf{\footnotesize\textbf{[#1]}}}
+\newcommand{\repo}{https://github.com/seyedkiarash/seyedkiarash.github.io/tree/main/projects/circuit-filters-noise-cancellation}
+\newcommand{\note}[1]{\par\smallskip\noindent\colorbox{accent!7}{\parbox{\dimexpr\linewidth-2\fboxsep}{\small #1}}\par\smallskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+
+\newcommand{\ReportTitle}[3]{%
+  \thispagestyle{plain}
+  {\sffamily\small\color{muted}Circuit Theory \textbullet\ Department of Electrical Engineering, Sharif University of Technology\par}
+  \vspace{2pt}
+  {\sffamily\LARGE\bfseries #1\par}
+  \vspace{1pt}
+  {\sffamily\Large #2\par}
+  \vspace{6pt}
+  {\color{rule}\hrule height 0.6pt}
+  \vspace{5pt}
+  {\small
+  \begin{tabular}{@{}l@{\hspace{2em}}l@{}}
+    \textcolor{muted}{Students}  & Seyed Kiarash Eshraghi Naeini (403101383), Mohammad Sadegh Mohammadi (403102677)\\
+    \textcolor{muted}{Instructor} & Dr.\ Rouhollah Amiri\\
+    \textcolor{muted}{Semester} & Fall 2025 \quad\textcolor{muted}{this revision:} #3\\
+    \textcolor{muted}{Tools} & LTspice, ngspice 42, MATLAB/Simulink (Simscape), Python (NumPy, SciPy, SymPy)
+  \end{tabular}\par}
+  \vspace{4pt}
+  {\color{rule}\hrule height 0.6pt}
+  \vspace{8pt}}
