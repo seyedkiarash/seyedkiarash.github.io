@@ -8,6 +8,7 @@
  *      **پررنگ**   [متن لینک](https://...)   خط خالی = پاراگراف جدید   "- " = فهرست
  *  - تصاویر را در assets/img و فایل‌ها (PDF، کد) را در assets/files بگذارید.
  *  - بخش‌هایی که خالی باشند ([]) در سایت نمایش داده نمی‌شوند.
+ *  - پروژه‌ها بر اساس فیلد date (YYYY-MM-DD) از جدید به قدیم مرتب نمایش داده می‌شوند.
  */
 
 window.SITE = {
@@ -32,8 +33,8 @@ window.SITE = {
     },
     email: ["8kia.eshraghi4@gmail.com", "kiarash.eshraghi84@sharif.edu"],
     links: [
-      { type: "github", label: "GitHub", url: "https://github.com/seyedkiarash" }
-      // { type: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/..." },
+      { type: "github", label: "GitHub", url: "https://github.com/seyedkiarash" },
+      { type: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/seyed-kiarash-eshraghi-6b16a3447/" }
     ],
     cvPdf: { fa: "", en: "" }
   },
@@ -95,82 +96,144 @@ window.SITE = {
 
   projects: [
     {
-      id: "fpga-logic-lab",
-      featured: true,
+      id: "style-finder",
+      date: "2026-10-26",
+      side: true,
       title: {
-        fa: "آزمایشگاه مدار منطقی روی FPGA",
-        en: "Logic Circuits Lab on FPGA"
+        fa: "سبک‌یاب: پیدا کردن ویدیوهای هم‌سبک",
+        en: "Style Finder (Finding)"
       },
-      year: { fa: "پاییز ۱۴۰۴", en: "Fall 2025" },
+      year: { fa: "۱۴۰۵", en: "2026" },
       context: {
-        fa: "آزمایشگاه مدار منطقی، دکتر محمدرضا موحدین — ۳۲ طراحی Verilog روی برد Zynq-7010",
-        en: "Logic Circuits Laboratory, Dr. Mohammad Reza Movahhedin — 32 Verilog designs on a Zynq-7010 board"
+        fa: "پروژهٔ شخصی، ساخته‌شده با کمک Claude — ویندوز، اندروید و iOS",
+        en: "Personal project built with Claude — Windows, Android and iOS"
       },
-      tags: ["Verilog", "FPGA", "Vivado", { fa: "طراحی دیجیتال", en: "Digital Design" }],
-      cover: "assets/img/logic-lab/cover.webp",
+      tags: ["Python", "JavaScript", "Gemini API", { fa: "پروژهٔ جانبی", en: "Side Project" }],
+      cover: "assets/img/side/finding_cover.webp",
       summary: {
-        fa: "از انکودر اولویت و کد همینگ تا مالتی‌پلکس نمایشگر ۷-سگمنت، کرنومتر، بازی‌های FPGA و کلاک‌دهی از پردازندهٔ Zynq؛ با تست‌بنچ خودارزیاب برای هر طراحی و گزارش LaTeX برای هر آزمایش.",
-        en: "From priority encoders and Hamming codes to seven-segment multiplexing, a stopwatch, FPGA games and clocking from the Zynq processor — with a self-checking testbench for every design and a LaTeX report per experiment."
+        fa: "برنامه‌ای فارسی که سبک یک ویدیو، عکس یا آهنگ را با Gemini توصیف می‌کند و نمونه‌های هم‌سبک را در YouTube، TikTok، Instagram و Pinterest پیدا و با توضیح هر معیار رتبه‌بندی می‌کند.",
+        en: "A Persian app that describes the style of a video, picture or song with Gemini, then finds and ranks similar-style content on YouTube, TikTok, Instagram and Pinterest, explaining each score."
       },
       description: {
-        fa: "طراحی‌های Verilog پنج آزمایش این درس، پیاده‌سازی‌شده با Vivado روی برد Zynq-7010 (کلاک ۵۰ مگاهرتز) و برد توسعه‌ای با کلید DIP، نمایشگر چهاررقمی ۷-سگمنت، LED و کلید فشاری.\n\n- **آزمایش ۳:** انکودر اولویت و اثر قطبیت کلیدهای فشاری\n- **آزمایش ۴:** جمع‌کنندهٔ ریپل‌کری، جمع/تفریق مکمل دو با تشخیص سرریز، کد همینگ (۷،۴) و کد SECDED (۸،۴)\n- **آزمایش میان‌ترم:** دیکودر، جمع‌کنندهٔ BCD، مقایسه‌گرها (رفتاری و با پرچم‌های تفریق‌گر)، مالتی‌پلکسر، ضرب‌کنندهٔ ۴×۴ و مقایسه‌گری که فقط با مالتی‌پلکسر ساخته شده\n- **آزمایش ۶:** تقسیم کلاک، الگوهای LED با کنترل سرعت، بازی واکنش و پینگ‌پنگ با بلاک‌دیزاین، و کلاک‌دهی منطق FPGA از پردازندهٔ Zynq\n- **آزمایش ۷:** مالتی‌پلکس نمایشگر ۷-سگمنت، متن متحرک، کرنومتر با شمارنده‌های آبشاری، کنترل شروع/توقف/ریست و انیمیشن مار\n\n**صحت‌سنجی:** برای هر طراحی یک تست‌بنچ خودارزیاب در Icarus Verilog نوشته شد. طراحی‌های ترکیبی برای همهٔ ورودی‌ها (و کدهای همینگ برای همهٔ الگوهای خطای تک و دوبیتی) آزموده شدند و طراحی‌های ترتیبی با سناریو؛ مثلاً یک دور کامل ده‌دقیقه‌ای کرنومتر. هر ۳۲ تست موفق است و همهٔ طراحی‌ها بدون خطا و بدون latch با Yosys سنتز می‌شوند. خطاهای پیداشده در این بررسی اصلاح و در گزارش‌ها مستند شده‌اند، و دو طراحی امتیازی که در آزمایشگاه نیمه‌کاره مانده بودند (انیمیشن مار و نسخهٔ دوم بازی پینگ‌پنگ با دکمه‌های debounce‌شده) کامل شدند.",
-        en: "Verilog designs from five experiments of the course, implemented with Vivado on a Zynq-7010 board (50 MHz clock) with an extension board of DIP switches, a 4-digit seven-segment display, LEDs and push buttons.\n\n- **Experiment 3:** priority encoder and push-button polarity\n- **Experiment 4:** ripple-carry adder, two's-complement add/subtract with overflow, Hamming(7,4) and SECDED (8,4) codes\n- **Midterm experiment:** decoder, BCD adder, comparators (behavioural and from subtractor flags), multiplexer, 4×4 multiplier and a comparator built only from multiplexers\n- **Experiment 6:** clock division, LED patterns with speed control, reaction and ping-pong games in block designs, PL logic clocked from the Zynq processor\n- **Experiment 7:** seven-segment multiplexing, scrolling text, a stopwatch from cascaded counters, start/stop/reset control and a snake animation\n\n**Verification:** every design has a self-checking Icarus Verilog testbench — exhaustive for the combinational designs (all inputs; all single and double error patterns for the Hamming codes) and scenario-based for the sequential ones, e.g. a complete 10-minute stopwatch cycle. All 32 pass, and every design synthesises with Yosys without errors or latches. Errors found during the review are corrected and documented in the reports, and two bonus designs left unfinished in the lab — the snake animation and a second ping-pong game with debounced buttons — were completed."
+        fa: "سبک‌یاب ویدیو، عکس یا فایل صوتی شما را می‌گیرد و مراحل زیر را انجام می‌دهد:\n\n- با مدل Gemini «سبک» آن را در چهار جنبه توصیف می‌کند: تصویر، تدوین، موسیقی و صدا، و موضوع.\n- از این توصیف کلیدواژه‌های دقیق جست‌وجو می‌سازد.\n- نمونه‌های پیداشده را تماشا و تحلیل می‌کند.\n- با امتیازی که در خود کد محاسبه می‌شود رتبه‌بندی می‌کند و توضیح می‌دهد در هر جنبه چقدر شبیه‌اند.\n\nکاربر می‌تواند به زبان خودش بنویسد دنبال چه چیزی است و اهمیت هر جنبه را تعیین کند. برنامه نام آهنگِ یک تکه صدا یا ویدیو را هم پیدا می‌کند؛ اول با اثر انگشت صوتی و اگر جواب نداد با Gemini.\n\n- **ویندوز:** سرور محلی Python با رابط وب راست‌به‌چپ و حالت تیره\n- **اندروید و iOS:** منطق مشترک JavaScript داخل پوسته‌های Java و Swift\n- **کلیدها:** هر کاربر کلید خودش را وارد می‌کند و کلید فقط روی دستگاه خودش می‌ماند\n- **آزمون:** صدها آزمون خودکار، و حالت آزمایشی با دادهٔ ساختگی که بدون کلید و اینترنت اجرا می‌شود (تصویر این صفحه از همین حالت است)\n\nایده، خواسته‌ها، تصمیم‌های طراحی و آزمودن روی دستگاه‌های واقعی از من بود و کد را Claude در همکاری قدم‌به‌قدم با من نوشت.",
+        en: "Style Finder takes your video, picture or sound file and works in four steps:\n\n- Gemini describes its style in four aspects: visuals, editing, music and sound, and content.\n- The app turns that description into precise search queries.\n- It watches and analyses the results it finds.\n- It ranks them with a similarity score computed in code, and explains how close each one is in every aspect.\n\nYou can describe in your own words what you are looking for and set how much each aspect matters. The app can also name the song in a clip or video, by audio fingerprint first and Gemini as a fallback.\n\n- **Windows:** a local Python server with a right-to-left web interface and a dark mode\n- **Android and iOS:** shared JavaScript logic inside Java and Swift shells\n- **Keys:** each user enters their own API key, which stays on their device\n- **Testing:** hundreds of automated tests, and a demo mode with synthetic data that runs without a key or internet (the screenshots here use it)\n\nThe idea, requirements, design decisions and real-device testing were mine; Claude wrote the code, working with me step by step."
       },
       images: [
-        { src: "assets/img/logic-lab/lab07_part3_frames.webp", caption: { fa: "مالتی‌پلکس زمانی: در هر لحظه فقط یک رقم روشن است", en: "Time-multiplexing: one digit is enabled at a time" } },
-        { src: "assets/img/logic-lab/lab07_part6_wave.webp", caption: { fa: "شبیه‌سازی کرنومتر: شمارنده‌های آبشاری", en: "Stopwatch simulation: cascaded counters" } },
-        { src: "assets/img/logic-lab/lab07_snake.webp", caption: { fa: "انیمیشن مار، بازسازی‌شده از شبیه‌سازی", en: "Snake animation reconstructed from the simulation" } },
-        { src: "assets/img/logic-lab/lab06_minigame_wave.webp", caption: { fa: "شبیه‌سازی بازی واکنش", en: "Reaction game simulation" } }
+        { src: "assets/img/side/finding_results.webp", caption: { fa: "صفحهٔ نتایج در حالت آزمایشی (دادهٔ ساختگی)", en: "Results page in demo mode (synthetic data)" } },
+        { src: "assets/img/side/finding_search.webp", caption: { fa: "صفحهٔ جست‌وجوی جدید", en: "New search page" } }
       ],
-      files: [
-        { label: { fa: "گزارش آزمایش ۷ — نمایشگر ۷-سگمنت و کرنومتر", en: "Report — Experiment 7: seven-segment display and stopwatch" }, url: "labs/logic-circuits-lab/reports/lab07.pdf" },
-        { label: { fa: "گزارش آزمایش ۶ — منطق ترتیبی، بازی‌ها و کلاک Zynq", en: "Report — Experiment 6: sequential logic, games, Zynq clocking" }, url: "labs/logic-circuits-lab/reports/lab06.pdf" },
-        { label: { fa: "گزارش آزمایش میان‌ترم — دیکودر، BCD، مقایسه‌گر، مالتی‌پلکسر", en: "Report — Midterm experiment: decoders, BCD, comparators, multiplexers" }, url: "labs/logic-circuits-lab/reports/midterm.pdf" },
-        { label: { fa: "گزارش آزمایش ۴ — جمع‌کننده‌ها و کدهای همینگ", en: "Report — Experiment 4: adders and Hamming codes" }, url: "labs/logic-circuits-lab/reports/lab04.pdf" },
-        { label: { fa: "گزارش آزمایش ۳ — انکودر اولویت", en: "Report — Experiment 3: priority encoder" }, url: "labs/logic-circuits-lab/reports/lab03.pdf" }
-      ],
+      files: [],
       links: [
-        { label: { fa: "کد، تست‌بنچ‌ها و فایل‌های constraint در GitHub", en: "Code, testbenches and constraints on GitHub" }, url: "https://github.com/seyedkiarash/seyedkiarash.github.io/tree/main/labs/logic-circuits-lab" }
+        { label: { fa: "کد و راهنمای اجرا در GitHub", en: "Code and setup guide on GitHub" }, url: "https://github.com/seyedkiarash/Finding" }
       ]
     },
     {
-      id: "oop-circuit-simulator",
-      featured: true,
+      id: "chronos-planner",
+      date: "2026-10-25",
+      side: true,
       title: {
-        fa: "شبیه‌ساز مدار الکتریکی به زبان C++",
-        en: "Circuit Simulator in C++"
+        fa: "Chronos: برنامه‌ریز هوشمند اندروید",
+        en: "Chronos: An Android Planner"
       },
-      year: { fa: "بهار ۱۴۰۴", en: "Spring 2025" },
+      year: { fa: "۱۴۰۵", en: "2026" },
       context: {
-        fa: "پروژهٔ گروهی درس برنامه‌سازی شیءگرا — دکتر عبدالله آراسته",
-        en: "Object-Oriented Programming team project — Dr. Abdollah Arasteh"
+        fa: "پروژهٔ شخصی، ساخته‌شده با کمک Claude — اندروید",
+        en: "Personal project built with Claude — Android"
       },
-      tags: ["C++", "Qt", "Eigen", { fa: "تحلیل گره‌ای اصلاح‌شده", en: "MNA" }, { fa: "طراحی شیءگرا", en: "OOP Design" }],
-      cover: "assets/img/oop/cover.webp",
+      tags: ["Java", "Kotlin", "Android", { fa: "بهینه‌سازی", en: "Optimization" }, { fa: "پروژهٔ جانبی", en: "Side Project" }],
+      cover: "assets/img/side/chronos_cover.webp",
       summary: {
-        fa: "شبیه‌سازی شبیه SPICE در سه فاز: طراحی شیءگرا، شبیه‌ساز خط فرمان با تحلیل گره‌ای اصلاح‌شده (MNA) و تحلیل گذرا، و نسخهٔ گرافیکی با Qt شامل ویرایشگر شماتیک، نمایشگر شکل موج، ذخیرهٔ پروژه و ارتباط شبکه‌ای؛ همراه با گزارش بازبینی کد.",
-        en: "A SPICE-like simulator built in three phases — an object-oriented design, a command-line simulator using modified nodal analysis with transient analysis, and a Qt GUI with schematic editor, waveform viewer, project files and networking — plus a code-review report."
+        fa: "برنامه‌ریز شخصی‌ای که تصمیم می‌گیرد هر کار «کِی» انجام شود: ساعت‌های هر هدف را تا موعدش پخش می‌کند، روز را با مدل انرژی و خستگی می‌چیند، از ثبت‌ها یاد می‌گیرد و شانس رسیدن به هدف‌های بلندمدت را پیش‌بینی می‌کند.",
+        en: "A personal planner that decides when to do things: it spreads each goal's hours up to its deadline, arranges each day with a model of energy and fatigue, learns from what you log and forecasts long-term goals."
       },
       description: {
-        fa: "این پروژه به‌صورت گروهی و در سه فاز انجام شد:\n\n- **فاز ۰، طراحی:** کلاس‌ها، نمودار UML، الگوهای طراحی (Factory، Bridge، MVC، Command)، روش‌های عددی و طراحی مدیریت خطا.\n- **فاز ۱، شبیه‌ساز خط فرمان:** دستورات به سبک LTspice و حل ماتریس MNA با کتابخانهٔ Eigen. عناصر پشتیبانی‌شده: مقاومت، خازن، سلف، دیود، منابع DC، سینوسی و پالسی، و منابع وابستهٔ E، G، H و F. تحلیل‌ها: گذرا (اویلر پسرو) و جاروب DC. منوی فایل برای ذخیره و بازکردن شماتیک‌ها هم دارد.\n- **فاز ۲، نسخهٔ گرافیکی با Qt 6 و ساختار MVC:** ویرایشگر شماتیک با کلید میانبر، چرخش و برچسب‌گذاری گره‌ها؛ نمایشگر شکل موج با زوم خودکار، تغییر مقیاس محورها، عملیات ریاضی روی سیگنال‌ها، کرسر و دابل کرسر؛ تحلیل گذرا، AC و فاز؛ تک‌قطبی‌ها، ذخیرهٔ پروژه با cereal و ارسال داده از طریق TCP.\n\n**بازبینی کد:** برای این صفحه، کد نهایی هر دو فاز دوباره کامپایل و آزمایش شد، بدون هیچ تغییری در کد.\n\n- **فاز ۱:** نتایج با ngspice مقایسه شد. حل‌کنندهٔ خطی برای مقاومت‌ها، منابع مستقل، منابع E، G و F و پاسخ گذرای مدارهای RC، RL و RLC درست و با دقت مرتبهٔ اول است.\n- **فاز ۲:** نسخهٔ گرافیکی زیر نمایشگر مجازی اجرا شد.\n- **کاستی‌ها:** مواردی مثل منبع H، سلف در تحلیل DC، دیود ایده‌آل و اتصال سیم‌ها در نسخهٔ گرافیکی کامل کار نمی‌کنند. همهٔ این موارد با علت و راه‌حل پیشنهادی در گزارش آمده است.",
-        en: "A team project completed in three phases:\n\n- **Phase 0, design:** classes, UML, design patterns (Factory, Bridge, MVC, Command), numerical methods and an exception design.\n- **Phase 1, console simulator:** LTspice-style commands and an MNA solver built on Eigen. Elements: resistors, capacitors, inductors, diodes, DC/SIN/PULSE sources and E, G, H and F dependent sources. Analyses: backward-Euler transient and DC sweep. A file menu saves and opens schematics.\n- **Phase 2, Qt 6 GUI with an MVC layout:** a schematic editor with shortcuts, rotation and node labels; a waveform viewer with auto-zoom, axis scaling, math traces, a cursor and a double cursor; transient, AC and phase analyses; sub-circuits, cereal project files and TCP data transfer.\n\n**Code review:** for this page, the final code of both phases was rebuilt and tested without changing the code.\n\n- **Phase 1:** results were checked against ngspice. The linear solver is correct for resistors, independent sources, E/G/F sources and RC, RL and RLC transients, with the expected first-order accuracy.\n- **Phase 2:** the GUI was run under a virtual display.\n- **Gaps:** some parts do not fully work, including the H source, inductors in DC analysis, ideal diodes and wire connectivity in the GUI. Each is documented in the report with its cause and a suggested fix."
+        fa: "Chronos چهار بخش اصلی دارد:\n\n- **افق:** ساعت‌های هر هدف را تا موعدش روی روزهای آینده پخش می‌کند و اگر موعدی شدنی نباشد، زود می‌گوید و پیشنهاد می‌دهد چه چیزی آن را درست می‌کند.\n- **روز:** هر کار را در زمانی قرار می‌دهد که کمترین هزینه را دارد. این تصمیم بر پایهٔ مدلی از ساعت بدن است: فشار خواب، ریتم شبانه‌روزی، و خستگی ذهنی و جسمی. کلاس‌ها، وعده‌ها، رفت‌وآمد، خواب و استراحت هم در نظر گرفته می‌شوند.\n- **لاگ:** جلسه‌ها، تمرکز، خستگی و خواب ثبت می‌شوند. برنامه هر شب یاد می‌گیرد کارها واقعاً چقدر طول می‌کشند و کی بهتر کار می‌کنید.\n- **ناوبر:** گرافی از هدف‌های بلندمدت با پیش‌بینی مونت‌کارلو و تقسیم ساعت‌های هفتگی. پیشنهادهای قواعد خود برنامه یا یک مدل زبانی، یکی‌یکی با تأیید شما اعمال می‌شوند.\n\nرابط کاربری به انگلیسی و فارسی (راست‌به‌چپ، با تاریخ شمسی) است. با Jetpack Compose و پایگاه دادهٔ Room ساخته شده و موتور برنامه‌ریزی آزمون‌های واحد گسترده دارد. ایده و طراحی مسئله از من بود و کد را Claude در همکاری قدم‌به‌قدم با من نوشت.",
+        en: "Chronos has four main parts:\n\n- **Horizon:** spreads each goal's hours over the coming days up to its deadline. It warns early when a deadline cannot be met and suggests what would fix it.\n- **Day:** places every block where it costs least. The choice is based on a body-clock model: sleep pressure, circadian rhythm, and mental and physical fatigue. Classes, meals, travel, sleep and rest are also taken into account.\n- **Log:** records sessions, focus, tiredness and sleep. Each night the app learns how long things really take and when you work best.\n- **Navigator:** a graph of long-term goals with Monte Carlo forecasts and a weekly allocation of hours. Proposals from the app's own rules or from an LLM are applied one change at a time, after you approve them.\n\nThe interface is in English and Persian (right-to-left, with Jalali dates). It is built with Jetpack Compose and Room, and the planning engine has an extensive unit-test suite. The idea and problem design were mine; Claude wrote the code, working with me step by step."
       },
-      images: [
-        { src: "assets/img/oop/rlc.webp", caption: { fa: "پاسخ پلهٔ مدار RLC سری: شبیه‌ساز فاز ۱ در مقایسه با ngspice", en: "Series RLC step response: Phase 1 simulator vs. ngspice" } },
-        { src: "assets/img/oop/gui_charts.webp", caption: { fa: "نسخهٔ گرافیکی: ویرایشگر شماتیک و نمایشگر شکل موج (با سیگنال‌های نمونهٔ داخلی)", en: "Phase 2 GUI: schematic editor and waveform viewer (showing built-in sample traces)" } },
-        { src: "assets/img/oop/gui_place.webp", caption: { fa: "قرار دادن المان‌ها با کلید میانبر و چرخش", en: "Placing components with shortcuts and rotation" } },
-        { src: "assets/img/oop/ac.webp", caption: { fa: "تحلیل AC فیلتر RC پایین‌گذر با موتور تحلیل فاز ۲", en: "AC sweep of an RC low-pass with the Phase 2 engine" } }
-      ],
+      images: [],
       files: [
-        { label: { fa: "گزارش بازبینی کد (PDF، انگلیسی)", en: "Code review report (PDF)" }, url: "projects/oop-circuit-simulator/report/oop_review.pdf" },
-        { label: { fa: "گزارش طراحی فاز ۰ (PDF، فارسی)", en: "Phase 0 design document (PDF, Persian)" }, url: "projects/oop-circuit-simulator/report/phase0-design.pdf" }
+        { label: { fa: "راهنمای کاربر (PDF، فارسی)", en: "User guide (PDF, Persian)" }, url: "https://github.com/seyedkiarash/Chronos/blob/main/docs/USER_GUIDE.fa.pdf" }
       ],
       links: [
-        { label: { fa: "کد نهایی فاز ۱ و ۲ در GitHub", en: "Final Phase 1 and Phase 2 code on GitHub" }, url: "https://github.com/seyedkiarash/seyedkiarash.github.io/tree/main/projects/oop-circuit-simulator" }
+        { label: { fa: "کد و راهنمای ساخت در GitHub", en: "Code and build guide on GitHub" }, url: "https://github.com/seyedkiarash/Chronos" }
       ]
+    }
+,
+    {
+      id: "siren-notch-filter",
+      date: "2026-07-28",
+      featured: true,
+      title: {
+        fa: "جداسازی صدای گوینده از آژیر با فیلتر ناچ",
+        en: "Separating Speech from a Siren Using Notch Filters"
+      },
+      year: { fa: "۱۴۰۵", en: "2026" },
+      context: {
+        fa: "پروژهٔ پایانی درس سیگنال‌ها و سیستم‌ها — دکتر آرش امینی",
+        en: "Signals & Systems final project — Dr. Arash Amini"
+      },
+      tags: ["MATLAB", { fa: "پردازش سیگنال", en: "Signal Processing" }, { fa: "طراحی فیلتر", en: "Filter Design" }],
+      cover: "assets/img/sas/spectrum-original.webp",
+      summary: {
+        fa: "طراحی فیلتر دیجیتال ناچ با جای‌گذاری صفر و قطب در صفحهٔ z برای حذف صدای آژیر از صدای یک مأمور پلیس.",
+        en: "A digital notch filter, designed by pole–zero placement in the z-plane, that removes a siren from a recording of a police officer's speech."
+      },
+      description: {
+        fa: "**مسئله:** در یک فایل صوتی، صدای یک مأمور پلیس با صدای آژیر ترکیب شده است. هدف، تضعیف صدای آژیر با حفظ هرچه بیشتر صدای گوینده است.\n\n**تحلیل طیف:** تبدیل فوریه با تقریب مجموع ریمانی روی نمونه‌های سیگنال محاسبه شد: `X(2πf) ≈ (1/Fs)·Σ x[k]·e^(−j2πfk/Fs)`. در طیف، صدای انسان پهن و هموار است و آژیر به‌صورت قله‌های باریک و تیز دیده می‌شود.\n\n**طراحی فیلتر:**\n- انتخاب ۸ قلهٔ تیز و پرانرژی طیف به‌عنوان فرکانس‌های آژیر\n- قرار دادن صفرها روی دایرهٔ واحد در همین فرکانس‌ها و قطب‌ها با همان زاویه و شعاع کمی کمتر از یک\n- پیاده‌سازی به‌صورت چهار فیلتر مرتبهٔ ۴ متوالی (در مجموع ۱۶ صفر و قطب) برای پایداری و دقت عددی بیشتر\n- r = 0.95 در فرکانس‌های بالا برای ناچ پهن‌تر و r = 0.975 در فرکانس‌های پایین برای حفظ فرمنت‌های صدا\n- عبور دوبارهٔ سیگنال از کل فیلتر برای تضعیف بیشتر\n\n**نتیجه:** صدای آژیر به‌شکل مؤثری تضعیف شد و صدای گوینده کمی خفه شد؛ تضعیف بیشتر آژیر ممکن بود اما صدای گوینده را بیش از حد تحریف می‌کرد.",
+        en: "**Problem:** a recording of a police officer's speech is mixed with a siren. The goal is to suppress the siren while keeping as much of the voice as possible.\n\n**Spectral analysis:** the Fourier transform was evaluated numerically with a Riemann-sum approximation over the samples, `X(2πf) ≈ (1/Fs)·Σ x[k]·e^(−j2πfk/Fs)`. In the spectrum, the voice is broad and smooth, while the siren appears as sharp, narrow peaks.\n\n**Filter design:**\n- Picked the 8 sharpest, highest-energy peaks as the siren frequencies\n- Placed zeros on the unit circle at those frequencies and poles at the same angles just inside it\n- Implemented as four cascaded 4th-order sections (16 zeros and poles in total) for numerical stability\n- r = 0.95 at high frequencies for wider notches; r = 0.975 at low frequencies to protect the voice formants\n- Passed the signal through the full filter twice for extra attenuation\n\n**Result:** the siren is strongly attenuated with a slight muffling of the voice — further suppression was possible, but at the cost of making the speech hollow and distorted."
+      },
+      audio: [
+        { src: "assets/audio/sas-original.mp3", caption: { fa: "صدای اصلی (گوینده + آژیر)", en: "Original (speech + siren)" } },
+        { src: "assets/audio/sas-processed.mp3", caption: { fa: "خروجی فیلتر", en: "Filtered output" } }
+      ],
+      images: [
+        { src: "assets/img/sas/spectrum-original.webp", caption: { fa: "تبدیل فوریهٔ سیگنال اصلی", en: "Fourier transform of the original signal" } },
+        { src: "assets/img/sas/spectrum-processed.webp", caption: { fa: "تبدیل فوریهٔ سیگنال پس از فیلتر", en: "Fourier transform after filtering" } }
+      ],
+      files: [
+        { label: { fa: "گزارش پروژه (انگلیسی)", en: "Project report" }, url: "assets/files/sas/report.pdf" },
+        { label: { fa: "کد MATLAB", en: "MATLAB code" }, url: "assets/files/sas/code.zip" }
+      ],
+      links: []
+    },
+    {
+      id: "waveguide-field-visualizer",
+      date: "2026-07-23",
+      featured: true,
+      title: {
+        fa: "شبیه‌ساز سه‌بعدی میدان‌های الکترومغناطیسی در موجبرها و فیبر نوری",
+        en: "3D Electromagnetic Field Visualizer for Waveguides and Optical Fibers"
+      },
+      year: { fa: "۱۴۰۵", en: "2026" },
+      context: {
+        fa: "تمرین کامپیوتری درس میدان‌ها و امواج — دکتر محمد معماریان",
+        en: "Fields & Waves computer assignment — Dr. Mohammad Memarian"
+      },
+      tags: ["MATLAB", { fa: "الکترومغناطیس", en: "Electromagnetics" }, { fa: "شبیه‌سازی", en: "Simulation" }],
+      cover: "assets/img/faw/figure1.webp",
+      summary: {
+        fa: "ابزاری در MATLAB که میدان‌های E و H را در موجبرهای صفحه‌موازی، مستطیلی و دایروی و در فیبر نوری به‌صورت سه‌بعدی و متحرک نمایش می‌دهد.",
+        en: "A MATLAB tool that renders animated 3D E- and H-field distributions in parallel-plate, rectangular and circular waveguides and in optical fibers."
+      },
+      description: {
+        fa: "**هدف:** ساخت یک شبیه‌ساز، مشابه شبیه‌سازهای رایج MATLAB، که مدهای اصلی انتشار در موجبرها و فیبر نوری را با تعریف پارامترهای فیزیکی محیط و شرایط اولیهٔ مناسب نمایش دهد.\n\n**عملکرد:** کاربر نوع ساختار، ابعاد هندسی، مشخصات محیط، فرکانس کاری و مد انتشار (TE یا TM) را انتخاب می‌کند. برنامه میدان‌ها را هم به‌صورت بردار و هم به‌صورت طیف اندازه، در سطح مقطع (تا ۲٫۵ برابر شعاع برای فیبر) و در امتداد محور انتشار (به طول سه طول‌موج) رسم می‌کند.\n\n- پشتیبانی از همهٔ مدهای TE و TM در موجبرهای صفحه‌موازی، مستطیلی و دایروی\n- پشتیبانی از مدهای TE₀ₙ و TM₀ₙ در فیبر نوری\n- نمایش سه‌بعدی و متحرک میدان‌ها با نرخ ۴۰ فریم بر ثانیه و مش‌بندی متراکم\n- منوی فارسی با امکان بازگشت به مرحلهٔ قبل\n- تشخیص مدهای ناموجود یا زیر فرکانس قطع و نمایش پیام خطا",
+        en: "**Goal:** build a simulator, in the spirit of standard MATLAB-based tools, that visualizes the fundamental propagation modes of waveguides and optical fibers from the physical parameters of the medium and appropriate initial conditions.\n\n**How it works:** the user selects the structure, geometry, material parameters, operating frequency and propagation mode (TE or TM). The program renders the fields both as vector plots and as magnitude maps over the cross-section (up to 2.5× the core radius for fibers) and along the propagation axis (three wavelengths).\n\n- All TE and TM modes for parallel-plate, rectangular and circular waveguides\n- TE₀ₙ and TM₀ₙ modes for optical fibers\n- Animated 3D field plots at 40 fps on a dense spatial mesh\n- Persian-language menus with back-navigation between steps\n- Error handling for non-existent modes and modes below cutoff"
+      },
+      images: [
+        { src: "assets/img/faw/figure1.webp", caption: { fa: "موجبر مستطیلی (a = 1 cm، b = 0.5 cm)، مد TE₁₁ در ۵۰ گیگاهرتز", en: "Rectangular waveguide (a = 1 cm, b = 0.5 cm), TE₁₁ mode at 50 GHz" } },
+        { src: "assets/img/faw/figure2.webp", caption: { fa: "موجبر دایروی با شعاع ۱ سانتی‌متر، مد TM₂₁ در ۵۰ گیگاهرتز", en: "Circular waveguide, radius 1 cm, TM₂₁ mode at 50 GHz" } },
+        { src: "assets/img/faw/figure3.webp", caption: { fa: "فیبر نوری (εr1 = 2، εr2 = 1.9)، مد TM₀₁ در ۵۰ گیگاهرتز", en: "Optical fiber (εr1 = 2, εr2 = 1.9), TM₀₁ mode at 50 GHz" } },
+        { src: "assets/img/faw/figure4.webp", caption: { fa: "موجبر صفحه‌موازی (b = 10 cm)، مد TE₁ در ۲ گیگاهرتز", en: "Parallel-plate waveguide (b = 10 cm), TE₁ mode at 2 GHz" } }
+      ],
+      files: [
+        { label: { fa: "گزارش پروژه (انگلیسی)", en: "Project report" }, url: "assets/files/faw/report.pdf" },
+        { label: { fa: "کد MATLAB", en: "MATLAB code" }, url: "assets/files/faw/code.zip" }
+      ],
+      links: []
     },
     {
       id: "circuit-filters-noise-cancellation",
+      date: "2026-02-19",
       featured: true,
       title: {
         fa: "فیلترهای فعال و حذف آنالوگ نویز",
@@ -212,6 +275,7 @@ window.SITE = {
     },
     {
       id: "multi-armed-bandit",
+      date: "2026-02-18",
       featured: false,
       title: {
         fa: "مسئلهٔ راهزن چنددست (Multi-Armed Bandit)",
@@ -247,137 +311,82 @@ window.SITE = {
       ]
     },
     {
-      id: "waveguide-field-visualizer",
+      id: "fpga-logic-lab",
+      date: "2026-01-10",
       featured: true,
       title: {
-        fa: "شبیه‌ساز سه‌بعدی میدان‌های الکترومغناطیسی در موجبرها و فیبر نوری",
-        en: "3D Electromagnetic Field Visualizer for Waveguides and Optical Fibers"
+        fa: "آزمایشگاه مدار منطقی روی FPGA",
+        en: "Logic Circuits Lab on FPGA"
       },
-      year: { fa: "۱۴۰۵", en: "2026" },
+      year: { fa: "پاییز ۱۴۰۴", en: "Fall 2025" },
       context: {
-        fa: "تمرین کامپیوتری درس میدان‌ها و امواج — دکتر محمد معماریان",
-        en: "Fields & Waves computer assignment — Dr. Mohammad Memarian"
+        fa: "آزمایشگاه مدار منطقی، دکتر محمدرضا موحدین — ۳۲ طراحی Verilog روی برد Zynq-7010",
+        en: "Logic Circuits Laboratory, Dr. Mohammad Reza Movahhedin — 32 Verilog designs on a Zynq-7010 board"
       },
-      tags: ["MATLAB", { fa: "الکترومغناطیس", en: "Electromagnetics" }, { fa: "شبیه‌سازی", en: "Simulation" }],
-      cover: "assets/img/faw/figure1.webp",
+      tags: ["Verilog", "FPGA", "Vivado", { fa: "طراحی دیجیتال", en: "Digital Design" }],
+      cover: "assets/img/logic-lab/cover.webp",
       summary: {
-        fa: "ابزاری در MATLAB که میدان‌های E و H را در موجبرهای صفحه‌موازی، مستطیلی و دایروی و در فیبر نوری به‌صورت سه‌بعدی و متحرک نمایش می‌دهد.",
-        en: "A MATLAB tool that renders animated 3D E- and H-field distributions in parallel-plate, rectangular and circular waveguides and in optical fibers."
+        fa: "از انکودر اولویت و کد همینگ تا مالتی‌پلکس نمایشگر ۷-سگمنت، کرنومتر، بازی‌های FPGA و کلاک‌دهی از پردازندهٔ Zynq؛ با تست‌بنچ خودارزیاب برای هر طراحی و گزارش LaTeX برای هر آزمایش.",
+        en: "From priority encoders and Hamming codes to seven-segment multiplexing, a stopwatch, FPGA games and clocking from the Zynq processor — with a self-checking testbench for every design and a LaTeX report per experiment."
       },
       description: {
-        fa: "**هدف:** ساخت یک شبیه‌ساز، مشابه شبیه‌سازهای رایج MATLAB، که مدهای اصلی انتشار در موجبرها و فیبر نوری را با تعریف پارامترهای فیزیکی محیط و شرایط اولیهٔ مناسب نمایش دهد.\n\n**عملکرد:** کاربر نوع ساختار، ابعاد هندسی، مشخصات محیط، فرکانس کاری و مد انتشار (TE یا TM) را انتخاب می‌کند. برنامه میدان‌ها را هم به‌صورت بردار و هم به‌صورت طیف اندازه، در سطح مقطع (تا ۲٫۵ برابر شعاع برای فیبر) و در امتداد محور انتشار (به طول سه طول‌موج) رسم می‌کند.\n\n- پشتیبانی از همهٔ مدهای TE و TM در موجبرهای صفحه‌موازی، مستطیلی و دایروی\n- پشتیبانی از مدهای TE₀ₙ و TM₀ₙ در فیبر نوری\n- نمایش سه‌بعدی و متحرک میدان‌ها با نرخ ۴۰ فریم بر ثانیه و مش‌بندی متراکم\n- منوی فارسی با امکان بازگشت به مرحلهٔ قبل\n- تشخیص مدهای ناموجود یا زیر فرکانس قطع و نمایش پیام خطا",
-        en: "**Goal:** build a simulator, in the spirit of standard MATLAB-based tools, that visualizes the fundamental propagation modes of waveguides and optical fibers from the physical parameters of the medium and appropriate initial conditions.\n\n**How it works:** the user selects the structure, geometry, material parameters, operating frequency and propagation mode (TE or TM). The program renders the fields both as vector plots and as magnitude maps over the cross-section (up to 2.5× the core radius for fibers) and along the propagation axis (three wavelengths).\n\n- All TE and TM modes for parallel-plate, rectangular and circular waveguides\n- TE₀ₙ and TM₀ₙ modes for optical fibers\n- Animated 3D field plots at 40 fps on a dense spatial mesh\n- Persian-language menus with back-navigation between steps\n- Error handling for non-existent modes and modes below cutoff"
+        fa: "طراحی‌های Verilog پنج آزمایش این درس، پیاده‌سازی‌شده با Vivado روی برد Zynq-7010 (کلاک ۵۰ مگاهرتز) و برد توسعه‌ای با کلید DIP، نمایشگر چهاررقمی ۷-سگمنت، LED و کلید فشاری.\n\n- **آزمایش ۳:** انکودر اولویت و اثر قطبیت کلیدهای فشاری\n- **آزمایش ۴:** جمع‌کنندهٔ ریپل‌کری، جمع/تفریق مکمل دو با تشخیص سرریز، کد همینگ (۷،۴) و کد SECDED (۸،۴)\n- **آزمایش میان‌ترم:** دیکودر، جمع‌کنندهٔ BCD، مقایسه‌گرها (رفتاری و با پرچم‌های تفریق‌گر)، مالتی‌پلکسر، ضرب‌کنندهٔ ۴×۴ و مقایسه‌گری که فقط با مالتی‌پلکسر ساخته شده\n- **آزمایش ۶:** تقسیم کلاک، الگوهای LED با کنترل سرعت، بازی واکنش و پینگ‌پنگ با بلاک‌دیزاین، و کلاک‌دهی منطق FPGA از پردازندهٔ Zynq\n- **آزمایش ۷:** مالتی‌پلکس نمایشگر ۷-سگمنت، متن متحرک، کرنومتر با شمارنده‌های آبشاری، کنترل شروع/توقف/ریست و انیمیشن مار\n\n**صحت‌سنجی:** برای هر طراحی یک تست‌بنچ خودارزیاب در Icarus Verilog نوشته شد. طراحی‌های ترکیبی برای همهٔ ورودی‌ها (و کدهای همینگ برای همهٔ الگوهای خطای تک و دوبیتی) آزموده شدند و طراحی‌های ترتیبی با سناریو؛ مثلاً یک دور کامل ده‌دقیقه‌ای کرنومتر. هر ۳۲ تست موفق است و همهٔ طراحی‌ها بدون خطا و بدون latch با Yosys سنتز می‌شوند. خطاهای پیداشده در این بررسی اصلاح و در گزارش‌ها مستند شده‌اند، و دو طراحی امتیازی که در آزمایشگاه نیمه‌کاره مانده بودند (انیمیشن مار و نسخهٔ دوم بازی پینگ‌پنگ با دکمه‌های debounce‌شده) کامل شدند.",
+        en: "Verilog designs from five experiments of the course, implemented with Vivado on a Zynq-7010 board (50 MHz clock) with an extension board of DIP switches, a 4-digit seven-segment display, LEDs and push buttons.\n\n- **Experiment 3:** priority encoder and push-button polarity\n- **Experiment 4:** ripple-carry adder, two's-complement add/subtract with overflow, Hamming(7,4) and SECDED (8,4) codes\n- **Midterm experiment:** decoder, BCD adder, comparators (behavioural and from subtractor flags), multiplexer, 4×4 multiplier and a comparator built only from multiplexers\n- **Experiment 6:** clock division, LED patterns with speed control, reaction and ping-pong games in block designs, PL logic clocked from the Zynq processor\n- **Experiment 7:** seven-segment multiplexing, scrolling text, a stopwatch from cascaded counters, start/stop/reset control and a snake animation\n\n**Verification:** every design has a self-checking Icarus Verilog testbench — exhaustive for the combinational designs (all inputs; all single and double error patterns for the Hamming codes) and scenario-based for the sequential ones, e.g. a complete 10-minute stopwatch cycle. All 32 pass, and every design synthesises with Yosys without errors or latches. Errors found during the review are corrected and documented in the reports, and two bonus designs left unfinished in the lab — the snake animation and a second ping-pong game with debounced buttons — were completed."
       },
       images: [
-        { src: "assets/img/faw/figure1.webp", caption: { fa: "موجبر مستطیلی (a = 1 cm، b = 0.5 cm)، مد TE₁₁ در ۵۰ گیگاهرتز", en: "Rectangular waveguide (a = 1 cm, b = 0.5 cm), TE₁₁ mode at 50 GHz" } },
-        { src: "assets/img/faw/figure2.webp", caption: { fa: "موجبر دایروی با شعاع ۱ سانتی‌متر، مد TM₂₁ در ۵۰ گیگاهرتز", en: "Circular waveguide, radius 1 cm, TM₂₁ mode at 50 GHz" } },
-        { src: "assets/img/faw/figure3.webp", caption: { fa: "فیبر نوری (εr1 = 2، εr2 = 1.9)، مد TM₀₁ در ۵۰ گیگاهرتز", en: "Optical fiber (εr1 = 2, εr2 = 1.9), TM₀₁ mode at 50 GHz" } },
-        { src: "assets/img/faw/figure4.webp", caption: { fa: "موجبر صفحه‌موازی (b = 10 cm)، مد TE₁ در ۲ گیگاهرتز", en: "Parallel-plate waveguide (b = 10 cm), TE₁ mode at 2 GHz" } }
+        { src: "assets/img/logic-lab/lab07_part3_frames.webp", caption: { fa: "مالتی‌پلکس زمانی: در هر لحظه فقط یک رقم روشن است", en: "Time-multiplexing: one digit is enabled at a time" } },
+        { src: "assets/img/logic-lab/lab07_part6_wave.webp", caption: { fa: "شبیه‌سازی کرنومتر: شمارنده‌های آبشاری", en: "Stopwatch simulation: cascaded counters" } },
+        { src: "assets/img/logic-lab/lab07_snake.webp", caption: { fa: "انیمیشن مار، بازسازی‌شده از شبیه‌سازی", en: "Snake animation reconstructed from the simulation" } },
+        { src: "assets/img/logic-lab/lab06_minigame_wave.webp", caption: { fa: "شبیه‌سازی بازی واکنش", en: "Reaction game simulation" } }
       ],
       files: [
-        { label: { fa: "گزارش پروژه (انگلیسی)", en: "Project report" }, url: "assets/files/faw/report.pdf" },
-        { label: { fa: "کد MATLAB", en: "MATLAB code" }, url: "assets/files/faw/code.zip" }
+        { label: { fa: "گزارش آزمایش ۷ — نمایشگر ۷-سگمنت و کرنومتر", en: "Report — Experiment 7: seven-segment display and stopwatch" }, url: "labs/logic-circuits-lab/reports/lab07.pdf" },
+        { label: { fa: "گزارش آزمایش ۶ — منطق ترتیبی، بازی‌ها و کلاک Zynq", en: "Report — Experiment 6: sequential logic, games, Zynq clocking" }, url: "labs/logic-circuits-lab/reports/lab06.pdf" },
+        { label: { fa: "گزارش آزمایش میان‌ترم — دیکودر، BCD، مقایسه‌گر، مالتی‌پلکسر", en: "Report — Midterm experiment: decoders, BCD, comparators, multiplexers" }, url: "labs/logic-circuits-lab/reports/midterm.pdf" },
+        { label: { fa: "گزارش آزمایش ۴ — جمع‌کننده‌ها و کدهای همینگ", en: "Report — Experiment 4: adders and Hamming codes" }, url: "labs/logic-circuits-lab/reports/lab04.pdf" },
+        { label: { fa: "گزارش آزمایش ۳ — انکودر اولویت", en: "Report — Experiment 3: priority encoder" }, url: "labs/logic-circuits-lab/reports/lab03.pdf" }
       ],
-      links: []
-    },
-    {
-      id: "siren-notch-filter",
-      featured: true,
-      title: {
-        fa: "جداسازی صدای گوینده از آژیر با فیلتر ناچ",
-        en: "Separating Speech from a Siren Using Notch Filters"
-      },
-      year: { fa: "۱۴۰۵", en: "2026" },
-      context: {
-        fa: "پروژهٔ پایانی درس سیگنال‌ها و سیستم‌ها — دکتر آرش امینی",
-        en: "Signals & Systems final project — Dr. Arash Amini"
-      },
-      tags: ["MATLAB", { fa: "پردازش سیگنال", en: "Signal Processing" }, { fa: "طراحی فیلتر", en: "Filter Design" }],
-      cover: "assets/img/sas/spectrum-original.webp",
-      summary: {
-        fa: "طراحی فیلتر دیجیتال ناچ با جای‌گذاری صفر و قطب در صفحهٔ z برای حذف صدای آژیر از صدای یک مأمور پلیس.",
-        en: "A digital notch filter, designed by pole–zero placement in the z-plane, that removes a siren from a recording of a police officer's speech."
-      },
-      description: {
-        fa: "**مسئله:** در یک فایل صوتی، صدای یک مأمور پلیس با صدای آژیر ترکیب شده است. هدف، تضعیف صدای آژیر با حفظ هرچه بیشتر صدای گوینده است.\n\n**تحلیل طیف:** تبدیل فوریه با تقریب مجموع ریمانی روی نمونه‌های سیگنال محاسبه شد: `X(2πf) ≈ (1/Fs)·Σ x[k]·e^(−j2πfk/Fs)`. در طیف، صدای انسان پهن و هموار است و آژیر به‌صورت قله‌های باریک و تیز دیده می‌شود.\n\n**طراحی فیلتر:**\n- انتخاب ۸ قلهٔ تیز و پرانرژی طیف به‌عنوان فرکانس‌های آژیر\n- قرار دادن صفرها روی دایرهٔ واحد در همین فرکانس‌ها و قطب‌ها با همان زاویه و شعاع کمی کمتر از یک\n- پیاده‌سازی به‌صورت چهار فیلتر مرتبهٔ ۴ متوالی (در مجموع ۱۶ صفر و قطب) برای پایداری و دقت عددی بیشتر\n- r = 0.95 در فرکانس‌های بالا برای ناچ پهن‌تر و r = 0.975 در فرکانس‌های پایین برای حفظ فرمنت‌های صدا\n- عبور دوبارهٔ سیگنال از کل فیلتر برای تضعیف بیشتر\n\n**نتیجه:** صدای آژیر به‌شکل مؤثری تضعیف شد و صدای گوینده کمی خفه شد؛ تضعیف بیشتر آژیر ممکن بود اما صدای گوینده را بیش از حد تحریف می‌کرد.",
-        en: "**Problem:** a recording of a police officer's speech is mixed with a siren. The goal is to suppress the siren while keeping as much of the voice as possible.\n\n**Spectral analysis:** the Fourier transform was evaluated numerically with a Riemann-sum approximation over the samples, `X(2πf) ≈ (1/Fs)·Σ x[k]·e^(−j2πfk/Fs)`. In the spectrum, the voice is broad and smooth, while the siren appears as sharp, narrow peaks.\n\n**Filter design:**\n- Picked the 8 sharpest, highest-energy peaks as the siren frequencies\n- Placed zeros on the unit circle at those frequencies and poles at the same angles just inside it\n- Implemented as four cascaded 4th-order sections (16 zeros and poles in total) for numerical stability\n- r = 0.95 at high frequencies for wider notches; r = 0.975 at low frequencies to protect the voice formants\n- Passed the signal through the full filter twice for extra attenuation\n\n**Result:** the siren is strongly attenuated with a slight muffling of the voice — further suppression was possible, but at the cost of making the speech hollow and distorted."
-      },
-      audio: [
-        { src: "assets/audio/sas-original.mp3", caption: { fa: "صدای اصلی (گوینده + آژیر)", en: "Original (speech + siren)" } },
-        { src: "assets/audio/sas-processed.mp3", caption: { fa: "خروجی فیلتر", en: "Filtered output" } }
-      ],
-      images: [
-        { src: "assets/img/sas/spectrum-original.webp", caption: { fa: "تبدیل فوریهٔ سیگنال اصلی", en: "Fourier transform of the original signal" } },
-        { src: "assets/img/sas/spectrum-processed.webp", caption: { fa: "تبدیل فوریهٔ سیگنال پس از فیلتر", en: "Fourier transform after filtering" } }
-      ],
-      files: [
-        { label: { fa: "گزارش پروژه (انگلیسی)", en: "Project report" }, url: "assets/files/sas/report.pdf" },
-        { label: { fa: "کد MATLAB", en: "MATLAB code" }, url: "assets/files/sas/code.zip" }
-      ],
-      links: []
-    },
-    {
-      id: "style-finder",
-      side: true,
-      title: {
-        fa: "سبک‌یاب: پیدا کردن ویدیوهای هم‌سبک",
-        en: "Style Finder (Finding)"
-      },
-      year: { fa: "۱۴۰۵", en: "2026" },
-      context: {
-        fa: "پروژهٔ شخصی، ساخته‌شده با کمک Claude — ویندوز، اندروید و iOS",
-        en: "Personal project built with Claude — Windows, Android and iOS"
-      },
-      tags: ["Python", "JavaScript", "Gemini API", { fa: "پروژهٔ جانبی", en: "Side Project" }],
-      cover: "assets/img/side/finding_cover.webp",
-      summary: {
-        fa: "برنامه‌ای فارسی که سبک یک ویدیو، عکس یا آهنگ را با Gemini توصیف می‌کند و نمونه‌های هم‌سبک را در YouTube، TikTok، Instagram و Pinterest پیدا و با توضیح هر معیار رتبه‌بندی می‌کند.",
-        en: "A Persian app that describes the style of a video, picture or song with Gemini, then finds and ranks similar-style content on YouTube, TikTok, Instagram and Pinterest, explaining each score."
-      },
-      description: {
-        fa: "سبک‌یاب ویدیو، عکس یا فایل صوتی شما را می‌گیرد و مراحل زیر را انجام می‌دهد:\n\n- با مدل Gemini «سبک» آن را در چهار جنبه توصیف می‌کند: تصویر، تدوین، موسیقی و صدا، و موضوع.\n- از این توصیف کلیدواژه‌های دقیق جست‌وجو می‌سازد.\n- نمونه‌های پیداشده را تماشا و تحلیل می‌کند.\n- با امتیازی که در خود کد محاسبه می‌شود رتبه‌بندی می‌کند و توضیح می‌دهد در هر جنبه چقدر شبیه‌اند.\n\nکاربر می‌تواند به زبان خودش بنویسد دنبال چه چیزی است و اهمیت هر جنبه را تعیین کند. برنامه نام آهنگِ یک تکه صدا یا ویدیو را هم پیدا می‌کند؛ اول با اثر انگشت صوتی و اگر جواب نداد با Gemini.\n\n- **ویندوز:** سرور محلی Python با رابط وب راست‌به‌چپ و حالت تیره\n- **اندروید و iOS:** منطق مشترک JavaScript داخل پوسته‌های Java و Swift\n- **کلیدها:** هر کاربر کلید خودش را وارد می‌کند و کلید فقط روی دستگاه خودش می‌ماند\n- **آزمون:** صدها آزمون خودکار، و حالت آزمایشی با دادهٔ ساختگی که بدون کلید و اینترنت اجرا می‌شود (تصویر این صفحه از همین حالت است)\n\nایده، خواسته‌ها، تصمیم‌های طراحی و آزمودن روی دستگاه‌های واقعی از من بود و کد را Claude در همکاری قدم‌به‌قدم با من نوشت.",
-        en: "Style Finder takes your video, picture or sound file and works in four steps:\n\n- Gemini describes its style in four aspects: visuals, editing, music and sound, and content.\n- The app turns that description into precise search queries.\n- It watches and analyses the results it finds.\n- It ranks them with a similarity score computed in code, and explains how close each one is in every aspect.\n\nYou can describe in your own words what you are looking for and set how much each aspect matters. The app can also name the song in a clip or video, by audio fingerprint first and Gemini as a fallback.\n\n- **Windows:** a local Python server with a right-to-left web interface and a dark mode\n- **Android and iOS:** shared JavaScript logic inside Java and Swift shells\n- **Keys:** each user enters their own API key, which stays on their device\n- **Testing:** hundreds of automated tests, and a demo mode with synthetic data that runs without a key or internet (the screenshots here use it)\n\nThe idea, requirements, design decisions and real-device testing were mine; Claude wrote the code, working with me step by step."
-      },
-      images: [
-        { src: "assets/img/side/finding_results.webp", caption: { fa: "صفحهٔ نتایج در حالت آزمایشی (دادهٔ ساختگی)", en: "Results page in demo mode (synthetic data)" } },
-        { src: "assets/img/side/finding_search.webp", caption: { fa: "صفحهٔ جست‌وجوی جدید", en: "New search page" } }
-      ],
-      files: [],
       links: [
-        { label: { fa: "کد و راهنمای اجرا در GitHub", en: "Code and setup guide on GitHub" }, url: "https://github.com/seyedkiarash/Finding" }
+        { label: { fa: "کد، تست‌بنچ‌ها و فایل‌های constraint در GitHub", en: "Code, testbenches and constraints on GitHub" }, url: "https://github.com/seyedkiarash/seyedkiarash.github.io/tree/main/labs/logic-circuits-lab" }
       ]
     },
     {
-      id: "chronos-planner",
-      side: true,
+      id: "oop-circuit-simulator",
+      date: "2025-09-04",
+      featured: true,
       title: {
-        fa: "Chronos: برنامه‌ریز هوشمند اندروید",
-        en: "Chronos: An Android Planner"
+        fa: "شبیه‌ساز مدار الکتریکی به زبان C++",
+        en: "Circuit Simulator in C++"
       },
-      year: { fa: "۱۴۰۵", en: "2026" },
+      year: { fa: "بهار ۱۴۰۴", en: "Spring 2025" },
       context: {
-        fa: "پروژهٔ شخصی، ساخته‌شده با کمک Claude — اندروید",
-        en: "Personal project built with Claude — Android"
+        fa: "پروژهٔ گروهی درس برنامه‌سازی شیءگرا — دکتر عبدالله آراسته",
+        en: "Object-Oriented Programming team project — Dr. Abdollah Arasteh"
       },
-      tags: ["Java", "Kotlin", "Android", { fa: "بهینه‌سازی", en: "Optimization" }, { fa: "پروژهٔ جانبی", en: "Side Project" }],
-      cover: "assets/img/side/chronos_cover.webp",
+      tags: ["C++", "Qt", "Eigen", { fa: "تحلیل گره‌ای اصلاح‌شده", en: "MNA" }, { fa: "طراحی شیءگرا", en: "OOP Design" }],
+      cover: "assets/img/oop/cover.webp",
       summary: {
-        fa: "برنامه‌ریز شخصی‌ای که تصمیم می‌گیرد هر کار «کِی» انجام شود: ساعت‌های هر هدف را تا موعدش پخش می‌کند، روز را با مدل انرژی و خستگی می‌چیند، از ثبت‌ها یاد می‌گیرد و شانس رسیدن به هدف‌های بلندمدت را پیش‌بینی می‌کند.",
-        en: "A personal planner that decides when to do things: it spreads each goal's hours up to its deadline, arranges each day with a model of energy and fatigue, learns from what you log and forecasts long-term goals."
+        fa: "شبیه‌سازی شبیه SPICE در سه فاز: طراحی شیءگرا، شبیه‌ساز خط فرمان با تحلیل گره‌ای اصلاح‌شده (MNA) و تحلیل گذرا، و نسخهٔ گرافیکی با Qt شامل ویرایشگر شماتیک، نمایشگر شکل موج، ذخیرهٔ پروژه و ارتباط شبکه‌ای؛ همراه با گزارش بازبینی کد.",
+        en: "A SPICE-like simulator built in three phases — an object-oriented design, a command-line simulator using modified nodal analysis with transient analysis, and a Qt GUI with schematic editor, waveform viewer, project files and networking — plus a code-review report."
       },
       description: {
-        fa: "Chronos چهار بخش اصلی دارد:\n\n- **افق:** ساعت‌های هر هدف را تا موعدش روی روزهای آینده پخش می‌کند و اگر موعدی شدنی نباشد، زود می‌گوید و پیشنهاد می‌دهد چه چیزی آن را درست می‌کند.\n- **روز:** هر کار را در زمانی قرار می‌دهد که کمترین هزینه را دارد. این تصمیم بر پایهٔ مدلی از ساعت بدن است: فشار خواب، ریتم شبانه‌روزی، و خستگی ذهنی و جسمی. کلاس‌ها، وعده‌ها، رفت‌وآمد، خواب و استراحت هم در نظر گرفته می‌شوند.\n- **لاگ:** جلسه‌ها، تمرکز، خستگی و خواب ثبت می‌شوند. برنامه هر شب یاد می‌گیرد کارها واقعاً چقدر طول می‌کشند و کی بهتر کار می‌کنید.\n- **ناوبر:** گرافی از هدف‌های بلندمدت با پیش‌بینی مونت‌کارلو و تقسیم ساعت‌های هفتگی. پیشنهادهای قواعد خود برنامه یا یک مدل زبانی، یکی‌یکی با تأیید شما اعمال می‌شوند.\n\nرابط کاربری به انگلیسی و فارسی (راست‌به‌چپ، با تاریخ شمسی) است. با Jetpack Compose و پایگاه دادهٔ Room ساخته شده و موتور برنامه‌ریزی آزمون‌های واحد گسترده دارد. ایده و طراحی مسئله از من بود و کد را Claude در همکاری قدم‌به‌قدم با من نوشت.",
-        en: "Chronos has four main parts:\n\n- **Horizon:** spreads each goal's hours over the coming days up to its deadline. It warns early when a deadline cannot be met and suggests what would fix it.\n- **Day:** places every block where it costs least. The choice is based on a body-clock model: sleep pressure, circadian rhythm, and mental and physical fatigue. Classes, meals, travel, sleep and rest are also taken into account.\n- **Log:** records sessions, focus, tiredness and sleep. Each night the app learns how long things really take and when you work best.\n- **Navigator:** a graph of long-term goals with Monte Carlo forecasts and a weekly allocation of hours. Proposals from the app's own rules or from an LLM are applied one change at a time, after you approve them.\n\nThe interface is in English and Persian (right-to-left, with Jalali dates). It is built with Jetpack Compose and Room, and the planning engine has an extensive unit-test suite. The idea and problem design were mine; Claude wrote the code, working with me step by step."
+        fa: "این پروژه به‌صورت گروهی و در سه فاز انجام شد:\n\n- **فاز ۰، طراحی:** کلاس‌ها، نمودار UML، الگوهای طراحی (Factory، Bridge، MVC، Command)، روش‌های عددی و طراحی مدیریت خطا.\n- **فاز ۱، شبیه‌ساز خط فرمان:** دستورات به سبک LTspice و حل ماتریس MNA با کتابخانهٔ Eigen. عناصر پشتیبانی‌شده: مقاومت، خازن، سلف، دیود، منابع DC، سینوسی و پالسی، و منابع وابستهٔ E، G، H و F. تحلیل‌ها: گذرا (اویلر پسرو) و جاروب DC. منوی فایل برای ذخیره و بازکردن شماتیک‌ها هم دارد.\n- **فاز ۲، نسخهٔ گرافیکی با Qt 6 و ساختار MVC:** ویرایشگر شماتیک با کلید میانبر، چرخش و برچسب‌گذاری گره‌ها؛ نمایشگر شکل موج با زوم خودکار، تغییر مقیاس محورها، عملیات ریاضی روی سیگنال‌ها، کرسر و دابل کرسر؛ تحلیل گذرا، AC و فاز؛ تک‌قطبی‌ها، ذخیرهٔ پروژه با cereal و ارسال داده از طریق TCP.\n\n**بازبینی کد:** برای این صفحه، کد نهایی هر دو فاز دوباره کامپایل و آزمایش شد، بدون هیچ تغییری در کد.\n\n- **فاز ۱:** نتایج با ngspice مقایسه شد. حل‌کنندهٔ خطی برای مقاومت‌ها، منابع مستقل، منابع E، G و F و پاسخ گذرای مدارهای RC، RL و RLC درست و با دقت مرتبهٔ اول است.\n- **فاز ۲:** نسخهٔ گرافیکی زیر نمایشگر مجازی اجرا شد.\n- **کاستی‌ها:** مواردی مثل منبع H، سلف در تحلیل DC، دیود ایده‌آل و اتصال سیم‌ها در نسخهٔ گرافیکی کامل کار نمی‌کنند. همهٔ این موارد با علت و راه‌حل پیشنهادی در گزارش آمده است.",
+        en: "A team project completed in three phases:\n\n- **Phase 0, design:** classes, UML, design patterns (Factory, Bridge, MVC, Command), numerical methods and an exception design.\n- **Phase 1, console simulator:** LTspice-style commands and an MNA solver built on Eigen. Elements: resistors, capacitors, inductors, diodes, DC/SIN/PULSE sources and E, G, H and F dependent sources. Analyses: backward-Euler transient and DC sweep. A file menu saves and opens schematics.\n- **Phase 2, Qt 6 GUI with an MVC layout:** a schematic editor with shortcuts, rotation and node labels; a waveform viewer with auto-zoom, axis scaling, math traces, a cursor and a double cursor; transient, AC and phase analyses; sub-circuits, cereal project files and TCP data transfer.\n\n**Code review:** for this page, the final code of both phases was rebuilt and tested without changing the code.\n\n- **Phase 1:** results were checked against ngspice. The linear solver is correct for resistors, independent sources, E/G/F sources and RC, RL and RLC transients, with the expected first-order accuracy.\n- **Phase 2:** the GUI was run under a virtual display.\n- **Gaps:** some parts do not fully work, including the H source, inductors in DC analysis, ideal diodes and wire connectivity in the GUI. Each is documented in the report with its cause and a suggested fix."
       },
-      images: [],
+      images: [
+        { src: "assets/img/oop/rlc.webp", caption: { fa: "پاسخ پلهٔ مدار RLC سری: شبیه‌ساز فاز ۱ در مقایسه با ngspice", en: "Series RLC step response: Phase 1 simulator vs. ngspice" } },
+        { src: "assets/img/oop/gui_charts.webp", caption: { fa: "نسخهٔ گرافیکی: ویرایشگر شماتیک و نمایشگر شکل موج (با سیگنال‌های نمونهٔ داخلی)", en: "Phase 2 GUI: schematic editor and waveform viewer (showing built-in sample traces)" } },
+        { src: "assets/img/oop/gui_place.webp", caption: { fa: "قرار دادن المان‌ها با کلید میانبر و چرخش", en: "Placing components with shortcuts and rotation" } },
+        { src: "assets/img/oop/ac.webp", caption: { fa: "تحلیل AC فیلتر RC پایین‌گذر با موتور تحلیل فاز ۲", en: "AC sweep of an RC low-pass with the Phase 2 engine" } }
+      ],
       files: [
-        { label: { fa: "راهنمای کاربر (PDF، فارسی)", en: "User guide (PDF, Persian)" }, url: "https://github.com/seyedkiarash/Chronos/blob/main/docs/USER_GUIDE.fa.pdf" }
+        { label: { fa: "گزارش بازبینی کد (PDF، انگلیسی)", en: "Code review report (PDF)" }, url: "projects/oop-circuit-simulator/report/oop_review.pdf" },
+        { label: { fa: "گزارش طراحی فاز ۰ (PDF، فارسی)", en: "Phase 0 design document (PDF, Persian)" }, url: "projects/oop-circuit-simulator/report/phase0-design.pdf" }
       ],
       links: [
-        { label: { fa: "کد و راهنمای ساخت در GitHub", en: "Code and build guide on GitHub" }, url: "https://github.com/seyedkiarash/Chronos" }
+        { label: { fa: "کد نهایی فاز ۱ و ۲ در GitHub", en: "Final Phase 1 and Phase 2 code on GitHub" }, url: "https://github.com/seyedkiarash/seyedkiarash.github.io/tree/main/projects/oop-circuit-simulator" }
       ]
     }
-
   ],
 
   /*

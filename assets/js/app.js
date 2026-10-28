@@ -209,6 +209,8 @@
       "</div></article>";
   }
 
+  if (S.projects) S.projects.sort(function (a, b) { return String(b.date || "").localeCompare(String(a.date || "")); });
+
   function projectCard(p) {
     return '<a class="card" href="project.html?id=' + encodeURIComponent(p.id) + '">' +
       (p.cover ? '<div class="card-cover"><img src="' + esc(p.cover) + '" alt="" loading="lazy"></div>' : "") +
