@@ -42,53 +42,54 @@
 \newpage
 
 \section*{Theory Question 1} %
-\textbf{Example 1: Drugs and Patients}
+\textbf{Example 1: Clinical trial (two new drugs and one standard drug)}
 \begin{itemize}
-    \item \textbf{a) Arm:} The drug (since drugs possess a certain level of effectiveness, which is modeled as a random variable).
+    \item \textbf{a) Arms:} The three treatments: new drug A, new drug B and the standard drug.
+Each has an unknown success probability (or mean improvement).
 %
-    \item \textbf{b) Reward:} The effectiveness of the drug (which can take any real value).
+    \item \textbf{b) Reward:} The outcome for the treated patient, e.g.\ 1 if the patient recovers (or responds to treatment) and 0 otherwise.
+A continuous measure, such as the reduction of a symptom score, can also be used.
 %
-    \item \textbf{c) Round:} Each instance of administering a drug to a patient.
+    \item \textbf{c) Round:} One patient (or one group of patients) enters the trial and receives one of the treatments; $t$ counts the patients.
 %
-    \item \textbf{d) 1. Exploitation:} Exploitation here differs slightly from our main problem.
-Generally, we want to select arms over $T$ rounds to maximize the total reward.
-Here, we aim to minimize the number of rounds required to reach a specific level of effectiveness.
+    \item \textbf{d) Exploitation and exploration:} Exploitation means giving the next patient the treatment that has worked best so far.
+Exploration means also giving the other treatments to some patients, so that their effectiveness can be measured reliably.
 %
-    \item \textbf{d) 2. Exploration:} This implies allocating a certain number of experimental rounds ($T'$) to test less-frequently used drugs.
-If we solely explore, the total number of rounds increases significantly, which is undesirable.
-Conversely, pure exploitation prevents accurate medical comparisons regarding drug efficacy.
+    \item \textbf{Why both are needed:} With only exploitation, an unlucky start (e.g.\ the best drug fails on its first few patients) can lead the trial to drop the best drug and treat everyone with an inferior one.
+With only exploration (a fixed equal allocation), many patients keep receiving a treatment that is already known to be worse, which is both costly and ethically problematic.
 %
 \end{itemize}
 
 \textbf{Example 2: Advertisements}
 \begin{itemize}
-    \item \textbf{a) Arm:} The advertisement (our goal is to maximize total clicks over $T$ ad display stages).
+    \item \textbf{a) Arms:} The different banners that can be shown.
 %
-    \item \textbf{b) Reward:} A user click (a binary variable: 0 for no click, 1 for a click).
+    \item \textbf{b) Reward:} Whether the user clicks the banner (1 for a click, 0 otherwise), or the revenue from that view.
+The mean reward of a banner is its click-through rate.
 %
-    \item \textbf{c) Round:} The number of times the ad is displayed to users.
+    \item \textbf{c) Round:} One page view, at which a single banner is displayed to a visitor.
 %
-    \item \textbf{d) 1. Exploitation:} Focusing purely on the ad that has accumulated the most clicks over $T'$ rounds.
+    \item \textbf{d) Exploitation and exploration:} Exploitation means showing the banner with the highest observed click-through rate.
+Exploration means showing other banners, especially new or rarely shown ones, to estimate their click-through rates.
 %
-    \item \textbf{d) 2. Exploration:} Displaying less-tested ads to users during $T$ rounds.
-Pure exploitation might negatively impact user experience due to repetition.
-Pure exploration might annoy users with irrelevant ads, ultimately decreasing the total click rate.
+    \item \textbf{Why both are needed:} With only exploitation, the site can lock onto a banner that happened to get a few early clicks and never discover a better one.
+With only exploration, the views are spread evenly over all banners, including clearly poor ones, and many clicks (and revenue) are lost.
 %
 \end{itemize}
 
-\textbf{Example 3: Movie Recommendations}
+\textbf{Example 3: Movie recommendations}
 \begin{itemize}
-    \item \textbf{a) Arm:} Movie categories or specific movies (aiming to maximize positive feedback over $T$ viewing rounds).
+    \item \textbf{a) Arms:} The candidate movies, or movie categories, that can be recommended to the user.
 %
-    \item \textbf{b) Reward:} User feedback (a function of watch time or explicit likes/dislikes).
+    \item \textbf{b) Reward:} The user's feedback: whether the recommended movie is watched to the end, the watch time, or an explicit rating or like.
 %
-    \item \textbf{c) Round:} The number of times a movie is suggested to the user.
+    \item \textbf{c) Round:} One evening (one recommendation) on which the platform suggests a movie to the user.
 %
-    \item \textbf{d) 1. Exploitation:} Primarily suggesting highly viewed or highly rated movie categories.
+    \item \textbf{d) Exploitation and exploration:} Exploitation means recommending the kind of movie the user has liked most so far.
+Exploration means recommending movies or categories the user has rarely seen, to learn whether they would like them.
 %
-    \item \textbf{d) 2. Exploration:} Recommending movie categories that the user has rarely seen.
-Without exploration, the user might grow bored of the repetitive content.
-Without exploitation, the user might be overwhelmed with irrelevant suggestions and become dissatisfied.
+    \item \textbf{Why both are needed:} With only exploitation, the system keeps recommending one category and never learns that the user might like another one better (a ``filter bubble'').
+With only exploration, the user mostly receives random suggestions that do not match their taste and may stop using the service.
 %
 \end{itemize}
 
@@ -199,10 +200,14 @@ Thus, to analyze regret, we must look at the sum of expected selections of subop
     \centering
     % Ensure regret_plot.png is in the same directory
     \includegraphics[width=0.8\textwidth]{regret_plot.png} 
-    \caption{Regret Comparison: Uniform vs Greedy Strategy}
+    \caption{Regret Comparison: Uniform vs Greedy Strategy ($N=500$ runs)}
 \end{figure}
-Generally, the cumulative regret for both strategies appears to grow linearly.
-However, the greedy strategy clearly performs better because it values exploitation and does not choose arms blindly (it improves its performance based on past data).
+Averaged over the 500 runs, the regret at $T=1000$ is $300.0$ for the uniform policy and $56.3$ for the greedy policy.
+The uniform curve is a straight line that lies on the theoretical value $\frac{t}{k}\sum_i \Delta_i = \frac{t}{3}(0.6+0.3+0) = 0.3\,t$ (dashed line), as Theory Question 6 predicts.
+The greedy strategy performs much better on average because it uses the observed rewards, but its regret also grows linearly.
+After one pull per arm it can lock onto a sub-optimal arm, because an arm whose empirical mean drops to 0 is never tried again.
+This happened in 16\% of the runs. Those runs lose 0.3 or 0.6 per step for the rest of the horizon, which gives the average curve a constant positive slope.
+Neither policy reaches the sub-linear regret that a good bandit algorithm should have.
 %
 
 \section*{Theory Question 6} %
@@ -228,12 +233,33 @@ The uniform policy acts completely blind and ignores this incoming data.
 %
 
 \section*{Theory Question 7} %
-Suppose after the first two rounds, the empirical mean of the optimal arm ($\mu_1 = 0.9$) is lower than the sub-optimal arm ($\mu_2 = 0.6$) due to bad luck.
-If $T=1000$, pure exploitation (Policy A) would lock onto the wrong arm early, creating a massive regret difference.
-%
-Thus, Policy A is not always better. While it yields zero regret if it luckily picks the correct arm, Policy B guarantees a linear regret of 150. However, if Policy A makes a mistake, its regret is significantly worse.
-If we allocate the first 100 rounds for pure exploration, the Law of Large Numbers ensures empirical means closely match true means.
-Then, exploiting for the remaining 900 rounds minimizes the total regret securely (a 1-to-9 exploration-to-exploitation ratio).
+Let $T=1000$ for the numerical illustrations, with $\mu_1 = 0.9$ and $\mu_2 = 0.6$, so $\Delta_2 = 0.3$.
+
+\textbf{1. Policy A (pure exploitation).}
+Policy A decides after a single observation of each arm, and a single Bernoulli observation says very little about the mean.
+With probability $0.1 \times 0.6 = 0.06$ the better arm gives 0 and the worse arm gives 1.
+With probability $0.9\times0.6 + 0.1\times0.4 = 0.58$ the two rewards are equal and the choice is a coin flip.
+So the policy commits to the worse arm with probability $0.06 + 0.29 = 0.35$, and it never corrects the mistake.
+In that case it loses $\Delta_2 = 0.3$ at every remaining step, a regret of about $0.3\,T$.
+Its expected regret is $0.3 + 0.35 \times 0.3 \times (T-2) \approx 0.105\,T \approx 105$, which is still linear in $T$.
+
+\textbf{2. Policy B (uniform exploration) compared with A.}
+By Theory Question 6, Policy B has regret exactly $\frac{T}{2}\Delta_2 = 0.15\,T = 150$.
+It is not always better than A. In about 65\% of the runs, A picks the right arm and its regret is only $0$ or $0.3$, far below 150.
+In this example, A's \emph{expected} regret ($\approx 105$) is even lower than B's.
+A's danger is its variance: in about 35\% of the runs its regret is about $300$, twice B's.
+Both policies have linear regret: B because it never stops exploring, A because it stops exploring too early.
+
+\textbf{3. Policy C (explore 10\%, then exploit).}
+During the first $0.1\,T$ steps, Policy C pays the uniform price of $0.1\,T \times 0.15 = 15$.
+By the end of that phase each arm has been pulled about 50 times.
+The standard deviation of the difference of the two empirical means is then about $\sqrt{(0.09+0.24)/50} \approx 0.08$.
+A gap of $0.3$ is therefore about $3.7$ standard deviations, and the best arm is identified with probability above $0.999$.
+The greedy phase also keeps updating the empirical means, so the rare early mistake can still be corrected.
+The expected regret is about $15$, much smaller than for A or B.
+C balances the two goals by exploring while the estimates are unreliable and exploiting once they are accurate.
+Its exploration phase grows in proportion to $T$, so its regret is still linear, only with a small slope.
+UCB and Thompson Sampling go further: they reduce exploration adaptively and reach $O(\log T)$ regret.
 %
 
 \section*{Theory Question 8} %
@@ -244,17 +270,22 @@ P(|Y_n - \mu| \geq c_n(\delta)) \leq 2 \exp\left( -2n \left(\sqrt{\frac{\ln(2/\d
 \[
 \implies P(|Y_n - \mu| < c_n(\delta)) = 1 - P(|Y_n - \mu| \geq c_n(\delta)) \geq 1 - \delta
 \] %
-This inequality bounds the probability of $Y_n$.
-(The probability that the true mean lies within the confidence interval $[Y_n - c_n(\delta) , Y_n + c_n(\delta)]$ is $1-\delta$).
+(Here $Y_n$ denotes the sample mean $\bar{Y}_n$, and $\mu$ denotes $m$.)
+\textbf{Interpretation as a confidence interval:} the probability that the \emph{random} interval $[\bar{Y}_n - c_n(\delta) , \bar{Y}_n + c_n(\delta)]$ contains the fixed true mean $m$ is \emph{at least} $1-\delta$.
+Its half-width $c_n(\delta)$ shrinks as $1/\sqrt{n}$ and grows only logarithmically as $\delta$ decreases.
+With $\delta = 2t^{-4}$, $\ln(2/\delta) = 4\ln t$, so $c_n = \sqrt{4\ln t/(2n)} = \sqrt{2\ln t/n}$, which is the radius $c_i(t)$ used by UCB.
 %
 In a pure exploitation strategy, we seek to maximize $\mu_{i,t}$.
 However, exploration is crucial in early stages.
 The Upper Confidence Bound expression $\mu_{i,t} + c_{i,t}$ perfectly satisfies both needs.
 Because:
-a) For small $t$, the confidence interval $c_{i,t}$ is large.
-Choosing the arm maximizing $\mu_{i,t} + c_{i,t}$ favors arms that have been played less (the bonus $c_{i,t}$ grows with $\ln t$ but shrinks as $N_{i,t}$ grows, so it stays large for rarely played arms), fulfilling the exploration objective.
+a) An arm that has been played only a few times has a small $N_i(t)$ and therefore a large bonus $c_i(t)$.
+Its upper bound $\hat{\mu}_i + c_i(t)$ can exceed that of the current leader even if its empirical mean is lower, so it gets tried again (exploration).
+Because $c_i(t)$ grows with $\ln t$, an arm that is neglected for a long time eventually becomes attractive again.
 %
-b) For large $t$, $c_{i,t}$ shrinks, seamlessly transitioning the focus back to exploitation while still maintaining a tiny amount of exploration to reduce uncertainty.
+b) Each pull of arm $i$ increases $N_i(t)$ and shrinks $c_i(t)$ like $1/\sqrt{N_i(t)}$.
+Well-sampled arms are then judged mostly by their empirical mean (exploitation).
+A sub-optimal arm stops being chosen once its whole confidence interval falls below $\mu^*$, which requires only about $\frac{8\ln t}{\Delta_i^2}$ pulls.
 %
 Hence, selecting the arm that maximizes $\mu_{i,t} + c_{i,t}$ creates an elegant and effective balance between exploration and exploitation.
 %
@@ -266,8 +297,26 @@ Hence, selecting the arm that maximizes $\mu_{i,t} + c_{i,t}$ creates an elegant
     \includegraphics[width=0.8\textwidth]{hoeffding_plot.png} 
     \caption{Checking Hoeffding Bound}
 \end{figure}
-As observed in the plot, $p(n) \leq b(n)$ holds for every $n$, as Hoeffding's inequality guarantees (for $n=20$ the bound exceeds 1 and is therefore trivial).
-However, as $n$ increases, the decay rate of the empirical probability and the theoretical bound align closely, causing them to converge and occasionally equalize.
+With $N=10000$ repetitions per value of $n$:
+\begin{center}
+\begin{tabular}{ccc}
+\hline
+$n$ & $\hat{p}_n$ (simulation) & $b_n = 2e^{-2n(0.1)^2}$ \\
+\hline
+20 & 0.3383 & 1.3406 \\
+50 & 0.1235 & 0.7358 \\
+100 & 0.0287 & 0.2707 \\
+500 & 0.0000 & 0.0001 \\
+\hline
+\end{tabular}
+\end{center}
+As Hoeffding's inequality guarantees, $\hat{p}_n \leq b_n$ for every $n$.
+For $n=20$ the bound exceeds 1 and is therefore trivial.
+Both quantities decrease exponentially as $n$ grows, so the sample mean concentrates around $0.7$.
+The bound is conservative, however: it is 4--10 times larger than the true probability.
+This is because it holds for \emph{every} distribution on $[0,1]$, including the worst case (variance $1/4$), while this Bernoulli variable has variance $0.7 \times 0.3 = 0.21$.
+At $n=500$, the event $|\bar{Y}_n - 0.7| \ge 0.1$ lies about $4.9$ standard deviations away, so its probability ($\approx 10^{-6}$) is too small to observe in $10^4$ trials.
+The plot uses a logarithmic axis, so this zero is not drawn.
 %
 
 \section*{Theory Question 9} %
@@ -291,12 +340,31 @@ The primary advantage of a conjugate prior is algebraic convenience, completely 
     \includegraphics[width=0.8\textwidth]{Figure_3.png} 
     \caption{Evolution of Beta Posterior Distribution}
 \end{figure}
-As can be seen, with the increase in time steps, our PDF becomes sharper and more concentrated around the mean (its variance decreases).
+At $t=0$ the posterior is the uniform prior $\mathrm{Beta}(1,1)$.
+After $t$ observations with $s$ successes it is $\mathrm{Beta}(1+s,\,1+t-s)$.
+Its mean $\frac{1+s}{2+t}$ moves to the observed success rate, which tends to $0.7$ by the law of large numbers.
+Its standard deviation falls roughly as $\sqrt{0.7\times0.3/t}$, about $0.03$ at $t=200$.
+So the PDF becomes narrower and taller and concentrates around the true mean $0.7$ (dashed line).
+The early curves ($t=5$) can still sit visibly away from $0.7$, because a few observations carry a lot of randomness.
 
 \section*{Theory Question 10} %
-The derivation follows the exact same logic as above.
-We just need to account for the distribution coefficient to find the relation.
-Ultimately, the core structure remains $\mathrm{Beta}(\alpha + S, \beta + f)$.
+Let the data consist of $n = s+f$ independent Bernoulli($\mu$) trials with $s$ successes and $f$ failures.
+The likelihood of a given sequence is $\mu^{s}(1-\mu)^{f}$.
+If only the counts are recorded it is $\binom{s+f}{s}\mu^{s}(1-\mu)^{f}$; the binomial coefficient does not depend on $\mu$.
+By Bayes' rule, with the $\mathrm{Beta}(\alpha,\beta)$ prior:
+\[
+P(\mu \mid \text{data}) \propto P(\text{data}\mid\mu)\,P(\mu) = \binom{s+f}{s}\mu^{s}(1-\mu)^{f}\cdot\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\,\mu^{\alpha-1}(1-\mu)^{\beta-1}.
+\]
+All factors that do not depend on $\mu$ are absorbed into the proportionality constant:
+\[
+P(\mu \mid \text{data}) \propto \mu^{\alpha+s-1}(1-\mu)^{\beta+f-1}, \qquad 0\le\mu\le1 .
+\]
+This is the kernel of $\mathrm{Beta}(\alpha+s,\,\beta+f)$.
+Since the posterior must integrate to 1, the normalizing constant is fixed, and
+\[
+P(\mu \mid \text{data}) = \frac{\Gamma(\alpha+\beta+s+f)}{\Gamma(\alpha+s)\,\Gamma(\beta+f)}\,\mu^{\alpha+s-1}(1-\mu)^{\beta+f-1},
+\]
+that is, $\alpha' = \alpha+s$ and $\beta' = \beta+f$.
 %
 
 \section*{Simulation Question 4}
@@ -305,7 +373,19 @@ Ultimately, the core structure remains $\mathrm{Beta}(\alpha + S, \beta + f)$.
     \includegraphics[width=1\textwidth]{Figure_4.png} 
     \caption{Cumulative Regret and Convergence of Posterior Means}
 \end{figure}
-As observed in the left graph, the regret of the TS algorithm grows logarithmically. In the right graph, we can observe the empirical means of the arms approaching their true means. (It is clear that they do not converge exactly to those values, especially the weaker arms, which lose their value after some exploration and are explored less over time).
+The bandit has six Bernoulli arms with means $(0.2, 0.5, 0.8, 0.3, 0.1, 0.6)$, run for $T=10000$ steps with $\mathrm{Beta}(1,1)$ priors.
+
+\textbf{Regret (left).} Almost all of the regret ($\approx 30$ of the final $34.6$) is paid in the first few hundred steps.
+After that the curve grows only in rare, small jumps, which matches the $O(\log T)$ behaviour (dashed $c\ln t$ reference).
+
+\textbf{Posterior means (middle).} The best arm (0.8) received 9881 of the 10000 pulls, and its posterior mean converges to $0.800$.
+The second-best arm (0.6) was pulled 73 times and is also well estimated.
+The weak arms were pulled only 6--25 times each, so their estimates are still rough: $0.125$ for $\mu=0.2$, and $0.222$ for $\mu=0.1$.
+This is expected: once an arm is clearly worse, Thompson Sampling stops spending pulls on it, and an accurate estimate of a bad arm is not needed to avoid it.
+
+\textbf{Posterior variances (right).} The variance of the best arm falls like $1/N$, down to about $2\times10^{-5}$ (standard deviation $0.004$).
+The variances of the other arms stop decreasing as soon as those arms stop being played.
+Their uncertainty stays large but no longer matters, because their posteriors lie well below that of the best arm.
 
 \section*{Theory Question 11} %
 In the Beta-Bernoulli Bayesian model, after observing the data, our belief distribution regarding the reward parameter is updated to a Beta posterior distribution $\mathrm{Beta}(\alpha', \beta')$.
@@ -369,31 +449,38 @@ As the number of observations increases (increasing the weight $\alpha+\beta$), 
 
 \section*{Theory Question 13} %
 \textbf{Data:} %
-First arm $\sim \mathrm{Beta}(2, 3)$ %
-Second arm $\sim \mathrm{Beta}(10, 5)$ %
+First arm $\sim \mathrm{Beta}(3, 2)$, second arm $\sim \mathrm{Beta}(10, 5)$.
 
 \textbf{Calculations:} %
 Means: %
 \[ 
-\mathbb{E}[\mu_1] = \frac{2}{2+3} = 0.4 \quad , \quad \mathbb{E}[\mu_2] = \frac{10}{10+5} \approx 0.667 
+\mathbb{E}[\mu_1] = \frac{3}{3+2} = 0.6 \quad , \quad \mathbb{E}[\mu_2] = \frac{10}{10+5} \approx 0.667 
 \] %
 Variances: %
 \[ 
-\mathrm{Var}(\mu_1) = \frac{2 \times 3}{(2+3)^2(2+3+1)} = \frac{6}{150} = 0.04 
+\mathrm{Var}(\mu_1) = \frac{3 \times 2}{(3+2)^2(3+2+1)} = \frac{6}{150} = 0.04 \quad (\text{sd } 0.20)
 \] %
 \[ 
-\mathrm{Var}(\mu_2) = \frac{10 \times 5}{(10+5)^2(10+5+1)} = \frac{50}{3600} \approx 0.0139 
+\mathrm{Var}(\mu_2) = \frac{10 \times 5}{(10+5)^2(10+5+1)} = \frac{50}{3600} \approx 0.0139 \quad (\text{sd } 0.12)
 \] %
+Thompson Sampling chooses arm 1 exactly when $\theta_1 > \theta_2$. Numerical integration gives
+\[
+P(\theta_1 > \theta_2) = \int_0^1 f_{\mathrm{Beta}(3,2)}(x)\,F_{\mathrm{Beta}(10,5)}(x)\,dx \approx 0.41 .
+\]
+So TS picks arm 2 about 59\% of the time and arm 1 about 41\% of the time.
 
 \textbf{Thompson Sampling Behavior:} %
 \begin{enumerate}
-    \item \textbf{Exploitation:} The mean of the second arm is higher ($0.667 > 0.4$). Therefore, Thompson Sampling tends to select the second arm more often.
+    \item \textbf{Exploitation:} The posterior mean of the second arm is higher ($0.667 > 0.6$), and its posterior is narrow (it is based on about 13 observations instead of 3), so TS selects the second arm more often.
 %
-    \item \textbf{Exploration:} The variance of the first arm is greater ($0.04 > 0.0139$), meaning it has higher uncertainty.
-Thus, TS will occasionally still select the first arm.
+    \item \textbf{Exploration:} The first arm has almost three times the variance ($0.04$ against $0.0139$).
+Its wide posterior often produces large samples: $P(\theta_1 > 0.8) \approx 0.18$, against $0.13$ for arm 2.
+So, despite its lower mean, it is still chosen in about 41\% of the steps.
 %
 \end{enumerate}
-\textbf{Balance:} This algorithm automatically balances exploiting the best current estimate (the second arm) and reducing the uncertainty of the lesser-known arm (the first arm).
+\textbf{Balance:} The difference in means is small compared with the uncertainty about arm 1, so TS keeps testing arm 1 often.
+Each test narrows its posterior. If arm 1 really is worse, its probability of being chosen then falls quickly.
+A greedy rule would pick arm 2 every time and never learn whether arm 1 is actually better.
 %
 
 \section*{Simulation Question 5}
@@ -464,16 +551,46 @@ Thus, Thompson Sampling automatically implements probability matching without re
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Q6.png} 
-    \caption{Share of pulls of each arm compared with the average posterior probability that the arm is optimal (log scale)}
+    \caption{Share of pulls of each arm, posterior probability of being optimal at the end of the run, and its average over the run (log scale). The bandit has means $(0.2, 0.5, 0.75, 0.4)$.}
 \end{figure}
 
-This simulation checks the connection between Thompson Sampling and \textbf{probability matching} from Theory Question 15. Probability matching states that, at every step, $P(A_t = i \mid H_t) = \pi_i(t)$, where $\pi_i(t) = P(\theta_i = \max_j \theta_j \mid H_t)$ is the posterior probability that arm $i$ is optimal. Taking the expectation of $\mathbb{I}\{A_t=i\}$ and summing over the run, the share of pulls of arm $i$ should equal the average of $\pi_i(t)$ over the same steps:
+\textbf{Method.} The function \texttt{prob\_optimal} estimates $\pi_i = P(\theta_i = \max_j \theta_j \mid H)$ by Monte Carlo, as in Theory Question 15.
+It draws $n=20000$ joint samples from the independent Beta posteriors and counts how often each arm has the largest sample.
+For each $T \in \{500, 1000, 5000\}$, Thompson Sampling is run for $T$ steps.
+The run records how often each arm was pulled, $\pi_i$ at the end of the run, and the Pearson correlation between the two vectors.
+
+\textbf{Results (one run per $T$):}
+\begin{center}
+\begin{tabular}{cccc}
+\hline
+$T$ & share of pulls of the best arm & final $\pi_{\text{best}}$ & correlation \\
+\hline
+500  & 0.936 & 0.978 & 0.9999 \\
+1000 & 0.887 & 0.999 & 0.9978 \\
+5000 & 0.988 & 0.999 & 1.0000 \\
+\hline
+\end{tabular}
+\end{center}
+A single run is noisy, so the experiment was repeated 100 times for each $T$.
+The mean correlation rose from $0.9979$ to $0.9981$ to $1.0000$, and the worst run from $0.934$ to $0.844$ to $0.9998$.
+The largest gap between the share of pulls and $\pi_i$ fell from $0.073$ to $0.044$ to $0.011$.
+So the agreement improves as $T$ grows.
+
+\textbf{Why the correlation improves with $T$.}
+The final $\pi$ describes the posterior at the end of the run, while the share of pulls is an average over all $T$ steps, including the early steps when the posterior was still uncertain.
+For small $T$, the uncertain phase is a large part of the run, so the two vectors differ: sub-optimal arms were pulled more often than their final $\pi_i$ suggests.
+As $T$ grows, the posteriors concentrate, $\pi_{\text{best}} \to 1$, and the early phase becomes a negligible share of the pulls.
+Both vectors then approach $(0, 0, 1, 0)$, and their correlation approaches 1.
+Note that both vectors are dominated by the best arm, so the correlation is close to 1 even for small $T$; the gaps on the log-scale plot show the differences more clearly.
+
+\textbf{A stricter check of probability matching.} Probability matching states that, at every step, $P(A_t = i \mid H_t) = \pi_i(t)$.
+Summing over the run, the share of pulls should therefore equal the \emph{average} of $\pi_i(t)$ over the same steps:
 \[
 \frac{1}{T}\sum_{t=1}^{T} \mathbb{I}\{A_t = i\} \;\approx\; \frac{1}{T}\sum_{t=1}^{T} \pi_i(t).
 \]
-At every step, before choosing an arm, the simulation estimates $\pi(t)$ by Monte Carlo, with 1000 joint draws from the Beta posteriors. Then it runs Thompson Sampling as usual. The two sides agree to within 0.004 for $T=500$ and $T=1000$, and to within 0.001 for $T=5000$. This holds for every arm, including the rarely played ones (see the log-scale bars).
-
-Comparing the share of pulls with $\pi_i$ \emph{at the end} of the run, as an earlier version of this simulation did, is not a valid test. The final posterior describes only the last step, while the share of pulls averages over the whole run. Both vectors are also dominated by the best arm, so their correlation is close to 1 whatever the algorithm does.
+To test this, the simulation also estimates $\pi(t)$ before every step, with 1000 Monte Carlo draws (green bars).
+The two sides agree to within $0.004$, $0.006$ and $0.002$ for the three values of $T$, for every arm, including the rarely played ones.
+This confirms that Thompson Sampling implements probability matching at every step, not only in the limit.
 
 \section*{Theory Question 16} %
 The choice of the prior Beta distribution directly affects the balance between exploration and exploitation: %
@@ -482,34 +599,70 @@ The choice of the prior Beta distribution directly affects the balance between e
 Due to its high variance ($\sigma^2 = 1/12$), it provides the maximum initial exploration.
 The algorithm has no initial bias and is updated purely based on observed rewards.
 %
-    \item \textbf{Informative Prior ($\mathrm{Beta}(100, 100)$):} This prior represents overconfidence.
-Its extremely small variance causes all samples to be concentrated around $0.5$.
-This leads to under-exploration; the algorithm does not test new arms sufficiently because it assumes it already knows their means.
+    \item \textbf{Informative Prior ($\mathrm{Beta}(100, 100)$):} This prior is equivalent to 200 imaginary observations per arm, half successes, and its standard deviation is only about $0.035$.
+The posterior mean $\frac{100+s}{200+n}$ is pulled strongly towards $0.5$, so it is biased until an arm has been played several hundred times.
+Because every arm starts with the same narrow posterior, the samples of different arms barely differ, and the first few hundred choices are close to uniform random.
+The effect is slow learning: the algorithm keeps spreading its pulls (a form of over-exploration) and is slow to commit to the best arm, which costs regret early on.
+If the prior is wrong (true means far from 0.5), this cost is large. If it is right, the prior saves exploration.
 %
     \item \textbf{Jeffreys Prior ($\mathrm{Beta}(0.5, 0.5)$):} Theoretically, this distribution is invariant to reparameterization.
 The concentration of density at the boundaries $0$ and $1$ causes the very first observation to have a severe impact on the posterior distribution.
 This prior is suitable for quickly identifying extremely strong or extremely weak arms.
 %
 \end{enumerate}
-\textbf{Conclusion:} In the absence of prior knowledge, $\mathrm{Beta}(1, 1)$ exhibits the most stable behavior, whereas $\mathrm{Beta}(100, 100)$ can cause the algorithm to get stuck in an incorrect estimate for a long time.
+\textbf{Conclusion:} In the absence of prior knowledge, $\mathrm{Beta}(1, 1)$ exhibits the most stable behavior, whereas $\mathrm{Beta}(100, 100)$ keeps the estimates near $0.5$ for a long time and delays the identification of the best arm.
 %
 
 \section*{Simulation Question 7}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{Q7-gaussian_vs_bernoulli.png} 
-    \caption{Comparison of Gaussian vs. Bernoulli Likelihoods in Thompson Sampling}
+    \includegraphics[width=1\textwidth]{Q7-gaussian_vs_bernoulli.png}
+    \caption{Thompson Sampling on a Gaussian bandit (Normal--Normal model) compared with the Bernoulli bandit (Beta--Bernoulli model), both with means $0.2, 0.5, 0.9$; averages over 300 runs.}
 \end{figure}
 
-This simulation compares two versions of Thompson Sampling on the \emph{same} Bernoulli bandit (means 0.2, 0.5 and 0.9). The rewards are binary, and in each of the 200 runs both algorithms see the same table of rewards.
+\textbf{Setup.} The Gaussian bandit has three arms with rewards $X \sim \mathcal{N}(\mu_i, \sigma^2)$, where $\mu = (0.2, 0.5, 0.9)$ and $\sigma^2 = 1$ is known.
+Each mean gets the prior $\mathcal{N}(\hat{\mu}_0, \sigma_0^2) = \mathcal{N}(0, 1)$.
+At every step, $\theta_i \sim \mathcal{N}(\hat{\mu}_i, \sigma_i^2)$ is drawn for each arm and the arm with the largest $\theta_i$ is played.
+After observing reward $X$, the pulled arm is updated by the conjugate rule
+\[
+\frac{1}{\sigma_{1}^2} = \frac{1}{\sigma_{0}^2} + \frac{1}{\sigma^2}, \qquad \hat{\mu}_1 = \sigma_1^2\left(\frac{\hat{\mu}_0}{\sigma_0^2} + \frac{X}{\sigma^2}\right),
+\]
+which is the formula of Section 6.9. After $n$ pulls, the posterior variance is $1/(1/\sigma_0^2 + n/\sigma^2)$.
+For comparison, the Bernoulli case uses Bernoulli rewards with the same means and Beta--Bernoulli Thompson Sampling with a $\mathrm{Beta}(1,1)$ prior.
+Both run for $T=5000$ steps, 300 times.
+
+\textbf{Results} at $T=5000$ (mean $\pm$ 95\% confidence interval):
+\begin{center}
+\small\begin{tabular}{lccc}
+\hline
+Case & Regret & Pulls (arms 1, 2) & Best arm \\
+\hline
+Gaussian bandit, Normal--Normal TS & $34.9 \pm 1.8$ & 19.0, 54.0 & 98.5\% \\
+Bernoulli bandit, Beta--Bernoulli TS & $7.7 \pm 0.3$ & 5.0, 10.4 & 99.7\% \\
+\hline
+Extra: Bernoulli bandit, Normal--Normal TS & $33.2 \pm 0.8$ & 19.4, 49.0 & 98.6\% \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{Discussion.} The Gaussian version works: its regret grows logarithmically and it plays the best arm 98.5\% of the time.
+Its regret is, however, about 4.5 times that of the Bernoulli case.
+The reason is the noise level, not the algorithm.
+A Gaussian reward with $\sigma^2 = 1$ is much noisier than a Bernoulli reward, whose variance is $\mu(1-\mu) \le 0.25$.
+In the Lai--Robbins bound this appears through the KL divergence:
 \begin{itemize}
-    \item \textbf{Bernoulli TS} uses the correct model: a Beta(1,1) prior and Beta--Bernoulli updates.
-    \item \textbf{Gaussian TS} uses a misspecified model: a $\mathcal{N}(0,10)$ prior and a Normal likelihood with assumed variance $\sigma^2 = 1$, i.e.\ it treats the 0/1 rewards as noisy continuous values.
+\item For Gaussian arms, $\mathrm{KL} = \Delta_i^2/(2\sigma^2)$, which is $0.08$ for the arm with mean 0.5.
+\item For Bernoulli arms, $\mathrm{KL}(0.5\,\|\,0.9) = 0.51$.
 \end{itemize}
-Results at $T=5000$ (mean $\pm$ 95\% CI): regret $34.4 \pm 0.9$ for Gaussian TS and $7.8 \pm 0.4$ for Bernoulli TS. The best arm receives 98.6\% and 99.7\% of the pulls.
+The resulting constants $\sum_i \Delta_i/\mathrm{KL}_i$ are $7.86$ (Gaussian) and $1.30$ (Bernoulli).
+The Gaussian problem is therefore inherently about six times harder.
+The measured slopes of the regret against $\ln t$ between $t=500$ and $t=5000$ are $5.5$ and $0.9$, a similar ratio.
+They are below the constants, as is common at finite $T$, since the Lai--Robbins bound is asymptotic.
 
-Both algorithms find the best arm, but the Gaussian model explores more. A Bernoulli reward has variance $\mu(1-\mu) \le 0.25$, while the model assumes $\sigma^2 = 1$. Its posteriors therefore shrink as $1/N_i$ instead of as $\mu(1-\mu)/N_i$, so they stay too wide, and sub-optimal arms keep being sampled; arm 2 is pulled about five times as often. The price of the misspecification is about four times the regret.
-
-An earlier version of this simulation drew the Gaussian algorithm's rewards from $\mathcal{N}(\mu_i, 1)$ instead of from the Bernoulli arms. The two algorithms were then solving different, unequally noisy problems, so that comparison did not measure the effect of the likelihood.
+\textbf{Extra experiment.} Normal--Normal TS was also run on the Bernoulli rewards, i.e.\ with a misspecified likelihood.
+It still finds the best arm, but its regret ($33.2$) is about the same as on the noisy Gaussian bandit and four times that of Beta--Bernoulli TS.
+Because it assumes $\sigma^2 = 1$, its posteriors shrink as $1/N_i$ instead of as $\mu(1-\mu)/N_i$.
+They stay too wide, so the algorithm cannot exploit the lower noise of the Bernoulli rewards.
+Thompson Sampling is robust to a wrong likelihood, but it is efficient only when the model matches the rewards.
 
 \end{document}

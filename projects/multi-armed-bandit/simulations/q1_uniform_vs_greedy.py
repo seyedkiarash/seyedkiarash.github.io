@@ -31,6 +31,7 @@ def greedy(T):
     return np.array(r)
 
 def main():
+    np.random.seed(0)
     T=1000
     N=500
     uni_regret = np.zeros((N, T))
@@ -49,12 +50,18 @@ def main():
     t=np.arange(1,T+1)
     plt.plot(t,mean_regret_uni,label="Uniform Strategy", color="blue")
     plt.plot(t,mean_regret_gre,label="Greedy Strategy", color="red")
+    # theory for the uniform policy: Regret(t) = (t/k) * sum(Delta_i) = 0.3 t
+    plt.plot(t,0.3*t,"--",color="gray",label="Uniform, theory: 0.3 t")
     plt.xlabel("t")
     plt.ylabel("Average Cumulative Regret")
     plt.title(f"Regret Comparison: Uniform vs Greedy")
     plt.legend()
     plt.grid(True)
+    plt.savefig("regret_plot.png",dpi=200,bbox_inches="tight")
     plt.show()
+    stuck=np.mean(gre_regret[:,-1]>100)
+    print(f"Regret at T={T}: uniform {mean_regret_uni[-1]:.1f} (theory {0.3*T:.0f}), greedy {mean_regret_gre[-1]:.1f}")
+    print(f"greedy runs that locked onto a sub-optimal arm: {100*stuck:.1f}%")
 
 if __name__=="__main__":
     main()

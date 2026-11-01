@@ -4,6 +4,7 @@ from scipy.stats import beta
 
 mu=0.7
 T=200
+np.random.seed(0)
 X=np.random.binomial(1,mu,size=T)
 curr_a=1
 curr_b=1
@@ -26,4 +27,5 @@ plt.ylabel('PDF')
 plt.axvline(x=mu,color='black',linestyle='--',alpha=0.5,label='True Mean (0.7)')
 plt.legend()
 plt.grid(True)
+plt.savefig('Figure_3.png',dpi=200,bbox_inches='tight')
 plt.show()
