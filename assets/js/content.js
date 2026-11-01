@@ -43,9 +43,12 @@ window.SITE = {
     {
       degree: { fa: "کارشناسی مهندسی برق", en: "B.Sc. in Electrical Engineering" },
       school: { fa: "دانشگاه صنعتی شریف", en: "Sharif University of Technology" },
-      period: { fa: "۱۴۰۳ – اکنون", en: "2024 – Present" },
-      gpa: { fa: "معدل کل: ۱۸٫۵۹ از ۲۰", en: "GPA: 18.59 / 20" },
-      details: { fa: "", en: "" }
+      period: { fa: "۱۴۰۳ – ۱۴۰۷ (پیش‌بینی)", en: "2024 – 2028 (expected)" },
+      gpa: { fa: "معدل کل: ۱۸٫۵۹ از ۲۰ · رتبهٔ ۲۲ از ۲۰۸ دانشجوی ورودی", en: "GPA: 18.59 / 20 · Ranked 22nd of 208 in the entering class" },
+      details: {
+        fa: "میانگین معدل دانشکده برای همین ورودی ۱۶٫۵۱ است.\n\n**درس‌های منتخب:** سیگنال‌ها و سیستم‌ها (۱۹٫۴)، آمار و احتمال مهندسی (۱۹٫۴)، روش‌های ریاضی در مهندسی (۱۹٫۷)، ریاضیات مهندسی (۱۸٫۶)، تحلیل مدارهای الکتریکی (۲۰)، الکترومغناطیس (۲۰)، الکترونیک ۱ (۱۹٫۵)، مبانی برنامه‌نویسی (۲۰)، برنامه‌نویسی شیءگرا (۱۹٫۹)\n\n**در حال گذراندن (پاییز ۱۴۰۵):** پردازش سیگنال روی گراف (درس تحصیلات تکمیلی)، سیستم‌های مخابراتی، سیستم‌های کنترل خطی",
+        en: "The department average GPA for this entering class is 16.51.\n\n**Selected courses:** Signals & Systems (19.4), Engineering Probability & Statistics (19.4), Mathematical Methods in Engineering (19.7), Engineering Mathematics (18.6), Electrical Circuit Theory (20), Electromagnetics (20), Electronics 1 (19.5), Fundamentals of Programming (20), Object-Oriented Programming (19.9)\n\n**In progress (Fall 2026):** Graph Signal Processing (graduate course), Communication Systems, Linear Control Systems"
+      }
     }
   ],
 
@@ -64,7 +67,10 @@ window.SITE = {
         fa: "مدال برنز المپیاد فیزیک کشوری",
         en: "Bronze Medal, Iranian National Physics Olympiad"
       },
-      description: { fa: "", en: "" }
+      description: {
+        fa: "قبولی در مرحلهٔ دوم و حضور در دورهٔ تابستانی ۴۰ نفرهٔ المپیاد. فیزیک ۱ و ۲ و آزمایشگاه‌های آن‌ها در دانشگاه شریف به‌عنوان دارندهٔ مدال المپیاد پذیرفته شد.",
+        en: "Passed the second round and attended the national summer camp for the top 40 students. Physics 1 and 2 and their labs were credited at Sharif on the basis of the medal."
+      }
     }
   ],
 
@@ -83,7 +89,7 @@ window.SITE = {
         { name: "Verilog", level: { fa: "متوسط", en: "Intermediate" } }
       ]
     },
-    { group: { fa: "کتابخانه‌ها و ابزارها", en: "Libraries & Tools" }, items: ["Vivado", "Git", "NumPy", "SciPy", "Matplotlib", "Jupyter", "LaTeX"] },
+    { group: { fa: "کتابخانه‌ها و ابزارها", en: "Libraries & Tools" }, items: ["NumPy", "SciPy", "Matplotlib", "Jupyter", "Simulink", "LTspice", "Vivado", "Icarus Verilog", "Qt", "Git", "LaTeX"] },
     {
       group: { fa: "زبان", en: "Languages" },
       items: [
@@ -499,8 +505,11 @@ window.SITE = {
         {
           title: { fa: "همکار پژوهشی، آزمایشگاه چندرسانه‌ای", en: "Research Collaborator, Multimedia Lab" },
           org: { fa: "دانشکدهٔ مهندسی برق، دانشگاه صنعتی شریف — دکتر آرش امینی", en: "Department of Electrical Engineering, Sharif University of Technology — Dr. Arash Amini" },
-          date: { fa: "", en: "" },
-          description: { fa: "", en: "" }
+          date: { fa: "شهریور ۱۴۰۵ – اکنون", en: "Sep 2026 – Present" },
+          description: {
+            fa: "پژوهش روی تبدیل صدا (voice conversion). در مرحلهٔ فعلی مسئله را به‌صورت غیرمولد و با ابزارهای نظریهٔ تخمین و بهینه‌سازی حل می‌کنم و در ماه‌های آینده کار را بر همین پایه به تبدیل صدای مولد گسترش می‌دهم.",
+            en: "Research on voice conversion. The current stage approaches the problem non-generatively, with tools from estimation theory and optimization; the next stage extends the work to generative voice conversion on the same foundations."
+          }
         }
       ]
     },
@@ -511,31 +520,31 @@ window.SITE = {
           title: { fa: "سردستیار آموزشی، تئوری مدار", en: "Head Teaching Assistant, Circuit Theory" },
           org: { fa: "دکتر روح‌الله امیری — دانشگاه صنعتی شریف", en: "Dr. Rouhollah Amiri — Sharif University of Technology" },
           date: { fa: "پاییز ۱۴۰۵", en: "Fall 2026" },
-          description: { fa: "", en: "" }
+          description: { fa: "طراحی و تصحیح تمرین‌ها و مدیریت دستیاران طراح، مصحح و پروژه — ۴۰ دانشجو", en: "Designed and graded the assignments, and managed the assignment-design, grading and project TAs. 40 students." }
         },
         {
           title: { fa: "دستیار آموزشی، آمار و احتمال", en: "Teaching Assistant, Probability & Statistics" },
           org: { fa: "دکتر محمدحسین یاسایی — دانشگاه صنعتی شریف", en: "Dr. Mohammad Hossein Yassaee — Sharif University of Technology" },
           date: { fa: "پاییز ۱۴۰۵", en: "Fall 2026" },
-          description: { fa: "", en: "" }
+          description: { fa: "طراحی تمرین‌ها — ۶۰ دانشجو", en: "Designed the assignments. 60 students." }
         },
         {
           title: { fa: "سردستیار بخش تمرین، برنامه‌نویسی شیءگرا", en: "Head TA (Assignments), Object-Oriented Programming" },
           org: { fa: "دکتر عبدالله آراسته — دانشگاه صنعتی شریف", en: "Dr. Abdollah Arasteh — Sharif University of Technology" },
           date: { fa: "بهار ۱۴۰۵", en: "Spring 2026" },
-          description: { fa: "", en: "" }
+          description: { fa: "مدیریت دستیاران طراح و مصحح تمرین‌ها و تصحیح تمرین‌ها — ۱۰۵ دانشجو", en: "Managed the TAs who designed and graded the assignments, and graded assignments. 105 students." }
         },
         {
           title: { fa: "دستیار آموزشی، الکترومغناطیس", en: "Teaching Assistant, Electromagnetics" },
           org: { fa: "دکتر محمد معماریان — دانشگاه صنعتی شریف", en: "Dr. Mohammad Memarian — Sharif University of Technology" },
           date: { fa: "بهار ۱۴۰۵", en: "Spring 2026" },
-          description: { fa: "", en: "" }
+          description: { fa: "برگزاری کلاس حل تمرین — ۱۷۰ دانشجو", en: "Held problem-solving sessions. 170 students." }
         },
         {
           title: { fa: "دستیار آموزشی، مبانی برنامه‌نویسی", en: "Teaching Assistant, Fundamentals of Programming" },
           org: { fa: "دکتر عبدالله آراسته — دانشگاه صنعتی شریف", en: "Dr. Abdollah Arasteh — Sharif University of Technology" },
           date: { fa: "پاییز ۱۴۰۴", en: "Fall 2025" },
-          description: { fa: "", en: "" }
+          description: { fa: "طراحی تمرین‌ها — ۲۱۰ دانشجو", en: "Designed the assignments. 210 students." }
         }
       ]
     }
