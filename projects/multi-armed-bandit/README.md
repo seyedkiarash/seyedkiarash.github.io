@@ -1,6 +1,6 @@
 # Multi-Armed Bandit (Probability and Statistics project)
 
-Team project for Probability and Statistics in Engineering (Dr. Mohammad Hossein Yassaee,
+Team project for Probability and Statistics in Engineering (Dr. Mohammad Hossein Yassaee Meybodi,
 Department of Electrical Engineering, Sharif University of Technology, Fall 2025). It studies the
 multi-armed bandit problem in theory and in simulation:
 

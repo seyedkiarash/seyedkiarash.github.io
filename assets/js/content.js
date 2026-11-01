@@ -24,19 +24,19 @@ window.SITE = {
     location: { fa: "تهران، ایران", en: "Tehran, Iran" },
     photo: "assets/img/profile.jpg", // مثال: "assets/img/profile.jpg"
     bio: {
-      fa: "دانشجوی کارشناسی مهندسی برق در دانشگاه صنعتی شریف هستم و در آزمایشگاه چندرسانه‌ای دکتر آرش امینی همکاری پژوهشی دارم. علاقهٔ اصلی‌ام **پردازش سیگنال** است؛ به‌ویژه تبدیل صدا، پردازش سیگنال روی گراف برای تصویر و صوت، شبکه‌های عصبی کانولوشنی و حسگری فشرده.\n\nدر کنار پژوهش، دستیار آموزشی چند درس برنامه‌نویسی، مدار، الکترومغناطیس و آمار و احتمال بوده‌ام. در این صفحه پروژه‌ها و فعالیت‌های دوران دانشگاهم را، همراه با گزارش‌ها و کدها، گردآوری کرده‌ام.",
-      en: "I am an undergraduate Electrical Engineering student at Sharif University of Technology and a research collaborator at Dr. Arash Amini's Multimedia Lab. My main interest is **signal processing** — in particular voice conversion, graph signal processing for images and audio, convolutional neural networks, and compressed sensing.\n\nAlongside research, I have served as a teaching assistant for courses in programming, circuit theory, electromagnetics, and probability & statistics. This site collects my university projects and activities, together with their reports and code."
+      fa: "دانشجوی کارشناسی مهندسی برق در دانشگاه صنعتی شریف هستم و در آزمایشگاه چندرسانه‌ای دکتر آرش امینی همکاری پژوهشی دارم. علاقهٔ اصلی‌ام **پردازش سیگنال گفتار و صوت** است؛ به‌ویژه تبدیل صدا، نظریهٔ تخمین و بهینه‌سازی، پردازش سیگنال روی گراف، شبکه‌های عصبی کانولوشنی و گرافی برای صوت و حسگری فشرده.\n\nدر کنار پژوهش، دستیار آموزشی چند درس برنامه‌نویسی، مدار، الکترومغناطیس و آمار و احتمال بوده‌ام. در این صفحه پروژه‌ها و فعالیت‌های دوران دانشگاهم را، همراه با گزارش‌ها و کدها، گردآوری کرده‌ام.",
+      en: "I am an undergraduate Electrical Engineering student at Sharif University of Technology and a research collaborator at Dr. Arash Amini's Multimedia Lab. My main interest is **speech and audio signal processing** — in particular voice conversion, estimation theory and optimization, graph signal processing, convolutional and graph neural networks for audio, and compressed sensing.\n\nAlongside research, I have served as a teaching assistant for courses in programming, circuit theory, electromagnetics, and probability & statistics. This site collects my university projects and activities, together with their reports and code."
     },
     interests: {
-      fa: ["تبدیل صدا", "پردازش سیگنال روی گراف (تصویر و صوت)", "شبکه‌های عصبی کانولوشنی", "حسگری فشرده"],
-      en: ["Voice Conversion", "Graph Signal Processing (Image & Audio)", "Convolutional Neural Networks", "Compressed Sensing"]
+      fa: ["پردازش سیگنال گفتار و صوت", "تبدیل صدا", "نظریهٔ تخمین و بهینه‌سازی", "پردازش سیگنال روی گراف", "شبکه‌های عصبی کانولوشنی و گرافی برای صوت", "حسگری فشرده"],
+      en: ["Speech & Audio Signal Processing", "Voice Conversion", "Estimation Theory & Optimization", "Graph Signal Processing", "Convolutional & Graph Neural Networks for Audio", "Compressed Sensing"]
     },
     email: ["8kia.eshraghi4@gmail.com", "kiarash.eshraghi84@sharif.edu"],
     links: [
       { type: "github", label: "GitHub", url: "https://github.com/seyedkiarash" },
       { type: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/seyed-kiarash-eshraghi-6b16a3447/" }
     ],
-    cvPdf: { fa: "", en: "" }
+    cvPdf: { fa: "assets/cv/Eshraghi_CV_FA.pdf", en: "assets/cv/Eshraghi_CV_EN.pdf" }
   },
 
   education: [
@@ -284,29 +284,29 @@ window.SITE = {
       date: "2026-02-18",
       featured: false,
       title: {
-        fa: "مسئلهٔ راهزن چنددست (Multi-Armed Bandit)",
+        fa: "مسئلهٔ راهزن چنددسته (Multi-Armed Bandit)",
         en: "Multi-Armed Bandit"
       },
       year: { fa: "پاییز ۱۴۰۴", en: "Fall 2025" },
       context: {
-        fa: "پروژهٔ گروهی درس احتمال و آمار مهندسی — دکتر محمدحسین یاسائی",
-        en: "Probability and Statistics team project — Dr. Mohammad Hossein Yassaee"
+        fa: "پروژهٔ گروهی درس احتمال و آمار مهندسی — دکتر محمدحسین یاسایی میبدی",
+        en: "Probability and Statistics team project — Dr. Mohammad Hossein Yassaee Meybodi"
       },
       tags: ["Python", { fa: "احتمال و آمار", en: "Probability" }, { fa: "یادگیری تقویتی", en: "Reinforcement Learning" }],
       cover: "assets/img/bandit/cover.webp",
       summary: {
-        fa: "بررسی نظری و شبیه‌سازی تعادل اکتشاف و بهره‌برداری: پشیمانی، نامساوی هافدینگ و UCB، به‌روزرسانی بیزی بتا–برنولی و نمونه‌گیری تامسون.",
+        fa: "بررسی نظری و شبیه‌سازی تعادل اکتشاف و بهره‌برداری: پشیمانی، نامساوی هافدینگ و UCB، به‌روزرسانی بیزی بتا–برنولی و نمونه‌گیری تامپسون.",
         en: "Theory and simulation of the exploration–exploitation trade-off: regret, Hoeffding's inequality and UCB, Beta–Bernoulli Bayesian updates and Thompson sampling."
       },
       description: {
-        fa: "این پروژه مسئلهٔ راهزن چنددست را در ۱۶ پرسش نظری و ۷ شبیه‌سازی در Python بررسی می‌کند:\n\n- **پشیمانی (regret):** تعریف آن و مقایسهٔ سیاست یکنواخت با سیاست حریصانه\n- **کران‌ها:** بررسی نامساوی هافدینگ با شبیه‌سازی و نقش آن در ساختن قاعدهٔ UCB\n- **به‌روزرسانی بیزی:** همزاد بودن توزیع بتا با برنولی و تحول توزیع پسین با افزایش داده\n- **نمونه‌گیری تامسون:** پشیمانی لگاریتمی، همگرایی میانگین‌های پسین و ارتباط آن با اصل «تطبیق احتمال»\n- **مقایسه‌ها:** ε-حریصانه، UCB و تامسون؛ و تامسون با درست‌نمایی گاوسی در برابر برنولی\n\n**بازبینی و اصلاح:** همهٔ پاسخ‌ها با متن صورت پروژه مقایسه شد، همهٔ شبیه‌سازی‌ها دوباره اجرا شد و خطاهای منطقی و فنی اصلاح شد:\n\n- **شبیه‌سازی ۷:** طبق صورت پروژه، تامسون نرمال–نرمال روی راهزن گاوسی (σ² = ۱) در ۳۰۰ اجرا با حالت برنولی مقایسه می‌شود. پشیمانی ۳۴٫۹ در برابر ۷٫۷ است و این اختلاف با ثابت‌های کران لای–رابینز (۷٫۸۶ در برابر ۱٫۳۰) توضیح داده شده است.\n- **شبیه‌سازی ۶:** احتمال بهینه بودن هر بازو با ۲۰٬۰۰۰ نمونهٔ مونت‌کارلو تخمین زده می‌شود و همبستگی آن با فراوانی انتخاب‌ها برای T = ۵۰۰، ۱۰۰۰ و ۵۰۰۰ گزارش می‌شود. آزمونی دقیق‌تر برای اصل «تطبیق احتمال» هم اضافه شده است.\n- **شبیه‌سازی ۵:** مقایسه به‌جای یک اجرا، میانگین ۳۰۰ اجرا با بازهٔ اطمینان است.\n- **شبیه‌سازی ۴:** نمودار واریانس‌های پسین که صورت پروژه خواسته بود اضافه شد.\n- **پرسش‌های نظری:** در پرسش ۱۳ به‌جای Beta(3,2) توزیع Beta(2,3) استفاده شده بود. پرسش ۷ (مقایسهٔ سه سیاست) و پرسش ۱۰ (استخراج کامل پسین) از نو نوشته شد. جهت نامساوی هافدینگ و صورت نامساوی چبیشف هم اصلاح شد.\n- **گزارش:** ۳۹ جمله که به‌اشتباه کامنت شده بود و در PDF دیده نمی‌شد برگردانده شد.",
+        fa: "این پروژه مسئلهٔ راهزن چنددسته را در ۱۶ پرسش نظری و ۷ شبیه‌سازی در Python بررسی می‌کند:\n\n- **پشیمانی (regret):** تعریف آن و مقایسهٔ سیاست یکنواخت با سیاست حریصانه\n- **کران‌ها:** بررسی نامساوی هافدینگ با شبیه‌سازی و نقش آن در ساختن قاعدهٔ UCB\n- **به‌روزرسانی بیزی:** همزاد بودن توزیع بتا با برنولی و تحول توزیع پسین با افزایش داده\n- **نمونه‌گیری تامپسون:** پشیمانی لگاریتمی، همگرایی میانگین‌های پسین و ارتباط آن با اصل «تطبیق احتمال»\n- **مقایسه‌ها:** ε-حریصانه، UCB و تامپسون؛ و تامپسون با درست‌نمایی گاوسی در برابر برنولی\n\n**بازبینی و اصلاح:** همهٔ پاسخ‌ها با متن صورت پروژه مقایسه شد، همهٔ شبیه‌سازی‌ها دوباره اجرا شد و خطاهای منطقی و فنی اصلاح شد:\n\n- **شبیه‌سازی ۷:** طبق صورت پروژه، تامپسون نرمال–نرمال روی راهزن گاوسی (σ² = ۱) در ۳۰۰ اجرا با حالت برنولی مقایسه می‌شود. پشیمانی ۳۴٫۹ در برابر ۷٫۷ است و این اختلاف با ثابت‌های کران لای–رابینز (۷٫۸۶ در برابر ۱٫۳۰) توضیح داده شده است.\n- **شبیه‌سازی ۶:** احتمال بهینه بودن هر بازو با ۲۰٬۰۰۰ نمونهٔ مونت‌کارلو تخمین زده می‌شود و همبستگی آن با فراوانی انتخاب‌ها برای T = ۵۰۰، ۱۰۰۰ و ۵۰۰۰ گزارش می‌شود. آزمونی دقیق‌تر برای اصل «تطبیق احتمال» هم اضافه شده است.\n- **شبیه‌سازی ۵:** مقایسه به‌جای یک اجرا، میانگین ۳۰۰ اجرا با بازهٔ اطمینان است.\n- **شبیه‌سازی ۴:** نمودار واریانس‌های پسین که صورت پروژه خواسته بود اضافه شد.\n- **پرسش‌های نظری:** در پرسش ۱۳ به‌جای Beta(3,2) توزیع Beta(2,3) استفاده شده بود. پرسش ۷ (مقایسهٔ سه سیاست) و پرسش ۱۰ (استخراج کامل پسین) از نو نوشته شد. جهت نامساوی هافدینگ و صورت نامساوی چبیشف هم اصلاح شد.\n- **گزارش:** ۳۹ جمله که به‌اشتباه کامنت شده بود و در PDF دیده نمی‌شد برگردانده شد.",
         en: "The project studies the multi-armed bandit problem through 16 theory questions and 7 Python simulations:\n\n- **Regret:** its definition, and uniform against greedy policies\n- **Bounds:** Hoeffding's inequality checked by simulation, and its role in the UCB rule\n- **Bayesian updates:** Beta–Bernoulli conjugacy and how the posterior evolves with more data\n- **Thompson sampling:** logarithmic regret, convergence of the posterior means, and its link to probability matching\n- **Comparisons:** ε-greedy, UCB and Thompson sampling; Gaussian against Bernoulli likelihoods in Thompson sampling\n\n**Review and corrections:** every answer was checked against the assignment text, every simulation was rerun, and the logical and technical errors were fixed.\n\n- **Simulation 7:** as the assignment asks, Normal–Normal Thompson sampling on a Gaussian bandit (σ² = 1) is compared with the Bernoulli case, over 300 runs. The regrets are 34.9 and 7.7, and the difference is explained by the Lai–Robbins constants (7.86 against 1.30).\n- **Simulation 6:** the probability that each arm is optimal is estimated with 20,000 Monte Carlo samples. Its correlation with the pull frequencies is reported for T = 500, 1000 and 5000, and a stricter test of probability matching is added.\n- **Simulation 5:** the comparison now averages 300 runs with confidence bands, instead of one run.\n- **Simulation 4:** the plot of posterior variances that the assignment asks for has been added.\n- **Theory:** question 13 had used Beta(2,3) instead of Beta(3,2). Question 7 (three policies) and question 10 (full posterior derivation) are rewritten. The direction of Hoeffding's inequality and the statement of Chebyshev's inequality are corrected.\n- **Report:** 39 sentences that had been commented out by mistake, and were missing from the PDF, are restored."
       },
       images: [
-        { src: "assets/img/bandit/q5_comparison.webp", caption: { fa: "پشیمانی تجمعی ε-حریصانه، UCB و نمونه‌گیری تامسون", en: "Cumulative regret of ε-greedy, UCB and Thompson sampling" } },
-        { src: "assets/img/bandit/thompson.webp", caption: { fa: "نمونه‌گیری تامسون: پشیمانی، میانگین‌ها و واریانس‌های پسین", en: "Thompson sampling: regret, posterior means and posterior variances" } },
+        { src: "assets/img/bandit/q5_comparison.webp", caption: { fa: "پشیمانی تجمعی ε-حریصانه، UCB و نمونه‌گیری تامپسون", en: "Cumulative regret of ε-greedy, UCB and Thompson sampling" } },
+        { src: "assets/img/bandit/thompson.webp", caption: { fa: "نمونه‌گیری تامپسون: پشیمانی، میانگین‌ها و واریانس‌های پسین", en: "Thompson sampling: regret, posterior means and posterior variances" } },
         { src: "assets/img/bandit/beta_posterior.webp", caption: { fa: "تحول توزیع پسین بتا با افزایش مشاهده‌ها", en: "Evolution of the Beta posterior" } },
-        { src: "assets/img/bandit/q7_gaussian_vs_bernoulli.webp", caption: { fa: "تامسون روی راهزن گاوسی در برابر راهزن برنولی", en: "Thompson sampling on a Gaussian bandit against the Bernoulli case" } }
+        { src: "assets/img/bandit/q7_gaussian_vs_bernoulli.webp", caption: { fa: "تامپسون روی راهزن گاوسی در برابر راهزن برنولی", en: "Thompson sampling on a Gaussian bandit against the Bernoulli case" } }
       ],
       files: [
         { label: { fa: "گزارش پروژه (PDF، انگلیسی)", en: "Project report (PDF)" }, url: "projects/multi-armed-bandit/report/project.pdf" },
@@ -472,7 +472,7 @@ window.SITE = {
     },
     {
       title: { fa: "وابستگی غیرخطی، قانون اعداد بزرگ و قضیهٔ حد مرکزی", en: "Nonlinear Dependence, the Law of Large Numbers and the CLT" },
-      course: { fa: "آمار و احتمال مهندسی — دکتر محمدحسین یاسایی", en: "Probability & Statistics — Dr. Mohammad Hossein Yassaee" },
+      course: { fa: "آمار و احتمال مهندسی — دکتر محمدحسین یاسایی میبدی", en: "Probability & Statistics — Dr. Mohammad Hossein Yassaee Meybodi" },
       term: { fa: "پاییز ۱۴۰۴", en: "Fall 2025" },
       image: "assets/img/prob/chw2-dependence.webp",
       summary: {
@@ -485,7 +485,7 @@ window.SITE = {
     },
     {
       title: { fa: "توزیع نمایی، پارادوکس روز تولد و جمع متغیرهای تصادفی", en: "Exponential Waiting Times, the Birthday Paradox and Sums of Random Variables" },
-      course: { fa: "آمار و احتمال مهندسی — دکتر محمدحسین یاسایی", en: "Probability & Statistics — Dr. Mohammad Hossein Yassaee" },
+      course: { fa: "آمار و احتمال مهندسی — دکتر محمدحسین یاسایی میبدی", en: "Probability & Statistics — Dr. Mohammad Hossein Yassaee Meybodi" },
       term: { fa: "پاییز ۱۴۰۴", en: "Fall 2025" },
       image: "assets/img/prob/chw1-birthday.webp",
       summary: {
@@ -507,8 +507,8 @@ window.SITE = {
           org: { fa: "دانشکدهٔ مهندسی برق، دانشگاه صنعتی شریف — دکتر آرش امینی", en: "Department of Electrical Engineering, Sharif University of Technology — Dr. Arash Amini" },
           date: { fa: "شهریور ۱۴۰۵ – اکنون", en: "Sep 2026 – Present" },
           description: {
-            fa: "پژوهش روی تبدیل صدا (voice conversion). در مرحلهٔ فعلی مسئله را به‌صورت غیرمولد و با ابزارهای نظریهٔ تخمین و بهینه‌سازی حل می‌کنم و در ماه‌های آینده کار را بر همین پایه به تبدیل صدای مولد گسترش می‌دهم.",
-            en: "Research on voice conversion. The current stage approaches the problem non-generatively, with tools from estimation theory and optimization; the next stage extends the work to generative voice conversion on the same foundations."
+            fa: "- **کار روی تبدیل صدا:** در حال حاضر توسعهٔ روش‌های غیرمولد (non-generative) بر پایهٔ نظریهٔ تخمین و بهینه‌سازی.\n- **گام بعدی:** گسترش کار به تبدیل صدای مولد (generative) بر پایهٔ همان چارچوب نظریهٔ تخمین و بهینه‌سازی.\n- **در بلندمدت:** گسترش کار به سایر روش‌های پردازش گفتار و صوت، فراتر از تبدیل صدا، با علاقهٔ ویژه به رویکردهای مبتنی بر CNN و GNN.",
+            en: "- **Voice conversion:** currently developing non-generative approaches grounded in estimation theory and optimization.\n- **Next step:** extending the work to generative voice conversion built on the same estimation-theoretic and optimization framework.\n- **Longer term:** broadening to other speech and audio processing methods beyond voice conversion, with particular interest in CNN- and GNN-based approaches."
           }
         }
       ]
@@ -524,7 +524,7 @@ window.SITE = {
         },
         {
           title: { fa: "دستیار آموزشی، آمار و احتمال", en: "Teaching Assistant, Probability & Statistics" },
-          org: { fa: "دکتر محمدحسین یاسایی — دانشگاه صنعتی شریف", en: "Dr. Mohammad Hossein Yassaee — Sharif University of Technology" },
+          org: { fa: "دکتر محمدحسین یاسایی میبدی — دانشگاه صنعتی شریف", en: "Dr. Mohammad Hossein Yassaee Meybodi — Sharif University of Technology" },
           date: { fa: "پاییز ۱۴۰۵", en: "Fall 2026" },
           description: { fa: "طراحی تمرین‌ها — ۶۰ دانشجو", en: "Designed the assignments. 60 students." }
         },
